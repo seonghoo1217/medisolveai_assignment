@@ -6,7 +6,14 @@ from typing import Sequence
 from sqlalchemy import and_, func, select, tuple_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from Assignment1.app.db import models
+from Assignment1.app.db import (
+    Appointment,
+    AppointmentSlot,
+    AppointmentStatus,
+    HospitalSlot,
+    Treatment,
+    VisitType,
+)
 from Assignment1.app.services.slot_rules import (
     RESERVATION_STEP,
     expand_reservation,
@@ -21,15 +28,15 @@ class ReservationConflictError(Exception):
 
 async def get_doctor_appointments(
     session: AsyncSession, doctor_id: int, day: date
-) -> Sequence[models.Appointment]:
+) -> Sequence[Appointment]:
     start_of_day = datetime.combine(day, datetime.min.time())
     end_of_day = datetime.combine(day, datetime.max.time())
     stmt = (
-        select(models.Appointment)
-        .where(models.Appointment.doctor_id == doctor_id)
-        .where(models.Appointment.status != models.AppointmentStatus.CANCELLED)
-        .where(models.Appointment.start_at < end_of_day)
-        .where(models.Appointment.end_at > start_of_day)
+        select(Appointment)
+        .where(Appointment.doctor_id == doctor_id)
+        .where(Appointment.status != AppointmentStatus.CANCELLED)
+        .where(Appointment.start_at < end_of_day)
+        .where(Appointment.end_at > start_of_day)
     )
     result = await session.scalars(stmt)
     return result.all()
@@ -39,7 +46,7 @@ async def list_availability(
     session: AsyncSession, doctor_id: int, target_date: date
 ) -> list[tuple[datetime, datetime, int]]:
     hospital_slots = await session.scalars(
-        select(models.HospitalSlot).order_by(models.HospitalSlot.start_time)
+        select(HospitalSlot).order_by(HospitalSlot.start_time)
     )
     slots = hospital_slots.all()
     if not slots:
@@ -49,14 +56,11 @@ async def list_availability(
     capacity_map = {slot.id: slot.capacity for slot in slots}
 
     slot_counts_rows = await session.execute(
-        select(
-            models.AppointmentSlot.slot_id,
-            func.count(models.AppointmentSlot.appointment_id),
-        )
-        .join(models.Appointment)
-        .where(models.AppointmentSlot.slot_date == target_date)
-        .where(models.Appointment.status != models.AppointmentStatus.CANCELLED)
-        .group_by(models.AppointmentSlot.slot_id)
+        select(AppointmentSlot.slot_id, func.count(AppointmentSlot.appointment_id))
+        .join(Appointment)
+        .where(AppointmentSlot.slot_date == target_date)
+        .where(Appointment.status != AppointmentStatus.CANCELLED)
+        .group_by(AppointmentSlot.slot_id)
     )
     slot_counts = dict(slot_counts_rows.all())
 
@@ -92,13 +96,13 @@ async def list_availability(
 
         overlap_exists = await session.scalar(
             select(func.count())
-            .select_from(models.Appointment)
-            .where(models.Appointment.doctor_id == doctor_id)
-            .where(models.Appointment.status != models.AppointmentStatus.CANCELLED)
+            .select_from(Appointment)
+            .where(Appointment.doctor_id == doctor_id)
+            .where(Appointment.status != AppointmentStatus.CANCELLED)
             .where(
                 and_(
-                    models.Appointment.start_at < reservation_slots[-1][1],
-                    models.Appointment.end_at > reservation_slots[0][0],
+                    Appointment.start_at < reservation_slots[-1][1],
+                    Appointment.end_at > reservation_slots[0][0],
                 )
             )
         )
@@ -114,17 +118,17 @@ async def list_availability(
     return availability
 
 
-async def _determine_visit_type(session: AsyncSession, patient_id: int) -> models.VisitType:
+async def _determine_visit_type(session: AsyncSession, patient_id: int) -> VisitType:
     completed_exists = await session.scalar(
         select(func.count())
-        .select_from(models.Appointment)
-        .where(models.Appointment.patient_id == patient_id)
-        .where(models.Appointment.status == models.AppointmentStatus.COMPLETED)
+        .select_from(Appointment)
+        .where(Appointment.patient_id == patient_id)
+        .where(Appointment.status == AppointmentStatus.COMPLETED)
     )
     return (
-        models.VisitType.FOLLOW_UP
+        VisitType.FOLLOW_UP
         if completed_exists and completed_exists > 0
-        else models.VisitType.FIRST
+        else VisitType.FIRST
     )
 
 
@@ -133,19 +137,17 @@ async def create_reservation(
     *,
     patient_id: int,
     doctor_id: int,
-    treatment: models.Treatment,
+    treatment: Treatment,
     start_at: datetime,
     memo: str | None = None,
-) -> models.Appointment:
+) -> Appointment:
     validate_slot_alignment(start_at)
     reservation_slots = expand_reservation(start_at, treatment.duration_minutes)
     slot_keys = iter_slot_keys(reservation_slots)
 
     slots_result = await session.scalars(
-        select(models.HospitalSlot).where(
-            tuple_(models.HospitalSlot.start_time, models.HospitalSlot.end_time).in_(
-                slot_keys
-            )
+        select(HospitalSlot).where(
+            tuple_(HospitalSlot.start_time, HospitalSlot.end_time).in_(slot_keys)
         )
     )
     slot_lookup = {(slot.start_time, slot.end_time): slot for slot in slots_result.all()}
@@ -155,13 +157,13 @@ async def create_reservation(
     # Check doctor overlap
     overlap_exists = await session.scalar(
         select(func.count())
-        .select_from(models.Appointment)
-        .where(models.Appointment.doctor_id == doctor_id)
-        .where(models.Appointment.status != models.AppointmentStatus.CANCELLED)
+        .select_from(Appointment)
+        .where(Appointment.doctor_id == doctor_id)
+        .where(Appointment.status != AppointmentStatus.CANCELLED)
         .where(
             and_(
-                models.Appointment.start_at < reservation_slots[-1][1],
-                models.Appointment.end_at > reservation_slots[0][0],
+                Appointment.start_at < reservation_slots[-1][1],
+                Appointment.end_at > reservation_slots[0][0],
             )
         )
         .with_for_update()
@@ -175,24 +177,24 @@ async def create_reservation(
         slot = slot_lookup[(slot_start, slot_end)]
         occupied = await session.scalar(
             select(func.count())
-            .select_from(models.AppointmentSlot)
-            .join(models.Appointment)
-            .where(models.AppointmentSlot.slot_id == slot.id)
-            .where(models.AppointmentSlot.slot_date == slot_date)
-            .where(models.Appointment.status != models.AppointmentStatus.CANCELLED)
+            .select_from(AppointmentSlot)
+            .join(Appointment)
+            .where(AppointmentSlot.slot_id == slot.id)
+            .where(AppointmentSlot.slot_date == slot_date)
+            .where(Appointment.status != AppointmentStatus.CANCELLED)
             .with_for_update()
         )
         if occupied is not None and occupied >= slot.capacity:
             raise ReservationConflictError("Hospital capacity exceeded for selected slot")
 
     visit_type = await _determine_visit_type(session, patient_id)
-    appointment = models.Appointment(
+    appointment = Appointment(
         patient_id=patient_id,
         doctor_id=doctor_id,
         treatment_id=treatment.id,
         start_at=reservation_slots[0][0],
         end_at=reservation_slots[-1][1],
-        status=models.AppointmentStatus.PENDING,
+        status=AppointmentStatus.PENDING,
         visit_type=visit_type,
         memo=memo,
     )
@@ -202,7 +204,7 @@ async def create_reservation(
     for slot_start_dt, slot_end_dt in reservation_slots:
         slot = slot_lookup[(slot_start_dt.time(), slot_end_dt.time())]
         session.add(
-            models.AppointmentSlot(
+            AppointmentSlot(
                 appointment_id=appointment.id,
                 slot_id=slot.id,
                 slot_date=slot_date,
@@ -214,11 +216,11 @@ async def create_reservation(
 
 async def list_patient_appointments(
     session: AsyncSession, patient_id: int
-) -> Sequence[models.Appointment]:
+) -> Sequence[Appointment]:
     stmt = (
-        select(models.Appointment)
-        .where(models.Appointment.patient_id == patient_id)
-        .order_by(models.Appointment.start_at.desc())
+        select(Appointment)
+        .where(Appointment.patient_id == patient_id)
+        .order_by(Appointment.start_at.desc())
     )
     result = await session.scalars(stmt)
     return result.all()
@@ -226,11 +228,11 @@ async def list_patient_appointments(
 
 async def cancel_reservation(
     session: AsyncSession, appointment_id: int, patient_id: int
-) -> models.Appointment:
-    appointment = await session.get(models.Appointment, appointment_id)
+) -> Appointment:
+    appointment = await session.get(Appointment, appointment_id)
     if appointment is None or appointment.patient_id != patient_id:
         raise ReservationConflictError("Appointment not found for patient")
-    if appointment.status == models.AppointmentStatus.COMPLETED:
+    if appointment.status == AppointmentStatus.COMPLETED:
         raise ReservationConflictError("Completed appointments cannot be cancelled")
-    appointment.status = models.AppointmentStatus.CANCELLED
+    appointment.status = AppointmentStatus.CANCELLED
     return appointment

@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from Assignment1.app.db import models
+from Assignment1.app.db import Appointment, Doctor, Patient, Treatment
 from Assignment1.app.db.session import get_session
 from Assignment1.app.routers.patient.schemas import (
     AppointmentCreateRequest,
@@ -23,7 +23,7 @@ from Assignment1.app.services.patient_reservations import (
 router = APIRouter(prefix="/appointments", tags=["patient-appointments"])
 
 
-def _to_summary(appointment: models.Appointment) -> AppointmentSummary:
+def _to_summary(appointment: Appointment) -> AppointmentSummary:
     return AppointmentSummary(
         id=appointment.id,
         doctor=DoctorSummary(
@@ -49,17 +49,17 @@ async def create_appointment(
     payload: AppointmentCreateRequest,
     session: AsyncSession = Depends(get_session),
 ) -> AppointmentSummary:
-    treatment = await session.get(models.Treatment, payload.treatment_id)
+    treatment = await session.get(Treatment, payload.treatment_id)
     if treatment is None:
         raise HTTPException(status_code=404, detail="Treatment not found")
 
-    doctor = await session.get(models.Doctor, payload.doctor_id)
+    doctor = await session.get(Doctor, payload.doctor_id)
     if doctor is None:
         raise HTTPException(status_code=404, detail="Doctor not found")
     if not doctor.is_active:
         raise HTTPException(status_code=400, detail="Doctor is not active")
 
-    patient = await session.get(models.Patient, payload.patient_id)
+    patient = await session.get(Patient, payload.patient_id)
     if patient is None:
         raise HTTPException(status_code=404, detail="Patient not found")
 
