@@ -1,60 +1,60 @@
 <!--
-Sync Impact Report
-Version change: none -> 1.0.0
-Modified principles: n/a
-Added sections: Core Principles; Technology & Stack Constraints; Development Workflow & Reporting; Governance
-Removed sections: none
-Templates requiring updates:
-OK .specify/templates/plan-template.md (constitution gates aligned)
-Follow-up TODOs: none
+동기화 영향 보고
+버전 변경: 1.0.0 -> 1.0.1
+수정된 원칙: 언어 전환(영문 -> 한글)
+추가된 섹션: 없음
+삭제된 섹션: 없음
+템플릿 후속 조치:
+OK .specify/templates/plan-template.md (헌장 문구와 일치)
+추가 TODO: 없음
 -->
 
-# MedisolveAI Backend Assignment Constitution
+# MedisolveAI 백엔드 과제 헌장
 
-## Core Principles
+## 핵심 원칙
 
-### I. Self-Documenting Code
-- Code MUST communicate intent through precise naming, modular structure, and type hints; inline comments are reserved for domain invariants or trade-offs that cannot be expressed in code.
-- Public FastAPI handlers MUST use explicit async signatures (e.g., `async def get_patient`) and PEP 8 spacing to preserve readability without commentary.
+### I. 자기 설명적 코드
+- 코드는 명확한 네이밍, 모듈화, 타입 힌트를 통해 의도를 드러내야 하며, 주석은 코드로 표현할 수 없는 도메인 불변식이나 트레이드오프에만 사용한다.
+- FastAPI 라우터 함수는 `async def get_patient` 형태의 명시적 비동기 시그니처와 PEP 8 들여쓰기를 유지해 주석 없이도 읽히도록 한다.
 
-### II. Requirements Fidelity
-- Every deliverable MUST implement the latest approved requirements exactly; deviations require written change requests before coding.
-- Implementations MUST include pytest coverage that proves critical behaviors succeed and failure paths are handled deterministically.
-- Breaking regression tests or skipping agreed behavior is prohibited; fixes must preserve existing guarantees.
+### II. 요구사항 준수
+- 모든 산출물은 최신 승인 요구사항을 정확히 구현해야 하며, 변경이 필요하면 코딩 전에 서면 변경 요청을 남긴다.
+- 핵심 동작 성공과 실패 경로를 검증하는 pytest 테스트를 반드시 포함해 결정론적 동작을 증명한다.
+- 회귀 테스트를 깨뜨리거나 합의된 동작을 생략하는 행위는 금지하며, 수정 시 기존 보장을 유지한다.
 
-### III. Performance-Centered Reliability
-- Services MUST target low-latency, stable execution paths by favoring O(1)/O(log n) operations and guarding against blocking calls in async contexts.
-- Performance-sensitive logic MUST include guardrails (timeouts, limits, graceful degradation) so the system stays responsive under load.
-- Any optimization MUST retain correctness; premature micro-optimizations that erode clarity are disallowed.
+### III. 성능 중심 안정성
+- 서비스는 O(1) 또는 O(log n) 복잡도를 우선하며, 비동기 환경에서 블로킹 호출을 방지해 저지연 안정성을 지킨다.
+- 성능 민감 로직에는 타임아웃, 제한, 우아한 강등 등 보호 장치를 두어 부하 상황에서도 응답성을 유지한다.
+- 최적화는 정확성을 해치지 않아야 하며, 가독성을 떨어뜨리는 섣부른 미세 최적화는 허용되지 않는다.
 
-### IV. Lean Dependency Footprint
-- Prefer Python's standard library and FastAPI's built-ins; introducing new packages requires justification of necessity and impact.
-- Dependencies MUST be pinned and tracked via `uv` so reproducible environments exist; unused packages MUST be removed immediately.
-- Docker images and runtime layers MUST remain minimal to reduce attack surface and startup times.
+### IV. 경량 의존성
+- Python 표준 라이브러리와 FastAPI 기본 기능을 우선 사용하며, 신규 패키지는 필요성과 영향도를 입증해야 한다.
+- 의존성은 `uv`로 고정 및 추적하고 불필요한 패키지는 즉시 제거해 재현 가능한 환경을 유지한다.
+- Docker 이미지와 런타임 레이어는 최소화해 공격 표면과 기동 시간을 줄인다.
 
-### V. Isolated Assignment Domains
-- `Assignment1` (FastAPI) and `Assignment2` (pure Python) MUST share no runtime imports; shared utilities belong in dedicated internal modules with clear interfaces.
-- Each assignment MUST run independently via its own entrypoints, ensuring Task 2 scripts never auto-load FastAPI and vice versa.
-- After each major milestone, summarize outcomes in `task_report/` using the mandated title, 변경 사항 (when applicable), and 진행 사항 format.
+### V. 과제 간 독립성
+- `Assignment1`(FastAPI)과 `Assignment2`(순수 Python)는 런타임 의존성을 공유하지 않으며, 공용 유틸은 명확한 인터페이스를 가진 전용 모듈에 둔다.
+- 각 과제는 독립 실행 진입점을 유지해 Task 2 스크립트가 FastAPI를 자동 로딩하지 않도록 보장한다.
+- 주요 마일스톤 후에는 `task_report/`에 작업 제목, 변경 사항, 진행 사항을 규격 형태로 요약한다.
 
-## Technology & Stack Constraints
+## 기술 및 스택 제약
 
-- Use Python 3.11+ with `uv` for environment and dependency management; commit lockfiles but never virtual environments.
-- Build the dermatology reservation API with FastAPI and prefer PostgreSQL 15+ for persistence; adopt MySQL only with stakeholder approval.
-- Compose services using Docker Compose; containers MUST expose FastAPI via Uvicorn and database services with persistent volumes.
-- Manual HTTP collections belong in `tests/manual/`, and routers belong under `Assignment1/app/routers/` to keep `main.py` lean.
+- Python 3.11+와 `uv`를 사용해 환경과 의존성을 관리하고, 잠금 파일은 커밋하되 가상 환경은 버전 관리에서 제외한다.
+- 피부과 예약 API는 FastAPI로 구현하며 기본적으로 PostgreSQL 15+를 사용하고, MySQL 전환은 이해관계자 승인을 선행한다.
+- Docker Compose로 서비스를 구성하고, FastAPI는 Uvicorn을 통해 노출하며 데이터베이스는 영속 볼륨을 사용한다.
+- 수동 HTTP 컬렉션은 `tests/manual/`에, 라우터 모듈은 `Assignment1/app/routers/` 아래에 배치해 `main.py`를 간결하게 유지한다.
 
-## Development Workflow & Reporting
+## 개발 흐름과 보고
 
-- Start each feature by drafting specs and plans that cite these principles; block implementation until the Constitution Check passes.
-- Guardrails: run `pytest -q` before commits, maintain async route segregation via `include_router`, and store shared logic under `Assignment1/app/core/` or `app/services/`.
-- Task 2 modules MUST remain pure Python with deterministic behavior and no FastAPI or database imports.
-- After completing significant deliverables, update `task_report/` entries with concise bullet points (using `- `) that capture titles, material changes, and current status.
+- 모든 기능은 본 헌장을 참조한 사전 기획과 설계를 작성한 뒤 구현하며, 체커 통과 전에는 개발을 시작하지 않는다.
+- 필수 가드레일: 커밋 전에 `pytest -q` 실행, `include_router`로 라우터 분리 유지, 공유 로직은 `Assignment1/app/core/` 또는 `app/services/`에 보관.
+- Task 2 모듈은 FastAPI나 데이터베이스 의존성 없이 결정론적으로 동작하는 순수 Python 코드를 유지한다.
+- 주요 산출 완료 시 `task_report/`에 `- `로 시작하는 불렛 리스트로 제목, 물리적 변경 사항, 현재 진행 상황을 간략히 기록한다.
 
-## Governance
+## 거버넌스
 
-- This constitution supersedes conflicting guidance; violations block merges until remediated.
-- Amendments require documenting rationale, updating impacted templates, and versioning per semantic rules (MAJOR for principle changes, MINOR for new guidance, PATCH for clarifications).
-- Compliance reviews MUST verify dependency justifications, assignment isolation, testing evidence, and the latest task report entry before approval.
+- 본 헌장은 상충 지침보다 우선하며, 위반 사항은 해결될 때까지 머지를 중단한다.
+- 개정 시 근거를 문서화하고 관련 템플릿을 업데이트하며, 의미 변화 수준에 따라 버전을 MAJOR/MINOR/PATCH로 관리한다.
+- 검토 시 의존성 정당성, 과제 간 격리, 테스트 근거, 최신 `task_report/` 반영 여부를 확인해야 승인할 수 있다.
 
-**Version**: 1.0.0 | **Ratified**: 2025-11-06 | **Last Amended**: 2025-11-06
+**Version**: 1.0.1 | **Ratified**: 2025-11-06 | **Last Amended**: 2025-11-06
