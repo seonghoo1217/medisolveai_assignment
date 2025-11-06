@@ -23,10 +23,10 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 **Purpose**: 멀티 모듈 프로젝트 기본 구조, 의존성, 환경 파일 준비
 
-- [ ] T001 Create Assignment1 FastAPI skeleton packages (`Assignment1/app/__init__.py`, `Assignment1/app/core/__init__.py`, `Assignment1/app/routers/patient/__init__.py`, `Assignment1/app/routers/admin/__init__.py`, `Assignment1/app/services/__init__.py`, `Assignment1/app/db/__init__.py`, `Assignment1/app/gateway/__init__.py`)
-- [ ] T002 Create Assignment2 Python package layout (`Assignment2/src/__init__.py`, `Assignment2/src/algorithms/__init__.py`, `Assignment2/tests/__init__.py`, `Assignment2/reports/.gitkeep`)
-- [ ] T003 Define project dependencies with uv (`pyproject.toml`, `uv.lock`) including FastAPI, SQLAlchemy[async], Alembic, pytest, httpx, pytest-asyncio
-- [ ] T004 Add environment templates (`.env.development`, `.env.test`) documenting MySQL 29906 포트와 자격 증명
+- [X] T001 Create Assignment1 FastAPI skeleton packages (`Assignment1/app/__init__.py`, `Assignment1/app/core/__init__.py`, `Assignment1/app/routers/patient/__init__.py`, `Assignment1/app/routers/admin/__init__.py`, `Assignment1/app/services/__init__.py`, `Assignment1/app/db/__init__.py`, `Assignment1/app/gateway/__init__.py`)
+- [X] T002 Create Assignment2 Python package layout (`Assignment2/src/__init__.py`, `Assignment2/src/algorithms/__init__.py`, `Assignment2/tests/__init__.py`, `Assignment2/reports/.gitkeep`)
+- [X] T003 Define project dependencies with uv (`pyproject.toml`, `uv.lock`) including FastAPI, SQLAlchemy[async], Alembic, pytest, httpx, pytest-asyncio
+- [X] T004 Add environment templates (`.env.development`, `.env.test`) documenting MySQL 29906 포트와 자격 증명
 
 ---
 
@@ -34,12 +34,12 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 **Purpose**: 데이터베이스, 마이그레이션, 공용 도메인 구성요소 마련
 
-- [ ] T005 Implement application settings module at `Assignment1/app/core/config.py` (Pydantic Settings, MySQL 29906 URL, env 구분)
-- [ ] T006 Create async session/engine factory at `Assignment1/app/db/session.py` with SQLAlchemy 2.x and session dependency helpers
-- [ ] T007 Define SQLAlchemy models matching data-model in `Assignment1/app/db/models.py`
-- [ ] T008 Initialize Alembic async environment (`Assignment1/migrations/env.py`, `Assignment1/alembic.ini`) wired to models metadata
-- [ ] T009 Generate initial Alembic revision `Assignment1/migrations/versions/0001_create_tables.py` creating doctors, treatments, patients, hospital_slots, appointments, appointment_slots, system_configs
-- [ ] T010 Implement shared slot/availability utility functions in `Assignment1/app/services/slot_rules.py` (15분 시작, 30분 슬롯 분할, capacity 계산)
+- [X] T005 Implement application settings module at `Assignment1/app/core/config.py` (Pydantic Settings, MySQL 29906 URL, env 구분)
+- [X] T006 Create async session/engine factory at `Assignment1/app/db/session.py` with SQLAlchemy 2.x and session dependency helpers
+- [X] T007 Define SQLAlchemy models matching data-model in `Assignment1/app/db/models.py`
+- [X] T008 Initialize Alembic async environment (`Assignment1/migrations/env.py`, `Assignment1/alembic.ini`) wired to models metadata
+- [X] T009 Generate initial Alembic revision `Assignment1/migrations/versions/0001_create_tables.py` creating doctors, treatments, patients, hospital_slots, appointments, appointment_slots, system_configs
+- [X] T010 Implement shared slot/availability utility functions in `Assignment1/app/services/slot_rules.py` (15분 시작, 30분 슬롯 분할, capacity 계산)
 
 ---
 
@@ -51,12 +51,12 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 ### Tests for User Story 1 ⚠️
 
-- [ ] T011 [P] [US1] Create patient-facing schemas (`Assignment1/app/routers/patient/schemas.py`) for requests/responses
-- [ ] T012 [US1] Implement doctor/treatment listing service at `Assignment1/app/services/patient_directory.py`
-- [ ] T013 [US1] Implement reservation service logic at `Assignment1/app/services/patient_reservations.py` (slot 검증, 초진/재진 판단, 트랜잭션 잠금)
-- [ ] T014 [US1] Build patient availability endpoint in `Assignment1/app/routers/patient/availability.py`
-- [ ] T015 [US1] Build patient appointments endpoints in `Assignment1/app/routers/patient/appointments.py` (create/list/cancel)
-- [ ] T016 [US1] Wire patient FastAPI app with routers in `Assignment1/main_patient.py`
+- [X] T011 [P] [US1] Create patient-facing schemas (`Assignment1/app/routers/patient/schemas.py`) for requests/responses
+- [X] T012 [US1] Implement doctor/treatment listing service at `Assignment1/app/services/patient_directory.py`
+- [X] T013 [US1] Implement reservation service logic at `Assignment1/app/services/patient_reservations.py` (slot 검증, 초진/재진 판단, 트랜잭션 잠금)
+- [X] T014 [US1] Build patient availability endpoint in `Assignment1/app/routers/patient/availability.py`
+- [X] T015 [US1] Build patient appointments endpoints in `Assignment1/app/routers/patient/appointments.py` (create/list/cancel)
+- [X] T016 [US1] Wire patient FastAPI app with routers in `Assignment1/main_patient.py`
 - [ ] T017 [P] [US1] Write happy-path integration tests at `Assignment1/tests/integration/patient/test_reservations_success.py`
 - [ ] T018 [P] [US1] Write conflict/capacity integration tests at `Assignment1/tests/integration/patient/test_reservations_conflict.py`
 
