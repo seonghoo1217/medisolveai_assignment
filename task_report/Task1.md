@@ -5,6 +5,8 @@
 - 환경 템플릿 추가 (`.env.development.example`, `.env.test.example`)와 설정 모듈 구성 (`Assignment1/app/core/config.py`)
 - 도메인별 SQLAlchemy 모델을 분리하고 세션/Alembic 마이그레이션 파일 작성 (`Assignment1/app/db/models/*`, `Assignment1/migrations/*`)
 - 환자 예약 도메인 서비스와 라우터 구현 (`Assignment1/app/services/*`, `Assignment1/app/routers/patient/*`, `Assignment1/main_patient.py`)
+- Layered Architecture 요구 반영을 위한 도메인 모듈 재구성, 환자 서비스/라우터 코드 업데이트 (`Assignment1/app/db/models/*`, `Assignment1/app/services/patient_*`, `Assignment1/app/routers/patient/*`)
+- 환자 API 정상/예외 통합 테스트 추가 (`Assignment1/tests/integration/patient/test_reservations_success.py`, `.../test_reservations_conflict.py`, `Assignment1/tests/integration/conftest.py`)
 
 진행 사항 :
 - Assignment1/Assignment2 패키지 뼈대를 생성하여 멀티 모듈 구조 확보

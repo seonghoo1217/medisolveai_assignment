@@ -57,8 +57,8 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 - [X] T014 [US1] Build patient availability endpoint in `Assignment1/app/routers/patient/availability.py`
 - [X] T015 [US1] Build patient appointments endpoints in `Assignment1/app/routers/patient/appointments.py` (create/list/cancel)
 - [X] T016 [US1] Wire patient FastAPI app with routers in `Assignment1/main_patient.py`
-- [ ] T017 [P] [US1] Write happy-path integration tests at `Assignment1/tests/integration/patient/test_reservations_success.py`
-- [ ] T018 [P] [US1] Write conflict/capacity integration tests at `Assignment1/tests/integration/patient/test_reservations_conflict.py`
+- [X] T017 [P] [US1] Write happy-path integration tests at `Assignment1/tests/integration/patient/test_reservations_success.py`
+- [X] T018 [P] [US1] Write conflict/capacity integration tests at `Assignment1/tests/integration/patient/test_reservations_conflict.py`
 
 ---
 
