@@ -7,7 +7,7 @@
 
 ## Summary
 
-Assignment1은 환자/관리자 이중 API와 게이트웨이를 포함한 피부과 예약 시스템을 제공하고, Assignment2는 순수 Python 난수 모듈과 보고서를 제공해야 한다. 핵심은 병원 운영 규칙(15분 시작, 30분 슬롯, 동시 수용 한도)과 초진/재진 판단을 충족하면서 Docker Compose 기반 환경과 자동 마이그레이션, 통합 테스트 체계를 갖추는 것이다. 게이트웨이는 단일 진입점으로 각 서비스에 요청을 프록시하며, DB는 Docker Compose에서 포트 29906으로 노출되는 MySQL을 사용한다.
+Assignment1은 환자/관리자 이중 API와 게이트웨이를 포함한 피부과 예약 시스템을 제공하고, Assignment2는 순수 Python 난수 모듈과 보고서를 제공해야 한다. 핵심은 병원 운영 규칙(15분 시작, 30분 슬롯, 동시 수용 한도)과 초진/재진 판단을 충족하면서 Docker Compose 기반 환경과 자동 마이그레이션, 통합 테스트 체계를 갖추는 것이다. 아키텍처는 **Layered Architecture(Interface → Application(Service) → Domain → Infrastructure)** 를 채택하며, 각 도메인 엔터티는 독립 모듈로 분리해 연관 관계가 명확히 드러나도록 구성한다. 게이트웨이는 단일 진입점으로 각 서비스에 요청을 프록시하며, DB는 Docker Compose에서 포트 29906으로 노출되는 MySQL을 사용한다.
 
 ## Technical Context
 
@@ -18,7 +18,7 @@ Assignment1은 환자/관리자 이중 API와 게이트웨이를 포함한 피�
 **Target Platform**: Docker Compose (FastAPI Gateway + Patient API + Admin API + MySQL)  
 **Project Type**: Backend API (`Assignment1`) + standalone algorithm package (`Assignment2`)  
 **Performance Goals**: FastAPI 엔드포인트 p95 < 200 ms, 예약 동시 요청 20건 처리 성공  
-**Constraints**: Minimal dependency footprint, async-safe handlers, assignments isolated with shared utilities explicitly documented, 게이트웨이 경로 기반 라우팅  
+**Constraints**: Layered Architecture(Interface/Service/Domain/Infrastructure) 준수, Minimal dependency footprint, async-safe handlers, assignments isolated with shared utilities explicitly documented, 게이트웨이 경로 기반 라우팅  
 **Scale/Scope**: 단일 팀 과제 제출 규모, 환자/관리자 API 각각 독립 테스트 가능
 
 ## Constitution Check
@@ -70,7 +70,7 @@ task_report/
 `-- [milestone summaries]
 ```
 
-**Structure Decision**: Assignment1은 `app/core`, `app/routers/patient`, `app/routers/admin`, `app/services`, `app/db` 구조로 구성하고, 게이트웨이는 별도 모듈(`assignment1/app/gateway`)에서 라우팅을 담당한다. Assignment2는 `src/algorithms/randomizer.py`와 `tests/test_randomizer.py`, `reports/`를 포함한다. Docker 설정은 `Assignment1/docker/compose/`에 위치시킨다.
+**Structure Decision**: Assignment1은 Layered Architecture에 따라 `app/routers`(interface), `app/services`(application), `app/domain` 또는 `app/db/models`(domain), `app/db`(infrastructure)로 명확히 구분하고, 각 도메인 엔티티는 개별 모듈로 관리한다. 게이트웨이는 별도 모듈(`Assignment1/app/gateway`)에서 라우팅을 담당한다. Assignment2는 `src/algorithms/randomizer.py`와 `tests/test_randomizer.py`, `reports/`를 포함한다. Docker 설정은 `Assignment1/docker/compose/`에 위치시킨다.
 
 ## Complexity Tracking
 

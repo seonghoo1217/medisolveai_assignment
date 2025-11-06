@@ -36,7 +36,7 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 - [X] T005 Implement application settings module at `Assignment1/app/core/config.py` (Pydantic Settings, MySQL 29906 URL, env 구분)
 - [X] T006 Create async session/engine factory at `Assignment1/app/db/session.py` with SQLAlchemy 2.x and session dependency helpers
-- [X] T007 Define SQLAlchemy models matching data-model in `Assignment1/app/db/models.py`
+- [X] T007 Define SQLAlchemy models matching data-model in `Assignment1/app/db/models/`
 - [X] T008 Initialize Alembic async environment (`Assignment1/migrations/env.py`, `Assignment1/alembic.ini`) wired to models metadata
 - [X] T009 Generate initial Alembic revision `Assignment1/migrations/versions/0001_create_tables.py` creating doctors, treatments, patients, hospital_slots, appointments, appointment_slots, system_configs
 - [X] T010 Implement shared slot/availability utility functions in `Assignment1/app/services/slot_rules.py` (15분 시작, 30분 슬롯 분할, capacity 계산)
