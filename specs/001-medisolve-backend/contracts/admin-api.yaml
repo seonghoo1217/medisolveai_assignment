@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: MedisolveAI Admin API
+  version: 0.1.0
+servers:
+  - url: http://gateway:8000/api/v1/admin
+paths:
+  /doctors:
+    post:
+      summary: 의사 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DoctorUpsert"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DoctorDetail"
+    get:
+      summary: 의사 목록 조회
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DoctorDetail"
+  /doctors/{doctor_id}:
+    patch:
+      summary: 의사 수정
+      parameters:
+        - name: doctor_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DoctorUpsert"
+      responses:
+        "200":
+          description: 수정됨
+    delete:
+      summary: 의사 삭제
+      parameters:
+        - name: doctor_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: 삭제됨
+  /hospital-slots:
+    get:
+      summary: 병원 슬롯 목록
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HospitalSlot"
+    put:
+      summary: 슬롯 설정 일괄 갱신
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/HospitalSlot"
+      responses:
+        "200":
+          description: 저장됨
+  /treatments:
+    post:
+      summary: 진료 항목 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TreatmentUpsert"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TreatmentDetail"
+    get:
+      summary: 진료 항목 목록
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TreatmentDetail"
+  /treatments/{treatment_id}:
+    patch:
+      summary: 진료 항목 수정
+      parameters:
+        - name: treatment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TreatmentUpsert"
+      responses:
+        "200":
+          description: 수정됨
+    delete:
+      summary: 진료 항목 삭제
+      parameters:
+        - name: treatment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: 삭제됨
+  /appointments:
+    get:
+      summary: 전체 예약 조회
+      parameters:
+        - name: date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: doctor_id
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - CONFIRMED
+              - COMPLETED
+              - CANCELLED
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminAppointmentView"
+  /appointments/{appointment_id}/status:
+    post:
+      summary: 예약 상태 변경
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - CONFIRMED
+                    - COMPLETED
+                    - CANCELLED
+      responses:
+        "200":
+          description: 상태 변경 완료
+        "409":
+          description: 허용되지 않은 전이
+  /stats/summary:
+    get:
+      summary: 예약 통계
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  by_status:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                        count:
+                          type: integer
+                  by_date:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        count:
+                          type: integer
+                  by_slot:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        slot_label:
+                          type: string
+                        count:
+                          type: integer
+                  visit_ratio:
+                    type: object
+                    properties:
+                      first:
+                        type: integer
+                      follow_up:
+                        type: integer
+
+components:
+  schemas:
+    DoctorUpsert:
+      type: object
+      required:
+        - name
+        - department
+      properties:
+        name:
+          type: string
+        department:
+          type: string
+        is_active:
+          type: boolean
+    DoctorDetail:
+      allOf:
+        - $ref: "#/components/schemas/DoctorUpsert"
+        - type: object
+          properties:
+            id:
+              type: integer
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+    HospitalSlot:
+      type: object
+      required:
+        - start_time
+        - end_time
+        - capacity
+      properties:
+        id:
+          type: integer
+        start_time:
+          type: string
+          example: "10:00"
+        end_time:
+          type: string
+          example: "10:30"
+        capacity:
+          type: integer
+    TreatmentUpsert:
+      type: object
+      required:
+        - name
+        - duration_minutes
+        - price
+      properties:
+        name:
+          type: string
+        duration_minutes:
+          type: integer
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        is_active:
+          type: boolean
+    TreatmentDetail:
+      allOf:
+        - $ref: "#/components/schemas/TreatmentUpsert"
+        - type: object
+          properties:
+            id:
+              type: integer
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+    AdminAppointmentView:
+      type: object
+      properties:
+        id:
+          type: integer
+        patient:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            phone:
+              type: string
+        doctor:
+          $ref: "#/components/schemas/DoctorDetail"
+        treatment:
+          $ref: "#/components/schemas/TreatmentDetail"
+        start_at:
+          type: string
+          format: date-time
+        end_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+        visit_type:
+          type: string
+        memo:
+          type: string
+*** End Patch

@@ -14,3 +14,10 @@ Prefer `pytest` for unit and integration coverage, placing new files under `test
 
 ## Commit & Pull Request Guidelines
 Write imperative, present-tense commit messages such as `Add appointment scheduling route`, and limit the subject line to 50 characters when possible. Squash trivial fixups before pushing. Pull requests should describe the motivation, list user-visible changes, and link tracking issues. Include screenshots or curl transcripts for API changes, and confirm that `pytest` and `uvicorn` smoke tests pass locally.
+
+## Active Technologies
+- Python 3.11+ + FastAPI, uvicorn[standard], uv, pytest, httpx, SQLAlchemy[async], Alembic (001-medisolve-backend)
+- MySQL 8.x (Docker Compose, 호스트 포트 29906 포워딩) (001-medisolve-backend)
+
+## Recent Changes
+- 001-medisolve-backend: Added Python 3.11+ + FastAPI, uvicorn[standard], uv, pytest, httpx, SQLAlchemy[async], Alembic

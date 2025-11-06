@@ -454,3 +454,1573 @@
 [2m2025-11-06T07:33:29.309116Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '34,80p' .specify/templates/plan-template.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
 [2m2025-11-06T07:33:29.309178Z[0m [32m INFO[0m waiting for tool gate
 [2m2025-11-06T07:33:29.309187Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:03.244859Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Review current constitution content and identify sections needing translation updates."},{"status":"pending","step":"Translate constitution to Korean, adjust versioning and sync report accordingly."},{"status":"pending","step":"Verify formatting, ensure no placeholders remain, and consider related template adjustments."}]}
+[2m2025-11-06T07:56:03.245678Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:03.245878Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:06.893095Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","cat -n .specify/memory/constitution.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T07:56:06.893166Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:06.893174Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:09.779893Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review current constitution content and identify sections needing translation updates."},{"status":"in_progress","step":"Translate constitution to Korean, adjust versioning and sync report accordingly."},{"status":"pending","step":"Verify formatting, ensure no placeholders remain, and consider related template adjustments."}]}
+[2m2025-11-06T07:56:09.780030Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:09.780037Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:32.488761Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: .specify/memory/constitution.md
+@@
+-<!--
+-Sync Impact Report
+-Version change: none -> 1.0.0
+-Modified principles: n/a
+-Added sections: Core Principles; Technology & Stack Constraints; Development Workflow & Reporting; Governance
+-Removed sections: none
+-Templates requiring updates:
+-OK .specify/templates/plan-template.md (constitution gates aligned)
+-Follow-up TODOs: none
+--->
+-
+-# MedisolveAI Backend Assignment Constitution
+-
+-## Core Principles
+-
+-### I. Self-Documenting Code
+-- Code MUST communicate intent through precise naming, modular structure, and type hints; inline comments are reserved for domain invariants or trade-offs that cannot be expressed in code.
+-- Public FastAPI handlers MUST use explicit async signatures (e.g., `async def get_patient`) and PEP 8 spacing to preserve readability without commentary.
+-
+-### II. Requirements Fidelity
+-- Every deliverable MUST implement the latest approved requirements exactly; deviations require written change requests before coding.
+-- Implementations MUST include pytest coverage that proves critical behaviors succeed and failure paths are handled deterministically.
+-- Breaking regression tests or skipping agreed behavior is prohibited; fixes must preserve existing guarantees.
+-
+-### III. Performance-Centered Reliability
+-- Services MUST target low-latency, stable execution paths by favoring O(1)/O(log n) operations and guarding against blocking calls in async contexts.
+-- Performance-sensitive logic MUST include guardrails (timeouts, limits, graceful degradation) so the system stays responsive under load.
+-- Any optimization MUST retain correctness; premature micro-optimizations that erode clarity are disallowed.
+-
+-### IV. Lean Dependency Footprint
+-- Prefer Python's standard library and FastAPI's built-ins; introducing new packages requires justification of necessity and impact.
+-- Dependencies MUST be pinned and tracked via `uv` so reproducible environments exist; unused packages MUST be removed immediately.
+-- Docker images and runtime layers MUST remain minimal to reduce attack surface and startup times.
+-
+-### V. Isolated Assignment Domains
+-- `Assignment1` (FastAPI) and `Assignment2` (pure Python) MUST share no runtime imports; shared utilities belong in dedicated internal modules with clear interfaces.
+-- Each assignment MUST run independently via its own entrypoints, ensuring Task 2 scripts never auto-load FastAPI and vice versa.
+-- After each major milestone, summarize outcomes in `task_report/` using the mandated title, 변경 사항 (when applicable), and 진행 사항 format.
+-
+-## Technology & Stack Constraints
+-
+-- Use Python 3.11+ with `uv` for environment and dependency management; commit lockfiles but never virtual environments.
+-- Build the dermatology reservation API with FastAPI and prefer PostgreSQL 15+ for persistence; adopt MySQL only with stakeholder approval.
+-- Compose services using Docker Compose; containers MUST expose FastAPI via Uvicorn and database services with persistent volumes.
+-- Manual HTTP collections belong in `tests/manual/`, and routers belong under `Assignment1/app/routers/` to keep `main.py` lean.
+-
+-## Development Workflow & Reporting
+-
+-- Start each feature by drafting specs and plans that cite these principles; block implementation until the Constitution Check passes.
+-- Guardrails: run `pytest -q` before commits, maintain async route segregation via `include_router`, and store shared logic under `Assignment1/app/core/` or `app/services/`.
+-- Task 2 modules MUST remain pure Python with deterministic behavior and no FastAPI or database imports.
+-- After completing significant deliverables, update `task_report/` entries with concise bullet points (using `- `) that capture titles, material changes, and current status.
+-
+-## Governance
+-
+-- This constitution supersedes conflicting guidance; violations block merges until remediated.
+-- Amendments require documenting rationale, updating impacted templates, and versioning per semantic rules (MAJOR for principle changes, MINOR for new guidance, PATCH for clarifications).
+-- Compliance reviews MUST verify dependency justifications, assignment isolation, testing evidence, and the latest task report entry before approval.
+-
+-**Version**: 1.0.0 | **Ratified**: 2025-11-06 | **Last Amended**: 2025-11-06
++<!--
++동기화 영향 보고
++버전 변경: 1.0.0 -> 1.0.1
++수정된 원칙: 언어 전환(영문 -> 한글)
++추가된 섹션: 없음
++삭제된 섹션: 없음
++템플릿 후속 조치:
++OK .specify/templates/plan-template.md (헌장 문구와 일치)
++추가 TODO: 없음
++-->
++
++# MedisolveAI 백엔드 과제 헌장
++
++## 핵심 원칙
++
++### I. 자기 설명적 코드
++- 코드는 명확한 네이밍, 모듈화, 타입 힌트를 통해 의도를 드러내야 하며, 주석은 코드로 표현할 수 없는 도메인 불변식이나 트레이드오프에만 사용한다.
++- FastAPI 라우터 함수는 `async def get_patient` 형태의 명시적 비동기 시그니처와 PEP 8 들여쓰기를 유지해 주석 없이도 읽히도록 한다.
++
++### II. 요구사항 준수
++- 모든 산출물은 최신 승인 요구사항을 정확히 구현해야 하며, 변경이 필요하면 코딩 전에 서면 변경 요청을 남긴다.
++- 핵심 동작 성공과 실패 경로를 검증하는 pytest 테스트를 반드시 포함해 결정론적 동작을 증명한다.
++- 회귀 테스트를 깨뜨리거나 합의된 동작을 생략하는 행위는 금지하며, 수정 시 기존 보장을 유지한다.
++
++### III. 성능 중심 안정성
++- 서비스는 O(1) 또는 O(log n) 복잡도를 우선하며, 비동기 환경에서 블로킹 호출을 방지해 저지연 안정성을 지킨다.
++- 성능 민감 로직에는 타임아웃, 제한, 우아한 강등 등 보호 장치를 두어 부하 상황에서도 응답성을 유지한다.
++- 최적화는 정확성을 해치지 않아야 하며, 가독성을 떨어뜨리는 섣부른 미세 최적화는 허용되지 않는다.
++
++### IV. 경량 의존성
++- Python 표준 라이브러리와 FastAPI 기본 기능을 우선 사용하며, 신규 패키지는 필요성과 영향도를 입증해야 한다.
++- 의존성은 `uv`로 고정 및 추적하고 불필요한 패키지는 즉시 제거해 재현 가능한 환경을 유지한다.
++- Docker 이미지와 런타임 레이어는 최소화해 공격 표면과 기동 시간을 줄인다.
++
++### V. 과제 간 독립성
++- `Assignment1`(FastAPI)과 `Assignment2`(순수 Python)는 런타임 의존성을 공유하지 않으며, 공용 유틸은 명확한 인터페이스를 가진 전용 모듈에 둔다.
++- 각 과제는 독립 실행 진입점을 유지해 Task 2 스크립트가 FastAPI를 자동 로딩하지 않도록 보장한다.
++- 주요 마일스톤 후에는 `task_report/`에 작업 제목, 변경 사항, 진행 사항을 규격 형태로 요약한다.
++
++## 기술 및 스택 제약
++
++- Python 3.11+와 `uv`를 사용해 환경과 의존성을 관리하고, 잠금 파일은 커밋하되 가상 환경은 버전 관리에서 제외한다.
++- 피부과 예약 API는 FastAPI로 구현하며 기본적으로 PostgreSQL 15+를 사용하고, MySQL 전환은 이해관계자 승인을 선행한다.
++- Docker Compose로 서비스를 구성하고, FastAPI는 Uvicorn을 통해 노출하며 데이터베이스는 영속 볼륨을 사용한다.
++- 수동 HTTP 컬렉션은 `tests/manual/`에, 라우터 모듈은 `Assignment1/app/routers/` 아래에 배치해 `main.py`를 간결하게 유지한다.
++
++## 개발 흐름과 보고
++
++- 모든 기능은 본 헌장을 참조한 사전 기획과 설계를 작성한 뒤 구현하며, 체커 통과 전에는 개발을 시작하지 않는다.
++- 필수 가드레일: 커밋 전에 `pytest -q` 실행, `include_router`로 라우터 분리 유지, 공유 로직은 `Assignment1/app/core/` 또는 `app/services/`에 보관.
++- Task 2 모듈은 FastAPI나 데이터베이스 의존성 없이 결정론적으로 동작하는 순수 Python 코드를 유지한다.
++- 주요 산출 완료 시 `task_report/`에 `- `로 시작하는 불렛 리스트로 제목, 물리적 변경 사항, 현재 진행 상황을 간략히 기록한다.
++
++## 거버넌스
++
++- 본 헌장은 상충 지침보다 우선하며, 위반 사항은 해결될 때까지 머지를 중단한다.
++- 개정 시 근거를 문서화하고 관련 템플릿을 업데이트하며, 의미 변화 수준에 따라 버전을 MAJOR/MINOR/PATCH로 관리한다.
++- 검토 시 의존성 정당성, 과제 간 격리, 테스트 근거, 최신 `task_report/` 반영 여부를 확인해야 승인할 수 있다.
++
++**Version**: 1.0.1 | **Ratified**: 2025-11-06 | **Last Amended**: 2025-11-06
+*** End Patch
+[2m2025-11-06T07:56:32.488962Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:32.488968Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:35.147194Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review current constitution content and identify sections needing translation updates."},{"status":"completed","step":"Translate constitution to Korean, adjust versioning and sync report accordingly."},{"status":"in_progress","step":"Verify formatting, ensure no placeholders remain, and consider related template adjustments."}]}
+[2m2025-11-06T07:56:35.147267Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:35.147271Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:45.337274Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review current constitution content and identify sections needing translation updates."},{"status":"completed","step":"Translate constitution to Korean, adjust versioning and sync report accordingly."},{"status":"completed","step":"Verify formatting, ensure no placeholders remain, and consider related template adjustments."}]}
+[2m2025-11-06T07:56:45.337304Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:45.337306Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T07:56:51.476887Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T07:56:51.476954Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T07:56:51.476960Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:35:56.096873Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"검토: 과제 요구사항과 현행 헌장을 다시 확인해 명세 구조 및 필수 항목을 정리한다."},{"status":"pending","step":"명세 초안 작성: Korean으로 Assignment1/Assignment2 요건, 스토리, 요구사항, 성공 지표를 정리한다."},{"status":"pending","step":"명세 검토: 헌장 원칙 준수 여부 및 누락된 필수 정보를 확인하고 필요 시 보완한다."}]}
+[2m2025-11-06T08:35:56.097802Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:35:56.100289Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:36:03.125293Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","ls specs"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T08:36:03.125341Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:36:03.125347Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:36:08.550080Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"검토: 과제 요구사항과 현행 헌장을 다시 확인해 명세 구조 및 필수 항목을 정리한다."},{"status":"in_progress","step":"명세 초안 작성: Korean으로 Assignment1/Assignment2 요건, 스토리, 요구사항, 성공 지표를 정리한다."},{"status":"pending","step":"명세 검토: 헌장 원칙 준수 여부 및 누락된 필수 정보를 확인하고 필요 시 보완한다."}]}
+[2m2025-11-06T08:36:08.550126Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:36:08.550131Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:36:20.714137Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","mkdir -p specs/medisolveai-backend-assignment"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T08:36:20.714415Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:36:20.714423Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:36:56.861761Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/medisolveai-backend-assignment/spec.md
++# 기능 명세서: 메디솔브AI 백엔드 전형 과제
++
++**기능 브랜치**: `[001-medisolveai-backend-assignment]`  
++**작성일**: 2025-11-06  
++**상태**: 초안  
++**입력**: 사용자 설명: "/prompts:speckit.specify 메디솔브에이아이의 백엔드 전형 과제를 도와줘 ..."
++
++## 사용자 시나리오 및 테스트 *(필수)*
++
++### 사용자 스토리 1 - 환자 예약 플로우 (우선순위: P1)
++
++환자는 선호 의사와 진료 항목, 가능한 시간대를 선택해 예약을 생성하고 자신의 예약 내역을 확인·취소하고 싶다.
++
++**우선순위 이유**: 환자 예약은 시스템의 핵심 가치 제공 기능이며 전체 서비스 가치의 기반이 된다.
++
++**독립 테스트 방법**: `/api/v1/patient` 트리에 대한 통합 테스트로 예약 가능 시간 조회 → 예약 생성 → 조회/취소 흐름을 검증한다.
++
++**인수 시나리오**:
++
++1. **Given** 등록된 의사, 진료 항목, 병원 슬롯이 존재하고 **When** 환자가 가용 시간대로 예약을 생성하면 **Then** 예약이 `예약대기` 상태로 저장되고 초진/재진 판단이 기록된다.
++2. **Given** 환자가 예약을 보유하고 **When** 환자 조회 API를 호출하면 **Then** 본인 예약만 상태와 함께 반환된다.
++3. **Given** 환자가 예약을 보유하고 **When** 취소 API를 호출하면 **Then** 예약 상태가 `취소`로 갱신되고 이후 같은 시간대가 다시 노출된다.
++
++---
++
++### 사용자 스토리 2 - 관리자 운영 플로우 (우선순위: P1)
++
++관리자는 의사, 병원 시간대, 진료 항목을 관리하고 예약 현황 및 통계를 확인하며 예약 상태를 변경하고 싶다.
++
++**우선순위 이유**: 관리자 기능이 있어야 운영 정책(동시 수용 인원, 의사 편성 등)을 맞춰 환자 기능이 정상 동작한다.
++
++**독립 테스트 방법**: `/api/v1/admin` 트리에 대한 통합 테스트로 CRUD, 예약 상태 변경, 통계 조회 시나리오를 검증한다.
++
++**인수 시나리오**:
++
++1. **Given** 관리자 자격으로 의사 생성 요청을 보내고 **When** CRUD 엔드포인트를 호출하면 **Then** 해당 의사 정보가 DB에 반영된다.
++2. **Given** 여러 예약이 존재하고 **When** 관리자 예약 통계 API를 호출하면 **Then** 상태별/시간대별/초진-재진 비율이 정확한 수치로 반환된다.
++3. **Given** 관리자가 예약 상태 변경 API를 호출하면 **Then** 상태 전이가 허용 순서를 따르고 잘못된 전이는 4xx로 거부된다.
++
++---
++
++### 사용자 스토리 3 - 시스템 운영자 및 DevOps (우선순위: P2)
++
++운영자는 Docker Compose 한 번으로 전체 시스템을 기동하고, 마이그레이션이 자동 실행되며 테스트 명령으로 품질을 검증하고 싶다.
++
++**우선순위 이유**: 배포 및 실행 편의성은 채점 환경 재현과 제출 완성도를 결정한다.
++
++**독립 테스트 방법**: `docker-compose up`으로 서비스 기동 후 헬스체크, `pytest -q` 실행으로 환경 분리 검증 테스트를 수행한다.
++
++**인수 시나리오**:
++
++1. **Given** 프로젝트 의존성이 `uv`로 설치되고 **When** `docker-compose up`을 실행하면 **Then** DB 초기화가 완료된 뒤 게이트웨이/두 API가 기동된다.
++2. **Given** 테스트 환경 변수가 주어지고 **When** `pytest -q`를 실행하면 **Then** 모듈 간 독립 테스트가 통과하며 프로덕션 설정을 건드리지 않는다.
++
++---
++
++### 사용자 스토리 4 - 알고리즘 평가 담당자 (우선순위: P2)
++
++평가 담당자는 `Assignment2`의 난수 생성 로직을 독립적으로 실행하고, 테스트 및 보고서를 통해 구현 품질을 확인하고 싶다.
++
++**우선순위 이유**: Task 2는 별도 채점 항목으로, API와 독립적인 실행 및 검증 경로가 필요하다.
++
++**독립 테스트 방법**: `Assignment2/tests`에서 `pytest` 실행으로 통계적 분포 검증, 범위 검증 등을 수행하고 보고서 PDF 존재를 확인한다.
++
++**인수 시나리오**:
++
++1. **Given** `get_1_or_0` 함수가 정의되고 **When** 여러 번 호출하면 **Then** 0과 1이 균등하게(허용 오차 내) 반환된다.
++2. **Given** `get_random(n)` 호출 시 **When** 충분한 반복 호출을 수행하면 **Then** 결과가 0 이상 n 이하 범위를 벗어나지 않으며 분포가 균등에 가깝다.
++3. **Given** 테스트 스위트를 실행하면 **When** 다양한 n 값에 대해 케이스가 수행되고 **Then** 실패 사항 없이 통과한다.
++
++---
++
++### 에지 케이스
++
++- 영업시간 경계(오픈 직후, 점심 시작/종료, 마감 직전)에 예약을 생성할 때 시간대 검증이 올바르게 동작하는가?
++- 동일한 환자가 짧은 시간 안에 여러 예약을 시도할 때 중복/동시성 제약을 지키는가?
++- 병원 슬롯 최대 인원수가 0 또는 매우 큰 값으로 설정될 때 정책이 안전하게 적용되는가?
++- `get_random` 호출 시 n=0, n=1 등 최소 범위와 매우 큰 n에 대해 성능과 정확도가 유지되는가?
++- DB 또는 외부 서비스 오류 시 API가 적절한 오류 응답 및 롤백을 제공하는가?
++
++## 요구사항 *(필수)*
++
++### 기능 요구사항
++
++- **FR-001**: 시스템은 `Assignment1`에서 환자 예약 생성, 조회, 취소, 가능 시간 조회 API를 제공해야 한다.
++- **FR-002**: 시스템은 관리자 전용 API를 통해 의사, 진료 항목, 병원 슬롯, 예약 상태, 통계를 CRUD/조회할 수 있어야 한다.
++- **FR-003**: 예약 생성 로직은 15분 간격 시작, 30분 단위 슬롯 점유, 동시 수용 인원 제한을 모두 검증해야 한다.
++- **FR-004**: 환자 초진/재진 여부는 완료된 예약 이력을 기준으로 자동 산출되어 Appointment에 저장되어야 한다.
++- **FR-005**: `Assignment1` 전체는 Docker Compose로 게이트웨이(8000), Patient API(8001), Admin API(8002), RDB 컨테이너를 기동해야 한다.
++- **FR-006**: `Assignment2`는 `get_1_or_0`, `get_random` 구현과 폭넓은 테스트, PDF 보고서를 포함해야 하며 FastAPI 의존성을 갖지 말아야 한다.
++- **FR-007**: 프로젝트 루트에는 실행 방법과 AI 활용 내용을 담은 한글 README.md가 존재해야 한다.
++- **FR-008**: 데이터베이스 스키마는 SQL 스크립트 또는 Alembic 마이그레이션으로 자동 초기화 가능해야 한다.
++- **FR-009**: 환경 별 설정(`development`, `test`)을 분리하고 테스트는 독립 DB를 사용해야 한다.
++- **FR-010**: pytest 기반 자동화 테스트는 환자/관리자 API 각각 최소 정상/예외 2건 이상을 포함해야 한다.
++
++### 주요 엔터티
++
++- **Doctor**: id, 이름, 진료과, 활성 여부, 생성/수정 일시.
++- **Treatment**: id, 시술명, 소요시간(분: 30 단위), 가격, 설명, 활성 여부.
++- **HospitalSlot**: id, 시간대 시작/종료(30분 단위), 최대 수용 인원, 우선순위 혹은 메모.
++- **Patient**: id, 이름, 연락처, 선호 의사(optional), 생성/수정 일시.
++- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시.
++- **SystemConfig (선택)**: 병원 영업시간, 점심시간, 동시 진료 한도 등 정책 값 관리용 테이블 또는 환경 변수.
++
++## 성공 기준 *(필수)*
++
++### 측정 가능한 결과
++
++- **SC-001**: `docker-compose up -d` 실행 후 2분 이내에 게이트웨이와 두 API 컨테이너가 모두 `healthy` 상태가 된다.
++- **SC-002**: `pytest -q` 실행 시 환자/관리자 API 및 Assignment2 테스트 총 10건 이상이 통과하고 실패가 없다.
++- **SC-003**: 환자 예약 생성 API 부하 테스트(동시 20요청)에서 p95 응답 시간이 200ms 이하를 유지한다(로컬 기준).
++- **SC-004**: README를 따라 신규 개발자가 15분 이내에 환경 구성, 도커 실행, 기본 API 호출, 테스트 실행을 완료할 수 있다.
++- **SC-005**: Assignment2 테스트는 `get_random(n)` 결과가 0~n 범위를 벗어나지 않음을 10,000회 시뮬레이션으로 검증하고 통과한다.
++
+*** End Patch
+[2m2025-11-06T08:36:56.861965Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:36:56.861969Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:37:00.259031Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"검토: 과제 요구사항과 현행 헌장을 다시 확인해 명세 구조 및 필수 항목을 정리한다."},{"status":"completed","step":"명세 초안 작성: Korean으로 Assignment1/Assignment2 요건, 스토리, 요구사항, 성공 지표를 정리한다."},{"status":"in_progress","step":"명세 검토: 헌장 원칙 준수 여부 및 누락된 필수 정보를 확인하고 필요 시 보완한다."}]}
+[2m2025-11-06T08:37:00.259283Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:37:00.259288Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:37:06.343574Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"검토: 과제 요구사항과 현행 헌장을 다시 확인해 명세 구조 및 필수 항목을 정리한다."},{"status":"completed","step":"명세 초안 작성: Korean으로 Assignment1/Assignment2 요건, 스토리, 요구사항, 성공 지표를 정리한다."},{"status":"completed","step":"명세 검토: 헌장 원칙 준수 여부 및 누락된 필수 정보를 확인하고 필요 시 보완한다."}]}
+[2m2025-11-06T08:37:06.343622Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:37:06.343627Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T08:37:10.852883Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T08:37:10.852930Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T08:37:10.852934Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:02:57.129750Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc",".specify/scripts/bash/check-prerequisites.sh --json --paths-only"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:02:57.134184Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:02:57.134585Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:06:51.005864Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-11-06T10:06:57.005810Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-11-06T10:07:09.396267Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git fetch --all --prune"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:09.396306Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:09.396313Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:12.936642Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-medisolve-backend$' || true"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:12.936724Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:12.936729Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:18.065814Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git branch | grep -E '^[* ]*[0-9]+-medisolve-backend$' || true"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:18.065897Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:18.065901Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:20.978702Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","ls specs | grep -E '^[0-9]+-medisolve-backend$' || true"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:20.978802Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:20.978813Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:26.773907Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '1,160p' .specify/scripts/bash/create-new-feature.sh"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:26.774025Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:26.774031Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:30.561852Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '160,320p' .specify/scripts/bash/create-new-feature.sh"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:30.561884Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:30.561886Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:35.345246Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc",".specify/scripts/bash/create-new-feature.sh --json --number 1 --short-name \"medisolve-backend\" \"메디솔브에이아이의 백엔드 전형 과제를 도와줘\""],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:35.345314Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:35.345318Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:39.735751Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:39.735782Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:39.735786Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:07:48.352101Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","cat specs/001-medisolve-backend/spec.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:07:48.352137Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:07:48.352143Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:08:05.478268Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc",".specify/scripts/bash/check-prerequisites.sh --json --paths-only"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:08:05.478424Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:08:05.478435Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:08:48.386026Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
+-**Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
+-
+-## User Scenarios & Testing *(mandatory)*
+-
+-<!--
+-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+-  
+-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+-  Think of each story as a standalone slice of functionality that can be:
+-  - Developed independently
+-  - Tested independently
+-  - Deployed independently
+-  - Demonstrated to users independently
+--->
+-
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-[Add more user stories as needed, each with an assigned priority]
+-
+-### Edge Cases
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
+-
+-## Requirements *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right functional requirements.
+--->
+-
+-### Functional Requirements
+-
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+-
+-### Key Entities *(include if feature involves data)*
+-
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
+-
+-## Success Criteria *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: Define measurable success criteria.
+-  These must be technology-agnostic and measurable.
+--->
+-
+-### Measurable Outcomes
+-
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++# 기능 명세서: 메디솔브AI 백엔드 과제
++
++**기능 브랜치**: `001-medisolve-backend`  
++**작성일**: 2025-11-06  
++**상태**: 초안  
++**입력**: 사용자 설명: "메디솔브에이아이의 백엔드 전형 과제를 도와줘"
++
++## 사용자 시나리오 및 테스트 *(필수)*
++
++### 사용자 스토리 1 - 환자 예약 플로우 (우선순위: P1)
++
++환자는 선호 의사, 진료 항목, 가능한 시간대를 선택해 예약을 생성하고 자신의 예약 내역을 확인·취소하고 싶다.
++
++**우선순위 이유**: 환자 예약은 서비스가 제공하는 핵심 가치이며 모든 후속 기능의 기반이다.
++
++**독립 테스트 방법**: `환자 예약 가능 시간 조회 → 예약 생성 → 예약 조회 및 취소` 순으로 REST 통합 테스트를 수행하면 기능을 단독으로 검증할 수 있다.
++
++**인수 시나리오**:
++
++1. **Given** 의사, 진료 항목, 병원 슬롯이 준비되고 **When** 환자가 가용 시간대로 예약을 생성하면 **Then** 예약이 `예약대기` 상태로 저장되고 초진/재진 구분이 기록된다.
++2. **Given** 환자가 여러 예약을 보유하고 **When** 환자 예약 조회 API를 호출하면 **Then** 본인 예약만 상태와 함께 반환된다.
++3. **Given** 환자가 예약을 보유하고 **When** 취소 API를 호출하면 **Then** 예약 상태가 `취소`로 변경되고 해당 시간대가 다시 노출된다.
++
++---
++
++### 사용자 스토리 2 - 관리자 운영 플로우 (우선순위: P1)
++
++관리자는 의사, 병원 슬롯, 진료 항목을 관리하고 예약 상태 및 통계를 통해 병원 운영을 통제하고 싶다.
++
++**우선순위 이유**: 관리자 정책 설정이 있어야 환자 예약 정책이 안정적으로 작동하므로 최우선 기능이다.
++
++**독립 테스트 방법**: `/api/v1/admin` 엔드포인트에 대한 CRUD 및 통계 통합 테스트를 작성해 운영 기능만으로도 가치를 검증할 수 있다.
++
++**인수 시나리오**:
++
++1. **Given** 관리자 자격으로 진료 항목 CRUD API를 호출하고 **When** 새로운 항목을 등록하면 **Then** 해당 항목이 목록 조회에 즉시 반영된다.
++2. **Given** 여러 예약이 다양한 상태로 존재하고 **When** 통계 API를 호출하면 **Then** 상태별·시간대별·초진/재진 비율이 정확한 수치로 반환된다.
++3. **Given** 관리자가 예약 상태 변경 API를 호출하면 **Then** `예약대기 → 확정 → 완료/취소` 순서만 허용되고 잘못된 전이는 거부된다.
++
++---
++
++### 사용자 스토리 3 - 운영 환경 기동 (우선순위: P2)
++
++운영 담당자는 필요한 서비스를 한 번의 명령으로 기동하고, 자동 마이그레이션과 헬스체크를 통해 안정성을 확보하고 싶다.
++
++**우선순위 이유**: 배포 및 실행 편의성은 평가 환경에서 기능을 검증할 수 있는 필수 조건이다.
++
++**독립 테스트 방법**: Docker Compose 기동 후 게이트웨이와 각 서비스 헬스 엔드포인트를 점검하고, 실행일지에서 마이그레이션 성공 여부를 확인한다.
++
++**인수 시나리오**:
++
++1. **Given** 프로젝트 의존성이 준비되고 **When** 한 번의 명령으로 컨테이너를 띄우면 **Then** 데이터베이스 초기화 이후 게이트웨이와 두 API가 정상 기동된다.
++2. **Given** 환경 변수를 `test`로 지정하고 **When** 자동화 테스트를 실행하면 **Then** 운영 설정을 변경하지 않고 독립 DB로 모든 테스트가 통과한다.
++
++---
++
++### 사용자 스토리 4 - 난수 생성 검증 (우선순위: P2)
++
++평가 담당자는 `Assignment2` 난수 모듈을 독립적으로 실행하고 통계적 테스트 및 보고서를 통해 품질을 확인하고 싶다.
++
++**우선순위 이유**: Task 2는 별도 평가 항목이므로 API와 분리된 검증 경로가 필수다.
++
++**독립 테스트 방법**: 난수 모듈 단위 테스트에서 범위, 균등 분포, 경계값 시나리오를 실행하고 결과를 보고서에 반영한다.
++
++**인수 시나리오**:
++
++1. **Given** `get_1_or_0` 함수가 정의되어 있고 **When** 충분한 횟수로 호출하면 **Then** 0과 1이 허용 오차 내에서 균등하게 반환된다.
++2. **Given** `get_random(n)` 함수를 여러 n 값으로 호출하면 **Then** 모든 결과가 0 이상 n 이하에 포함되고 분포 편향이 허용 오차 이내다.
++3. **Given** 테스트 스위트를 실행하면 **Then** 통계 검증과 경계값 검사가 모두 통과하고 보고서에 요약된다.
++
++---
++
++### 에지 케이스
++
++- 영업 시작 직전·점심 시간 전후·마감 직전 예약이 슬롯 검증을 통과하는지 확인한다.
++- 동일 환자가 짧은 시간 내 연속 요청을 보낼 때 중복 예약 방지와 동시성 제약이 유지되는지 검증한다.
++- 병원 슬롯 최대 인원수가 0 또는 큰 값으로 설정될 때 정책이 안전하게 적용되는지 확인한다.
++- 데이터베이스 장애나 타임아웃이 발생할 때 API가 일관된 오류 응답과 롤백을 제공하는지 확인한다.
++- `get_random` 호출에서 n=0, n=1, 매우 큰 n 값이 모두 성능·정확도 기준을 만족하는지 검증한다.
++
++## 요구사항 *(필수)*
++
++### 기능 요구사항
++
++- **FR-001**: 시스템은 환자용 API에서 예약 생성, 조회, 취소, 가능 시간 조회 기능을 제공해야 한다.
++- **FR-002**: 시스템은 관리자용 API에서 의사, 진료 항목, 병원 슬롯, 예약 상태, 통계를 CRUD/조회할 수 있어야 한다.
++- **FR-003**: 예약 생성 로직은 15분 간격 시작, 30분 단위 슬롯 점유, 동시 수용 인원 제한을 모두 검증해야 한다.
++- **FR-004**: 환자 초진/재진 여부는 완료된 예약 이력을 기준으로 자동 산출되어 Appointment에 저장되어야 한다.
++- **FR-005**: 동일 의사·시간대 중복 예약을 방지하고 병원 전체 동시 수용 인원을 초과하지 않도록 해야 한다.
++- **FR-006**: 프로젝트 루트에는 실행 방법과 AI 활용 기록을 포함한 한글 README.md가 존재해야 한다.
++- **FR-007**: 데이터베이스 스키마는 SQL 스크립트 또는 Alembic 마이그레이션으로 자동 초기화 가능해야 한다.
++- **FR-008**: Docker Compose는 게이트웨이(8000), 환자 API(8001), 관리자 API(8002), 단일 관계형 DB 컨테이너를 기동해야 한다.
++- **FR-009**: `Assignment1`과 `Assignment2`는 독립 실행 진입점을 유지하고 런타임 의존성을 공유하지 않아야 한다.
++- **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++
++### 주요 엔터티
++
++- **Doctor**: id, 이름, 진료과, 활성 여부, 생성/수정 일시.
++- **Treatment**: id, 시술명, 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
++- **HospitalSlot**: id, 시간대 시작·종료(30분 단위), 최대 수용 인원, 메모.
++- **Patient**: id, 이름, 연락처, 선호 의사(optional), 생성/수정 일시.
++- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시.
++- **SystemConfig(선택)**: 병원 영업시간, 점심시간, 동시 진료 한도 등 정책 값 관리.
++
++## 가정
++
++- 병원은 월요일부터 금요일까지 동일한 영업시간을 사용하며, 주말 휴무로 간주한다.
++- 예약 가능 시간대는 한국 표준시(KST)를 기준으로 관리한다.
++- 관리자 인증·권한 관리는 과제 범위를 벗어난다고 가정하고 내부 네트워크에서만 호출한다고 본다.
++- `Assignment2`의 PDF 보고서는 저장소 내 `Assignment2/reports/` 경로에 배치한다.
++
++## 성공 기준 *(필수)*
++
++### 측정 가능한 결과
++
++- **SC-001**: 한 번의 실행 명령으로 모든 컨테이너가 2분 이내 정상 기동하고 헬스 체크를 통과한다.
++- **SC-002**: 전체 자동화 테스트를 한 번 실행하면 환자/관리자 API와 난수 모듈 시나리오 10건 이상이 모두 통과한다.
++- **SC-003**: 환자 예약 생성 API에 대해 동시 20건 요청을 가했을 때 95번째 백분위 응답 시간이 0.2초 이하로 유지된다.
++- **SC-004**: README 절차를 따라 새 환경을 구성한 사용자가 15분 이내 예약 생성과 취소 흐름을 재현할 수 있다.
++- **SC-005**: 난수 생성 테스트는 10,000회 시뮬레이션에서 0~n 범위를 벗어난 결과가 0건임을 증명하고 보고서에 기록한다.
+*** End Patch
+[2m2025-11-06T10:08:48.386352Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:08:48.386358Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:08:53.179490Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","rm -rf specs/medisolveai-backend-assignment"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:08:53.179525Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:08:53.179529Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:09:11.687729Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","# placeholder"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:09:11.687775Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:09:11.687779Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:24.879851Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+ - **FR-003**: 예약 생성 로직은 15분 간격 시작, 30분 단위 슬롯 점유, 동시 수용 인원 제한을 모두 검증해야 한다.
+ - **FR-004**: 환자 초진/재진 여부는 완료된 예약 이력을 기준으로 자동 산출되어 Appointment에 저장되어야 한다.
+-- **FR-005**: 동일 의사·시간대 중복 예약을 방지하고 병원 전체 동시 수용 인원을 초과하지 않도록 해야 한다.
++- **FR-005**: 동일 의사·시간대 중복 예약을 방지하기 위해 데이터베이스 차원에서 `(doctor_id, 예약 시작)` 또는 실제 점유 슬롯 조합에 대한 유니크 제약을 둔다.
+ - **FR-006**: 프로젝트 루트에는 실행 방법과 AI 활용 기록을 포함한 한글 README.md가 존재해야 한다.
+ - **FR-007**: 데이터베이스 스키마는 SQL 스크립트 또는 Alembic 마이그레이션으로 자동 초기화 가능해야 한다.
+ - **FR-008**: Docker Compose는 게이트웨이(8000), 환자 API(8001), 관리자 API(8002), 단일 관계형 DB 컨테이너를 기동해야 한다.
+ - **FR-009**: `Assignment1`과 `Assignment2`는 독립 실행 진입점을 유지하고 런타임 의존성을 공유하지 않아야 한다.
+ - **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++- **FR-011**: 예약 생성 및 상태 변경 API는 경쟁 상태를 방지하기 위해 트랜잭션 락 또는 큐잉 전략으로 다중 요청을 안전하게 처리해야 한다.
+ 
+ ### 주요 엔터티
+ 
+-- **Doctor**: id, 이름, 진료과, 활성 여부, 생성/수정 일시.
+-- **Treatment**: id, 시술명, 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
+-- **HospitalSlot**: id, 시간대 시작·종료(30분 단위), 최대 수용 인원, 메모.
+-- **Patient**: id, 이름, 연락처, 선호 의사(optional), 생성/수정 일시.
+-- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시.
++- **Doctor**: id, 이름(유니크), 진료과, 활성 여부, 생성/수정 일시.
++- **Treatment**: id, 시술명(유니크), 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
++- **HospitalSlot**: id, 시간대 시작·종료(30분 단위) 복합 유니크, 최대 수용 인원, 메모.
++- **Patient**: id, 이름, 연락처(유니크), 선호 의사(optional), 생성/수정 일시.
++- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시, 예약 슬롯 테이블과의 매핑 또는 점유 기록.
+ - **SystemConfig(선택)**: 병원 영업시간, 점심시간, 동시 진료 한도 등 정책 값 관리.
+@@
+ - 동일 환자가 짧은 시간 내 연속 요청을 보낼 때 중복 예약 방지와 동시성 제약이 유지되는지 검증한다.
+ - 병원 슬롯 최대 인원수가 0 또는 큰 값으로 설정될 때 정책이 안전하게 적용되는지 확인한다.
++- 동일 시간대에 여러 환자가 동시에 예약을 요청할 경우 트랜잭션 경합이 발생하지 않고 일관된 결과가 저장되는지 검증한다.
+ - 데이터베이스 장애나 타임아웃이 발생할 때 API가 일관된 오류 응답과 롤백을 제공하는지 확인한다.
+ - `get_random` 호출에서 n=0, n=1, 매우 큰 n 값이 모두 성능·정확도 기준을 만족하는지 검증한다.
+@@
+ - **SC-003**: 환자 예약 생성 API에 대해 동시 20건 요청을 가했을 때 95번째 백분위 응답 시간이 0.2초 이하로 유지된다.
+ - **SC-004**: README 절차를 따라 새 환경을 구성한 사용자가 15분 이내 예약 생성과 취소 흐름을 재현할 수 있다.
+ - **SC-005**: 난수 생성 테스트는 10,000회 시뮬레이션에서 0~n 범위를 벗어난 결과가 0건임을 증명하고 보고서에 기록한다.
+*** End Patch
+[2m2025-11-06T10:16:24.880063Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:24.880068Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:28.463285Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '40,140p' specs/001-medisolve-backend/spec.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:16:28.463326Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:28.463329Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:38.713216Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+-- **FR-005**: 동일 의사·시간대 중복 예약을 방지하고 병원 전체 동시 수용 인원을 초과하지 않도록 해야 한다.
++- **FR-005**: 동일 의사·시간대 중복 예약을 방지하기 위해 데이터베이스 차원에서 `(doctor_id, 예약 시작)` 또는 실제 점유 슬롯 조합에 대한 유니크 제약을 둔다.
+@@
+-- **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++- **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++- **FR-011**: 예약 생성 및 상태 변경 API는 경쟁 상태를 방지하기 위해 트랜잭션 락 또는 큐잉 전략으로 다중 요청을 안전하게 처리해야 한다.
+@@
+-- **Doctor**: id, 이름, 진료과, 활성 여부, 생성/수정 일시.
+-- **Treatment**: id, 시술명, 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
+-- **HospitalSlot**: id, 시간대 시작·종료(30분 단위), 최대 수용 인원, 메모.
+-- **Patient**: id, 이름, 연락처, 선호 의사(optional), 생성/수정 일시.
+-- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시.
++- **Doctor**: id, 이름(유니크), 진료과, 활성 여부, 생성/수정 일시.
++- **Treatment**: id, 시술명(유니크), 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
++- **HospitalSlot**: id, 시간대 시작·종료(30분 단위) 복합 유니크, 최대 수용 인원, 메모.
++- **Patient**: id, 이름, 연락처(유니크), 선호 의사(optional), 생성/수정 일시.
++- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시, 예약 슬롯 점유 기록.
+@@
+-- 동일 환자가 짧은 시간 내 연속 요청을 보낼 때 중복 예약 방지와 동시성 제약이 유지되는지 검증한다.
++- 동일 환자가 짧은 시간 내 연속 요청을 보낼 때 중복 예약 방지와 동시성 제약이 유지되는지 검증한다.
++- 동일 시간대에 여러 환자가 동시에 예약을 요청할 경우 트랜잭션 경합이 발생하지 않고 일관된 결과가 저장되는지 검증한다.
+@@
+-- 관리자 인증·권한 관리는 과제 범위를 벗어난다고 가정하고 내부 네트워크에서만 호출한다고 본다.
++- 관리자 인증·권한 관리는 과제 범위를 벗어난다고 가정하고 내부 네트워크에서만 호출한다고 본다.
++- 트랜잭션은 예약 생성 시 비관적 락 또는 재시도 가능한 낙관적 락으로 경쟁 조건을 완화한다고 가정한다.
+*** End Patch
+[2m2025-11-06T10:16:38.713295Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:38.713297Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:43.768064Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '40,120p' specs/001-medisolve-backend/spec.md | nl"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:16:43.768102Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:43.768105Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:50.175862Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+-- **FR-005**: 동일 의사·시간대 중복 예약을 방지하고 병원 전체 동시 수용 인원을 초과하지 않도록 해야 한다.
++- **FR-005**: 동일 의사·시간대 중복 예약을 방지하기 위해 데이터베이스 차원에서 `(doctor_id, 예약 시작)` 또는 실제 점유 슬롯 조합에 대한 유니크 제약을 둔다.
+@@
+-- **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++- **FR-010**: 자동화 테스트는 환자·관리자 API와 난수 모듈 각각에 대해 정상/예외 최소 2건 이상의 시나리오를 포함해야 한다.
++- **FR-011**: 예약 생성 및 상태 변경 API는 경쟁 상태를 방지하기 위해 트랜잭션 락 또는 큐잉 전략으로 다중 요청을 안전하게 처리해야 한다.
+*** End Patch
+[2m2025-11-06T10:16:50.175906Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:50.175910Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:54.165929Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+-- **Doctor**: id, 이름, 진료과, 활성 여부, 생성/수정 일시.
+-- **Treatment**: id, 시술명, 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
+-- **HospitalSlot**: id, 시간대 시작·종료(30분 단위), 최대 수용 인원, 메모.
+-- **Patient**: id, 이름, 연락처, 선호 의사(optional), 생성/수정 일시.
+-- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시.
++- **Doctor**: id, 이름(유니크), 진료과, 활성 여부, 생성/수정 일시.
++- **Treatment**: id, 시술명(유니크), 소요 시간(분·30 단위), 가격, 설명, 활성 여부.
++- **HospitalSlot**: id, 시간대 시작·종료(30분 단위) 복합 유니크, 최대 수용 인원, 메모.
++- **Patient**: id, 이름, 연락처(유니크), 선호 의사(optional), 생성/수정 일시.
++- **Appointment**: id, patient_id, doctor_id, treatment_id, 예약 시작, 예약 종료, 상태, 초진/재진 플래그, 메모, 생성/수정 일시, 점유 슬롯 기록.
+*** End Patch
+[2m2025-11-06T10:16:54.165966Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:54.165969Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:16:57.809719Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+ - 영업 시작 직전·점심 시간 전후·마감 직전 예약이 슬롯 검증을 통과하는지 확인한다.
+ - 동일 환자가 짧은 시간 내 연속 요청을 보낼 때 중복 예약 방지와 동시성 제약이 유지되는지 검증한다.
++- 동일 시간대에 여러 환자가 동시에 예약을 요청할 경우 트랜잭션 경합이 발생하지 않고 일관된 결과가 저장되는지 검증한다.
+ - 병원 슬롯 최대 인원수가 0 또는 큰 값으로 설정될 때 정책이 안전하게 적용되는지 확인한다.
+ - 데이터베이스 장애나 타임아웃이 발생할 때 API가 일관된 오류 응답과 롤백을 제공하는지 확인한다.
+*** End Patch
+[2m2025-11-06T10:16:57.809806Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:16:57.809811Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:17:02.358999Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/spec.md
+@@
+ - 병원은 월요일부터 금요일까지 동일한 영업시간을 사용하며, 주말 휴무로 간주한다.
+ - 예약 가능 시간대는 한국 표준시(KST)를 기준으로 관리한다.
+ - 관리자 인증·권한 관리는 과제 범위를 벗어난다고 가정하고 내부 네트워크에서만 호출한다고 본다.
++- 예약 생성 트랜잭션은 비관적 락 또는 재시도 가능한 낙관적 락을 적용해 경쟁 조건을 완화한다고 가정한다.
+ - `Assignment2`의 PDF 보고서는 저장소 내 `Assignment2/reports/` 경로에 배치한다.
+*** End Patch
+[2m2025-11-06T10:17:02.359057Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:17:02.359061Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:00.322904Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc",".specify/scripts/bash/setup-plan.sh --json"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:19:00.323189Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:00.323193Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:04.415814Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","cat .specify/memory/constitution.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:19:04.415861Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:04.415865Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:08.925902Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","cat specs/001-medisolve-backend/plan.md"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:19:08.925977Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:08.925983Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:22.756943Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/plan.md
+@@
+-# Implementation Plan: [FEATURE]
+-
+-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
++# Implementation Plan: 메디솔브AI 백엔드 과제
++
++**Branch**: `001-medisolve-backend` | **Date**: 2025-11-06 | **Spec**: `/specs/001-medisolve-backend/spec.md`
++**Input**: Feature specification from `/specs/001-medisolve-backend/spec.md`
+@@
+-## Summary
+-
+-[Extract from feature spec: primary requirement + technical approach from research]
++## Summary
++
++Assignment1은 환자/관리자 이중 API와 게이트웨이를 포함한 피부과 예약 시스템을 제공하고, Assignment2는 순수 Python 난수 모듈과 보고서를 제공해야 한다. 핵심은 병원 운영 규칙(15분 시작, 30분 슬롯, 동시 수용 한도)과 초진/재진 판단을 충족하면서 Docker Compose 기반 환경과 자동 마이그레이션, 통합 테스트 체계를 갖추는 것이다. 게이트웨이는 단일 진입점으로 각 서비스에 요청을 프록시하며, DB는 Docker Compose에서 포트 29906으로 노출되는 MySQL을 사용한다.
+@@
+-**Language/Version**: Python 3.11+  
+-**Primary Dependencies**: FastAPI, uvicorn[standard], uv, pytest, httpx  
+-**Storage**: PostgreSQL 15+ (deviation to MySQL requires written approval)  
+-**Testing**: pytest with httpx.AsyncClient for async routes  
+-**Target Platform**: Docker Compose (FastAPI API + PostgreSQL + support services)  
+-**Project Type**: Backend API (`Assignment1`) + standalone algorithm package (`Assignment2`)  
+-**Performance Goals**: FastAPI endpoints p95 < 200 ms under assignment load; Task 2 functions O(log n) or better unless justified  
+-**Constraints**: Minimal dependency footprint, async-safe handlers, assignments isolated with shared utilities explicitly documented  
+-**Scale/Scope**: Single-team assignment deliverable; ensure each task ships independently runnable artifacts
++**Language/Version**: Python 3.11+  
++**Primary Dependencies**: FastAPI, uvicorn[standard], uv, pytest, httpx, SQLAlchemy or equivalent ORM (NEEDS CLARIFICATION: ORM 선택)  
++**Storage**: MySQL 8.x (Docker Compose, 호스트 포트 29906 포워딩)  
++**Testing**: pytest + httpx.AsyncClient + pytest-asyncio (NEEDS CLARIFICATION: 부하 테스트 도구)  
++**Target Platform**: Docker Compose (FastAPI Gateway + Patient API + Admin API + MySQL)  
++**Project Type**: Backend API (`Assignment1`) + standalone algorithm package (`Assignment2`)  
++**Performance Goals**: FastAPI 엔드포인트 p95 < 200 ms, 예약 동시 요청 20건 처리 성공  
++**Constraints**: Minimal dependency footprint, async-safe handlers, assignments isolated with shared utilities explicitly documented, 게이트웨이 경로 기반 라우팅  
++**Scale/Scope**: 단일 팀 과제 제출 규모, 환자/관리자 API 각각 독립 테스트 가능
+@@
+-- **Self-Documenting Code**: Planned module names, router splits, and type hints make behavior clear without inline commentary. Note any unavoidable exceptions.
+-- **Requirements Fidelity**: Scope matches assignment instructions exactly and lists the pytest coverage that will validate success and failure paths.
+-- **Performance-Centered Reliability**: Identify potential bottlenecks, async blocking risks, and the guardrails that maintain responsiveness.
+-- **Lean Dependency Footprint**: Enumerate all new dependencies with justification; confirm unnecessary packages are excluded and `uv` lockfiles stay minimal.
+-- **Isolated Assignment Domains**: Clarify which assignment is impacted, how cross-task utilities are shared, and confirm independent entrypoints remain intact.
++- **Self-Documenting Code**: 라우터/서비스/스키마 네이밍을 명확히 하고 타입 힌트를 제공한다. 예외 없음.
++- **Requirements Fidelity**: 스펙의 기능 요구사항을 1:1로 반영하고 pytest 시나리오를 계획한다.
++- **Performance-Centered Reliability**: 예약 생성 시 동시성 제어(락/재시도), 비동기 DB 호출 사용, 타임아웃 정의 필요.
++- **Lean Dependency Footprint**: 필수 라이브러리만 도입하고 ORM 채택 시 정당화가 필요하다.
++- **Isolated Assignment Domains**: Assignment1/Assignment2 디렉터리와 의존성을 분리하고 공용 유틸은 별도 모듈에 둔다.
+@@
+-**Structure Decision**: Document the specific subdirectories and files this feature touches, confirming the assignment boundaries stay intact.
++**Structure Decision**: Assignment1은 `app/core`, `app/routers/patient`, `app/routers/admin`, `app/services`, `app/db` 구조로 구성하고, 게이트웨이는 별도 모듈(`assignment1/app/gateway`)에서 라우팅을 담당한다. Assignment2는 `src/algorithms/randomizer.py`와 `tests/test_randomizer.py`, `reports/`를 포함한다. Docker 설정은 `Assignment1/docker/compose/`에 위치시킨다.
+*** End Patch
+[2m2025-11-06T10:19:22.757023Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:22.757025Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:38.212769Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/research.md
++# 연구 메모: 메디솔브AI 백엔드 과제
++
++## ORM 선정
++- **Decision**: SQLAlchemy 2.x Async + Alembic  
++- **Rationale**: FastAPI와의 호환성이 높고 비동기 세션(`async_engine`)으로 예약 생성 시 동시성 제어를 쉽게 구현할 수 있다. Alembic과 연계하면 요구사항인 마이그레이션 자동화도 충족한다.  
++- **Alternatives considered**:  
++  - Tortoise ORM: 비동기 최적화지만 Alembic과의 연동이 제한적이라 마이그레이션 관리가 번거롭다.  
++  - 순수 SQL + Databases 패키지: 의존성은 줄지만 관계 정의, 락 관리, 스키마 버전 관리가 수동으로 복잡해진다.
++
++## 부하 테스트 접근법
++- **Decision**: pytest + httpx.AsyncClient + asyncio.gather 기반 동시 요청 시나리오  
++- **Rationale**: 이미 테스트 스택으로 활용할 라이브러리만으로 동시 20건 요청을 재현할 수 있어 의존성을 추가하지 않는다. 측정은 `time.perf_counter`로 p95를 계산한다.  
++- **Alternatives considered**:  
++  - locust: 전용 부하 도구지만 추가 러닝 커브와 의존성이 발생한다.  
++  - k6: 강력한 CLI지만 Go 런타임 설치가 필요하고 과제 범위를 벗어나는 무게다.
+*** End Patch
+[2m2025-11-06T10:19:38.212842Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:38.212846Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:42.930869Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/plan.md
+@@
+-**Primary Dependencies**: FastAPI, uvicorn[standard], uv, pytest, httpx, SQLAlchemy or equivalent ORM (NEEDS CLARIFICATION: ORM 선택)  
++**Primary Dependencies**: FastAPI, uvicorn[standard], uv, pytest, httpx, SQLAlchemy[async], Alembic  
+@@
+-**Testing**: pytest + httpx.AsyncClient + pytest-asyncio (NEEDS CLARIFICATION: 부하 테스트 도구)  
++**Testing**: pytest + httpx.AsyncClient + pytest-asyncio (동시 요청 검증은 asyncio.gather 활용)  
+*** End Patch
+[2m2025-11-06T10:19:42.930914Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:42.930919Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:19:47.221517Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/plan.md
+@@
+-- **Lean Dependency Footprint**: 필수 라이브러리만 도입하고 ORM 채택 시 정당화가 필요하다.
++- **Lean Dependency Footprint**: 필수 라이브러리만 도입하고 ORM 채택 시 정당화가 필요하다. MySQL 선택은 사용자 요구에 따른 예외로 문서화한다.
+*** End Patch
+[2m2025-11-06T10:19:47.221578Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:19:47.221583Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:03.364910Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/data-model.md
++# 데이터 모델 설계: 메디솔브AI 백엔드 과제
++
++## 개요
++- DBMS: MySQL 8.x (Docker Compose, 포트 29906)
++- 마이그레이션: Alembic (SQLAlchemy async 엔진 기반)
++- 기본 규칙: 모든 테이블은 `id` PK(BIGINT AUTO_INCREMENT), 생성/수정 시각(`created_at`, `updated_at` TIMESTAMP) 포함
++- 타임존: KST 기준 저장, DB에는 UTC로 저장 후 애플리케이션에서 변환
++
++## 엔터티 상세
++
++### 1. doctors
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 의사 식별자 |
++| name | VARCHAR(100) | UNIQUE, NOT NULL | 의사 이름 |
++| department | VARCHAR(100) | NOT NULL | 진료과 |
++| is_active | TINYINT(1) | DEFAULT 1 | 활성 여부 |
++| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | 생성 시각 |
++| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 수정 시각 |
++
++- 인덱스: `idx_doctors_department` (department)
++
++### 2. treatments
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 진료 항목 식별자 |
++| name | VARCHAR(120) | UNIQUE, NOT NULL | 시술명 |
++| duration_minutes | SMALLINT | NOT NULL, CHECK(duration_minutes % 30 = 0) | 소요 시간(30분 단위) |
++| price | DECIMAL(10,2) | NOT NULL | 가격 |
++| description | TEXT | NULL | 설명 |
++| is_active | TINYINT(1) | DEFAULT 1 | 활성 여부 |
++| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | 생성 시각 |
++| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 수정 시각 |
++
++### 3. hospital_slots
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 슬롯 식별자 |
++| start_time | TIME | NOT NULL | 시간대 시작 (30분 단위) |
++| end_time | TIME | NOT NULL | 시간대 종료 (30분 단위) |
++| capacity | SMALLINT | NOT NULL, CHECK(capacity >= 0) | 동시 수용 인원 |
++| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | 생성 시각 |
++| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 수정 시각 |
++
++- 제약: `(start_time, end_time)` UNIQUE
++- 슬롯은 요일 무관 공통 정책으로 사용
++
++### 4. patients
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 환자 식별자 |
++| name | VARCHAR(100) | NOT NULL | 환자 이름 |
++| phone | VARCHAR(20) | UNIQUE, NOT NULL | 연락처 |
++| preferred_doctor_id | BIGINT | FK -> doctors.id, NULL | 선호 의사 |
++| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | 생성 시각 |
++| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 수정 시각 |
++
++- 인덱스: `idx_patients_phone` (phone UNIQUE)
++
++### 5. appointments
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 예약 식별자 |
++| patient_id | BIGINT | FK -> patients.id, NOT NULL | 환자 |
++| doctor_id | BIGINT | FK -> doctors.id, NOT NULL | 의사 |
++| treatment_id | BIGINT | FK -> treatments.id, NOT NULL | 진료 항목 |
++| start_at | DATETIME | NOT NULL | 예약 시작(15분 단위) |
++| end_at | DATETIME | NOT NULL | 예약 종료(자동 계산) |
++| status | ENUM('PENDING','CONFIRMED','COMPLETED','CANCELLED') | DEFAULT 'PENDING' | 예약 상태 |
++| visit_type | ENUM('FIRST','FOLLOW_UP') | NOT NULL | 초진/재진 |
++| memo | TEXT | NULL | 메모 |
++| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | 생성 시각 |
++| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | 수정 시각 |
++
++- 제약: `(doctor_id, start_at)` UNIQUE (기본), 추가로 슬롯 점유용 중간 테이블 사용
++- 인덱스: `idx_appointments_patient` (patient_id, start_at), `idx_appointments_status` (status)
++
++### 6. appointment_slots (슬롯 점유 매핑)
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| appointment_id | BIGINT | PK, FK -> appointments.id | 예약 ID |
++| slot_id | BIGINT | PK, FK -> hospital_slots.id | 점유한 슬롯 |
++| slot_date | DATE | PK | 슬롯 적용 일자 |
++
++- 제약: `(slot_id, slot_date)`에 `capacity` 이상 예약 불가 → 트리거나 애플리케이션 로직에서 검증 후 INSERT
++- INSERT 시 트랜잭션 내 동시성 제어 필요 (SELECT ... FOR UPDATE)
++
++### 7. system_configs (선택)
++| 필드 | 타입 | 제약 | 설명 |
++|------|------|------|------|
++| id | BIGINT | PK | 설정 ID |
++| key | VARCHAR(100) | UNIQUE, NOT NULL | 설정 키 |
++| value | VARCHAR(255) | NOT NULL | 설정 값 |
++| description | TEXT | NULL | 설명 |
++
++- 영업시간, 점심시간, 동시 진료 한도 등을 저장
++
++## 관계 다이어그램 요약
++- patients (1) —— (N) appointments —— (1) doctors
++- appointments —— (1) treatments
++- appointments —— (N) appointment_slots —— (1) hospital_slots
++- doctors —— (N) patients (optional 선호 관계)
++
++## 상태 전이
++- 예약 상태: `PENDING` → `CONFIRMED` → (`COMPLETED` or `CANCELLED`)
++- 상태 전이는 관리자 API에서만 허용, 하위 단계로 되돌릴 수 없음
++
++## 동시성/락 전략
++- 예약 생성 시:  
++  1. `SELECT ... FOR UPDATE`로 `hospital_slots`와 해당 날짜의 `appointment_slots` 점유 수를 잠금  
++  2. 수용 인원 확인 후 `appointments` 및 `appointment_slots`를 INSERT  
++  3. 커밋 실패 시 롤백하고 재시도 정책 적용
++- 상태 변경 시: `appointments` 행을 `SELECT FOR UPDATE` 후 갱신
++
++## 마이그레이션 초기화
++- `alembic init` 구조 사용, 기본 리비전에서 위 테이블들을 생성
++- Docker Compose 기동 시 `alembic upgrade head` 실행 또는 초기 SQL 스크립트 제공
+*** End Patch
+[2m2025-11-06T10:20:03.393796Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:03.394562Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:08.900985Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","mkdir -p specs/001-medisolve-backend/contracts"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:20:08.901032Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:08.901036Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:19.614423Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/contracts/patient-api.yaml
++openapi: 3.1.0
++info:
++  title: MedisolveAI Patient API
++  version: 0.1.0
++servers:
++  - url: http://gateway:8000/api/v1/patient
++paths:
++  /doctors:
++    get:
++      summary: 의사 목록 조회
++      parameters:
++        - name: department
++          in: query
++          schema:
++            type: string
++          description: 진료과 필터
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/DoctorSummary"
++  /availability:
++    get:
++      summary: 예약 가능 시간 조회
++      parameters:
++        - name: doctor_id
++          in: query
++          required: true
++          schema:
++            type: integer
++        - name: date
++          in: query
++          required: true
++          schema:
++            type: string
++            format: date
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: object
++                properties:
++                  slots:
++                    type: array
++                    items:
++                      type: object
++                      properties:
++                        start_at:
++                          type: string
++                          format: date-time
++                        end_at:
++                          type: string
++                          format: date-time
++                        remaining_capacity:
++                          type: integer
++  /appointments:
++    post:
++      summary: 예약 생성
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: "#/components/schemas/AppointmentCreateRequest"
++      responses:
++        "201":
++          description: 생성됨
++          content:
++            application/json:
++              schema:
++                $ref: "#/components/schemas/AppointmentDetail"
++        "409":
++          description: 시간 중복 또는 용량 초과
++    get:
++      summary: 예약 목록 조회
++      parameters:
++        - name: patient_id
++          in: query
++          required: true
++          schema:
++            type: integer
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/AppointmentDetail"
++  /appointments/{appointment_id}/cancel:
++    post:
++      summary: 예약 취소
++      parameters:
++        - name: appointment_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      responses:
++        "200":
++          description: 취소 완료
++        "400":
++          description: 이미 완료된 예약 등 취소 불가 상태
++
++components:
++  schemas:
++    DoctorSummary:
++      type: object
++      properties:
++        id:
++          type: integer
++        name:
++          type: string
++        department:
++          type: string
++    AppointmentCreateRequest:
++      type: object
++      required:
++        - patient_id
++        - doctor_id
++        - treatment_id
++        - start_at
++      properties:
++        patient_id:
++          type: integer
++        doctor_id:
++          type: integer
++        treatment_id:
++          type: integer
++        start_at:
++          type: string
++          format: date-time
++        memo:
++          type: string
++    AppointmentDetail:
++      type: object
++      properties:
++        id:
++          type: integer
++        doctor:
++          $ref: "#/components/schemas/DoctorSummary"
++        treatment:
++          type: object
++          properties:
++            id:
++              type: integer
++            name:
++              type: string
++            duration_minutes:
++              type: integer
++        start_at:
++          type: string
++          format: date-time
++        end_at:
++          type: string
++          format: date-time
++        status:
++          type: string
++          enum:
++            - PENDING
++            - CONFIRMED
++            - COMPLETED
++            - CANCELLED
++        visit_type:
++          type: string
++          enum:
++            - FIRST
++            - FOLLOW_UP
++        memo:
++          type: string
+*** End Patch
+[2m2025-11-06T10:20:19.614648Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:19.614654Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:38.279166Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/contracts/admin-api.yaml
++openapi: 3.1.0
++info:
++  title: MedisolveAI Admin API
++  version: 0.1.0
++servers:
++  - url: http://gateway:8000/api/v1/admin
++paths:
++  /doctors:
++    post:
++      summary: 의사 생성
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: "#/components/schemas/DoctorUpsert"
++      responses:
++        "201":
++          description: 생성됨
++          content:
++            application/json:
++              schema:
++                $ref: "#/components/schemas/DoctorDetail"
++    get:
++      summary: 의사 목록 조회
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/DoctorDetail"
++  /doctors/{doctor_id}:
++    patch:
++      summary: 의사 수정
++      parameters:
++        - name: doctor_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: "#/components/schemas/DoctorUpsert"
++      responses:
++        "200":
++          description: 수정됨
++    delete:
++      summary: 의사 삭제
++      parameters:
++        - name: doctor_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      responses:
++        "204":
++          description: 삭제됨
++  /hospital-slots:
++    get:
++      summary: 병원 슬롯 목록
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/HospitalSlot"
++    put:
++      summary: 슬롯 설정 일괄 갱신
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              type: array
++              items:
++                $ref: "#/components/schemas/HospitalSlot"
++      responses:
++        "200":
++          description: 저장됨
++  /treatments:
++    post:
++      summary: 진료 항목 생성
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: "#/components/schemas/TreatmentUpsert"
++      responses:
++        "201":
++          description: 생성됨
++          content:
++            application/json:
++              schema:
++                $ref: "#/components/schemas/TreatmentDetail"
++    get:
++      summary: 진료 항목 목록
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/TreatmentDetail"
++  /treatments/{treatment_id}:
++    patch:
++      summary: 진료 항목 수정
++      parameters:
++        - name: treatment_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: "#/components/schemas/TreatmentUpsert"
++      responses:
++        "200":
++          description: 수정됨
++    delete:
++      summary: 진료 항목 삭제
++      parameters:
++        - name: treatment_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      responses:
++        "204":
++          description: 삭제됨
++  /appointments:
++    get:
++      summary: 전체 예약 조회
++      parameters:
++        - name: date
++          in: query
++          schema:
++            type: string
++            format: date
++        - name: doctor_id
++          in: query
++          schema:
++            type: integer
++        - name: status
++          in: query
++          schema:
++            type: string
++            enum:
++              - PENDING
++              - CONFIRMED
++              - COMPLETED
++              - CANCELLED
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: array
++                items:
++                  $ref: "#/components/schemas/AdminAppointmentView"
++  /appointments/{appointment_id}/status:
++    post:
++      summary: 예약 상태 변경
++      parameters:
++        - name: appointment_id
++          in: path
++          required: true
++          schema:
++            type: integer
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              type: object
++              required:
++                - status
++              properties:
++                status:
++                  type: string
++                  enum:
++                    - CONFIRMED
++                    - COMPLETED
++                    - CANCELLED
++      responses:
++        "200":
++          description: 상태 변경 완료
++        "409":
++          description: 허용되지 않은 전이
++  /stats/summary:
++    get:
++      summary: 예약 통계
++      responses:
++        "200":
++          description: 성공
++          content:
++            application/json:
++              schema:
++                type: object
++                properties:
++                  by_status:
++                    type: array
++                    items:
++                      type: object
++                      properties:
++                        status:
++                          type: string
++                        count:
++                          type: integer
++                  by_date:
++                    type: array
++                    items:
++                      type: object
++                      properties:
++                        date:
++                          type: string
++                          format: date
++                        count:
++                          type: integer
++                  by_slot:
++                    type: array
++                    items:
++                      type: object
++                      properties:
++                        slot_label:
++                          type: string
++                        count:
++                          type: integer
++                  visit_ratio:
++                    type: object
++                    properties:
++                      first:
++                        type: integer
++                      follow_up:
++                        type: integer
++
++components:
++  schemas:
++    DoctorUpsert:
++      type: object
++      required:
++        - name
++        - department
++      properties:
++        name:
++          type: string
++        department:
++          type: string
++        is_active:
++          type: boolean
++    DoctorDetail:
++      allOf:
++        - $ref: "#/components/schemas/DoctorUpsert"
++        - type: object
++          properties:
++            id:
++              type: integer
++            created_at:
++              type: string
++              format: date-time
++            updated_at:
++              type: string
++              format: date-time
++    HospitalSlot:
++      type: object
++      required:
++        - start_time
++        - end_time
++        - capacity
++      properties:
++        id:
++          type: integer
++        start_time:
++          type: string
++          example: "10:00"
++        end_time:
++          type: string
++          example: "10:30"
++        capacity:
++          type: integer
++    TreatmentUpsert:
++      type: object
++      required:
++        - name
++        - duration_minutes
++        - price
++      properties:
++        name:
++          type: string
++        duration_minutes:
++          type: integer
++        price:
++          type: number
++          format: float
++        description:
++          type: string
++        is_active:
++          type: boolean
++    TreatmentDetail:
++      allOf:
++        - $ref: "#/components/schemas/TreatmentUpsert"
++        - type: object
++          properties:
++            id:
++              type: integer
++            created_at:
++              type: string
++              format: date-time
++            updated_at:
++              type: string
++              format: date-time
++    AdminAppointmentView:
++      type: object
++      properties:
++        id:
++          type: integer
++        patient:
++          type: object
++          properties:
++            id:
++              type: integer
++            name:
++              type: string
++            phone:
++              type: string
++        doctor:
++          $ref: "#/components/schemas/DoctorDetail"
++        treatment:
++          $ref: "#/components/schemas/TreatmentDetail"
++        start_at:
++          type: string
++          format: date-time
++        end_at:
++          type: string
++          format: date-time
++        status:
++          type: string
++        visit_type:
++          type: string
++        memo:
++          type: string
++*** End Patch
+*** End Patch
+[2m2025-11-06T10:20:38.279811Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:38.279829Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:47.021704Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/contracts/gateway-routing.md
++# API Gateway 라우팅 규격
++
++- 베이스 URL: `http://localhost:8000`
++- 내부 서비스 매핑:
++  - `/api/v1/patient/**` → Patient API 서비스 (`http://patient-api:8001`)
++  - `/api/v1/admin/**` → Admin API 서비스 (`http://admin-api:8002`)
++- 요청/응답은 투명하게 프록시되며, 게이트웨이는 다음 공통 기능을 담당한다.
++  - 요청 로깅 (구조화된 JSON)
++  - 에러 매핑: 내부 서비스의 5xx 응답을 게이트웨이에서 502로 래핑하고 추적 ID를 부여
++  - 타임아웃: 서브 요청 5초, 연결 2초
++  - 헬스체크 엔드포인트: `GET /healthz` → 각 서비스 헬스 확인 후 통합 결과 반환
++
++## 헬스체크 응답 형식
++```json
++{
++  "gateway": "ok",
++  "patient_api": "ok",
++  "admin_api": "degraded",
++  "timestamp": "2025-11-06T09:00:00Z"
++}
++```
++
++- `degraded` 상태 시 게이트웨이는 503을 반환하고 클라이언트에게 재시도를 안내한다.
+*** End Patch
+[2m2025-11-06T10:20:47.022341Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:47.022351Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:20:56.335573Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-medisolve-backend/quickstart.md
++# Quickstart: 메디솔브AI 백엔드 과제
++
++## 1. 요구 도구
++- Python 3.11+
++- uv (패키지 관리자)  
++  ```bash
++  pip install uv
++  ```
++- Docker & Docker Compose v2
++- Make (선택) 또는 제공된 쉘 스크립트
++
++## 2. 리포지토리 클론 후 초기화
++```bash
++git clone <repo-url>
++cd medisolveai_assignment
++uv sync
++```
++
++## 3. 환경 변수
++- `.env.development` 예시
++  ```
++  MYSQL_HOST=localhost
++  MYSQL_PORT=29906
++  MYSQL_USER=medisolve
++  MYSQL_PASSWORD=medisolve
++  MYSQL_DB=medisolve
++  ```
++- `.env.test`는 별도 테스트 DB 또는 SQLite(in-memory) 사용 가능
++
++## 4. Docker Compose 실행
++```bash
++cd Assignment1/docker/compose
++docker-compose up --build
++```
++- 컨테이너 구성
++  - `gateway` : 8000
++  - `patient-api` : 8001
++  - `admin-api` : 8002
++  - `mysql` : 3306 (호스트 29906에 포워딩)
++- 최초 기동 시 `alembic upgrade head` 실행으로 스키마 생성
++
++## 5. 로컬 실행 (선택)
++```bash
++uv run uvicorn Assignment1.main_gateway:app --reload
++uv run uvicorn Assignment1.main_patient:app --port 8001 --reload
++uv run uvicorn Assignment1.main_admin:app --port 8002 --reload
++```
++- MySQL은 Docker 컨테이너를 사용하거나 로컬 설치 버전을 29906 포트에 맞춘다.
++
++## 6. 테스트 실행
++```bash
++uv run pytest -q
++```
++- 통합 테스트: httpx.AsyncClient로 게이트웨이를 통해 호출
++- 동시성 테스트: `tests/performance/test_reservations.py`에서 20건 동시 호출 검증
++- Assignment2 테스트: `Assignment2/tests/test_randomizer.py`
++
++## 7. 헬스 체크
++- 게이트웨이: `GET http://localhost:8000/healthz`
++- Patient API: `GET http://localhost:8001/health`
++- Admin API: `GET http://localhost:8002/health`
++
++## 8. 종료 및 정리
++```bash
++docker-compose down -v
++```
++- 필요 시 `alembic downgrade base`로 스키마 초기화
+*** End Patch
+[2m2025-11-06T10:20:56.335833Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:20:56.335839Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:21:08.729533Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc",".specify/scripts/bash/update-agent-context.sh codex"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:21:08.729592Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:21:08.729596Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T10:21:14.465756Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T10:21:14.465854Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T10:21:14.465859Z[0m [32m INFO[0m tool gate released

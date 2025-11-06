@@ -1,0 +1,177 @@
+openapi: 3.1.0
+info:
+  title: MedisolveAI Patient API
+  version: 0.1.0
+servers:
+  - url: http://gateway:8000/api/v1/patient
+paths:
+  /doctors:
+    get:
+      summary: 의사 목록 조회
+      parameters:
+        - name: department
+          in: query
+          schema:
+            type: string
+          description: 진료과 필터
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DoctorSummary"
+  /availability:
+    get:
+      summary: 예약 가능 시간 조회
+      parameters:
+        - name: doctor_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  slots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start_at:
+                          type: string
+                          format: date-time
+                        end_at:
+                          type: string
+                          format: date-time
+                        remaining_capacity:
+                          type: integer
+  /appointments:
+    post:
+      summary: 예약 생성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentCreateRequest"
+      responses:
+        "201":
+          description: 생성됨
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppointmentDetail"
+        "409":
+          description: 시간 중복 또는 용량 초과
+    get:
+      summary: 예약 목록 조회
+      parameters:
+        - name: patient_id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AppointmentDetail"
+  /appointments/{appointment_id}/cancel:
+    post:
+      summary: 예약 취소
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 취소 완료
+        "400":
+          description: 이미 완료된 예약 등 취소 불가 상태
+
+components:
+  schemas:
+    DoctorSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        department:
+          type: string
+    AppointmentCreateRequest:
+      type: object
+      required:
+        - patient_id
+        - doctor_id
+        - treatment_id
+        - start_at
+      properties:
+        patient_id:
+          type: integer
+        doctor_id:
+          type: integer
+        treatment_id:
+          type: integer
+        start_at:
+          type: string
+          format: date-time
+        memo:
+          type: string
+    AppointmentDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        doctor:
+          $ref: "#/components/schemas/DoctorSummary"
+        treatment:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            duration_minutes:
+              type: integer
+        start_at:
+          type: string
+          format: date-time
+        end_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - PENDING
+            - CONFIRMED
+            - COMPLETED
+            - CANCELLED
+        visit_type:
+          type: string
+          enum:
+            - FIRST
+            - FOLLOW_UP
+        memo:
+          type: string
