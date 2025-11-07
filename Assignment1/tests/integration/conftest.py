@@ -28,6 +28,7 @@ from Assignment1.app.db import (  # noqa: E402
     Treatment,
 )
 from Assignment1.app.db.session import get_session  # noqa: E402
+from Assignment1.main_admin import create_app as create_admin_app  # noqa: E402
 from Assignment1.main_patient import create_app  # noqa: E402
 
 
@@ -69,6 +70,23 @@ def session_factory(async_engine: AsyncEngine) -> async_sessionmaker:
 @pytest_asyncio.fixture
 def patient_app(session_factory: async_sessionmaker) -> FastAPI:
     app = create_app()
+
+    async def override_get_session():
+        async with session_factory() as session:
+            try:
+                yield session
+                await session.commit()
+            except Exception:
+                await session.rollback()
+                raise
+
+    app.dependency_overrides[get_session] = override_get_session
+    return app
+
+
+@pytest_asyncio.fixture
+def admin_app(session_factory: async_sessionmaker) -> FastAPI:
+    app = create_admin_app()
 
     async def override_get_session():
         async with session_factory() as session:
@@ -144,5 +162,12 @@ async def seed_patient_data(
 @pytest_asyncio.fixture
 async def patient_client(patient_app: FastAPI) -> AsyncIterator[AsyncClient]:
     transport = ASGITransport(app=patient_app)
+    async with AsyncClient(transport=transport, base_url="http://testserver") as client:
+        yield client
+
+
+@pytest_asyncio.fixture
+async def admin_client(admin_app: FastAPI) -> AsyncIterator[AsyncClient]:
+    transport = ASGITransport(app=admin_app)
     async with AsyncClient(transport=transport, base_url="http://testserver") as client:
         yield client

@@ -1,8 +1,14 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from Assignment1.app.core.exceptions import (
+    DoctorNotFoundError,
+    PatientNotFoundError,
+    TreatmentNotFoundError,
+    ValidationError,
+)
 from Assignment1.app.db import Appointment, Doctor, Patient, Treatment
 from Assignment1.app.db.session import get_session
 from Assignment1.app.routers.patient.schemas import (
@@ -13,7 +19,6 @@ from Assignment1.app.routers.patient.schemas import (
     TreatmentSummary,
 )
 from Assignment1.app.services.patient_reservations import (
-    ReservationConflictError,
     cancel_reservation,
     create_reservation,
     list_patient_appointments,
@@ -51,29 +56,26 @@ async def create_appointment(
 ) -> AppointmentSummary:
     treatment = await session.get(Treatment, payload.treatment_id)
     if treatment is None:
-        raise HTTPException(status_code=404, detail="Treatment not found")
+        raise TreatmentNotFoundError()
 
     doctor = await session.get(Doctor, payload.doctor_id)
     if doctor is None:
-        raise HTTPException(status_code=404, detail="Doctor not found")
+        raise DoctorNotFoundError()
     if not doctor.is_active:
-        raise HTTPException(status_code=400, detail="Doctor is not active")
+        raise ValidationError("Doctor is not active", code="DOCTOR_INACTIVE")
 
     patient = await session.get(Patient, payload.patient_id)
     if patient is None:
-        raise HTTPException(status_code=404, detail="Patient not found")
+        raise PatientNotFoundError()
 
-    try:
-        appointment = await create_reservation(
-            session,
-            patient_id=payload.patient_id,
-            doctor_id=payload.doctor_id,
-            treatment=treatment,
-            start_at=payload.start_at,
-            memo=payload.memo,
-        )
-    except ReservationConflictError as exc:
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    appointment = await create_reservation(
+        session,
+        patient_id=payload.patient_id,
+        doctor_id=payload.doctor_id,
+        treatment=treatment,
+        start_at=payload.start_at,
+        memo=payload.memo,
+    )
 
     await session.refresh(appointment, attribute_names=["doctor", "treatment"])
     return _to_summary(appointment)
@@ -97,9 +99,6 @@ async def cancel_appointment_endpoint(
     patient_id: int = Query(...),
     session: AsyncSession = Depends(get_session),
 ) -> AppointmentSummary:
-    try:
-        appointment = await cancel_reservation(session, appointment_id, patient_id)
-    except ReservationConflictError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    appointment = await cancel_reservation(session, appointment_id, patient_id)
     await session.refresh(appointment, attribute_names=["doctor", "treatment"])
     return _to_summary(appointment)
