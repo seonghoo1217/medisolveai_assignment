@@ -5280,3 +5280,1983 @@
 [2m2025-11-06T19:11:02.438904Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/patient -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
 [2m2025-11-06T19:11:02.438925Z[0m [32m INFO[0m waiting for tool gate
 [2m2025-11-06T19:11:02.438928Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:00.201558Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:14:00.201625Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:00.201631Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:07.169282Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git branch | grep '002-medisolve-backend-admin'"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:14:07.169324Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:07.169328Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:12.592141Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git branch 002-medisolve-backend-admin"]}
+[2m2025-11-06T19:14:12.592184Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:12.592188Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:17.508061Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git checkout 002-medisolve-backend-admin"]}
+[2m2025-11-06T19:14:17.508141Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:17.508148Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:23.345578Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:14:23.345663Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:23.345670Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:14:34.377451Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: task_report/Task1_test_report.md
++작업 제목(title) : 환자 API 통합 테스트 검증
++
++테스트 개요 :
++- 테스트 위치 : `Assignment1/tests/integration/patient/`
++- 실행 명령 : `pytest Assignment1/tests/integration/patient -q`
++- 목적 : 환자 예약 플로우(US1)의 정상/예외 시나리오를 자동화로 검증
++
++검증 시나리오 :
++- 예약 가능 시간 조회 → 예약 생성 → 조회 → 취소 플로우가 HTTP 200/201로 응답하고 상태가 `PENDING → CANCELLED` 로 변하는지 확인 (`test_reservations_success.py`)
++- 동일 슬롯에 중복 예약을 시도했을 때 HTTP 409 응답과 충돌 메시지가 반환되는지 확인 (`test_reservations_conflict.py`)
++
++검증 흐름 :
++- FastAPI 앱을 메모리 SQLite와 함께 기동하고 초기 데이터(의사/환자/시술/슬롯)를 픽스처로 주입
++- 환자 API 엔드포인트(`/availability`, `/appointments`)를 AsyncClient로 호출
++- 상태·응답 본문을 점검하여 도메인 규칙(15분 간격, 용량 제한, 초진 여부)이 유지되는지 확인
++
++결과 요약 :
++- 정상 예약 시나리오 1건, 예외(중복/용량 초과) 시나리오 1건 총 2개 케이스가 모두 통과
++- 실행 결과 : `..  [100%]`
++- 추가 경고 : Pydantic V1 validator 경고만 존재(기능에 영향 없음)
+*** End Patch
+[2m2025-11-06T19:14:34.377502Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:14:34.377506Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:16:00.886952Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"pending","step":"Implement admin-facing schemas and services (catalog, appointments, stats) using layered structure."},{"status":"pending","step":"Build Admin API routers and integrate FastAPI entrypoint."},{"status":"pending","step":"Write integration tests for CRUD, status transitions, and stats endpoints, ensuring all pass."}]}
+[2m2025-11-06T19:16:00.887007Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:16:00.887012Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:16:08.598161Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '60,120p' specs/001-medisolve-backend/tasks.md"]}
+[2m2025-11-06T19:16:08.598246Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:16:08.598250Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:16:26.038075Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Implement admin-facing schemas and services (catalog, appointments, stats) using layered structure."},{"status":"pending","step":"Build Admin API routers and integrate FastAPI entrypoint."},{"status":"pending","step":"Write integration tests for CRUD, status transitions, and stats endpoints, ensuring all pass."}]}
+[2m2025-11-06T19:16:26.038257Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:16:26.038263Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:16:42.197855Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/routers/admin/schemas.py
++from __future__ import annotations
++
++from datetime import date, datetime, time
++from typing import Literal, Optional
++
++from pydantic import BaseModel, Field
++
++from Assignment1.app.db.models import AppointmentStatus, VisitType
++
++
++# Doctor schemas
++
++
++class DoctorBase(BaseModel):
++    name: str = Field(..., max_length=100)
++    department: str = Field(..., max_length=100)
++    is_active: bool = True
++
++
++class DoctorCreate(DoctorBase):
++    pass
++
++
++class DoctorUpdate(BaseModel):
++    name: Optional[str] = Field(None, max_length=100)
++    department: Optional[str] = Field(None, max_length=100)
++    is_active: Optional[bool] = None
++
++
++class DoctorResponse(DoctorBase):
++    id: int
++    created_at: datetime
++    updated_at: datetime
++
++    class Config:
++        from_attributes = True
++
++
++# Treatment schemas
++
++
++class TreatmentBase(BaseModel):
++    name: str = Field(..., max_length=120)
++    duration_minutes: int = Field(..., ge=30)
++    price: float = Field(..., ge=0)
++    description: Optional[str] = None
++    is_active: bool = True
++
++
++class TreatmentCreate(TreatmentBase):
++    pass
++
++
++class TreatmentUpdate(BaseModel):
++    name: Optional[str] = Field(None, max_length=120)
++    duration_minutes: Optional[int] = Field(None, ge=30)
++    price: Optional[float] = Field(None, ge=0)
++    description: Optional[str] = None
++    is_active: Optional[bool] = None
++
++
++class TreatmentResponse(TreatmentBase):
++    id: int
++    created_at: datetime
++    updated_at: datetime
++
++    class Config:
++        from_attributes = True
++
++
++# Hospital slot schemas
++
++
++class HospitalSlotBase(BaseModel):
++    start_time: time
++    end_time: time
++    capacity: int = Field(..., ge=0)
++
++
++class HospitalSlotResponse(HospitalSlotBase):
++    id: int
++
++    class Config:
++        from_attributes = True
++
++
++class HospitalSlotBulkUpsert(BaseModel):
++    slots: list[HospitalSlotBase]
++
++
++# Appointment schemas
++
++
++class AppointmentAdminResponse(BaseModel):
++    id: int
++    patient_id: int
++    patient_name: str
++    patient_phone: str
++    doctor_id: int
++    doctor_name: str
++    treatment_id: int
++    treatment_name: str
++    start_at: datetime
++    end_at: datetime
++    status: AppointmentStatus
++    visit_type: VisitType
++    memo: Optional[str] = None
++
++
++class AppointmentStatusUpdate(BaseModel):
++    status: Literal[
++        AppointmentStatus.CONFIRMED,
++        AppointmentStatus.COMPLETED,
++        AppointmentStatus.CANCELLED,
++    ]
++
++
++# Stats schemas
++
++
++class StatusCount(BaseModel):
++    status: AppointmentStatus
++    count: int
++
++
++class DateCount(BaseModel):
++    date: date
++    count: int
++
++
++class SlotCount(BaseModel):
++    slot_label: str
++    count: int
++
++
++class VisitRatio(BaseModel):
++    first: int
++    follow_up: int
++
++
++class AppointmentStatsResponse(BaseModel):
++    by_status: list[StatusCount]
++    by_date: list[DateCount]
++    by_slot: list[SlotCount]
++    visit_ratio: VisitRatio
+*** End Patch
+[2m2025-11-06T19:16:42.197926Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:16:42.197928Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:17:00.529309Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/services/admin_catalog.py
++from __future__ import annotations
++
++from datetime import time
++from typing import Iterable, Sequence
++
++from sqlalchemy import delete, select
++from sqlalchemy.exc import IntegrityError
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.db import Doctor, HospitalSlot, Patient, Treatment
++
++
++class CatalogNotFoundError(Exception):
++    """Raised when a catalog entity is not found."""
++
++
++async def list_doctors(session: AsyncSession) -> Sequence[Doctor]:
++    result = await session.scalars(select(Doctor).order_by(Doctor.name.asc()))
++    return result.all()
++
++
++async def create_doctor(
++    session: AsyncSession, *, name: str, department: str, is_active: bool = True
++) -> Doctor:
++    doctor = Doctor(name=name, department=department, is_active=is_active)
++    session.add(doctor)
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise ValueError("Doctor with the same name already exists") from exc
++    return doctor
++
++
++async def update_doctor(
++    session: AsyncSession,
++    doctor_id: int,
++    *,
++    name: str | None = None,
++    department: str | None = None,
++    is_active: bool | None = None,
++) -> Doctor:
++    doctor = await session.get(Doctor, doctor_id)
++    if doctor is None:
++        raise CatalogNotFoundError("Doctor not found")
++    if name is not None:
++        doctor.name = name
++    if department is not None:
++        doctor.department = department
++    if is_active is not None:
++        doctor.is_active = is_active
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise ValueError("Doctor with the same name already exists") from exc
++    return doctor
++
++
++async def delete_doctor(session: AsyncSession, doctor_id: int) -> None:
++    doctor = await session.get(Doctor, doctor_id)
++    if doctor is None:
++        raise CatalogNotFoundError("Doctor not found")
++    await session.delete(doctor)
++
++
++async def list_treatments(session: AsyncSession) -> Sequence[Treatment]:
++    result = await session.scalars(select(Treatment).order_by(Treatment.name.asc()))
++    return result.all()
++
++
++async def create_treatment(
++    session: AsyncSession,
++    *,
++    name: str,
++    duration_minutes: int,
++    price: float,
++    description: str | None,
++    is_active: bool = True,
++) -> Treatment:
++    treatment = Treatment(
++        name=name,
++        duration_minutes=duration_minutes,
++        price=price,
++        description=description,
++        is_active=is_active,
++    )
++    session.add(treatment)
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise ValueError("Treatment with the same name already exists") from exc
++    return treatment
++
++
++async def update_treatment(
++    session: AsyncSession,
++    treatment_id: int,
++    *,
++    name: str | None = None,
++    duration_minutes: int | None = None,
++    price: float | None = None,
++    description: str | None = None,
++    is_active: bool | None = None,
++) -> Treatment:
++    treatment = await session.get(Treatment, treatment_id)
++    if treatment is None:
++        raise CatalogNotFoundError("Treatment not found")
++    if name is not None:
++        treatment.name = name
++    if duration_minutes is not None:
++        treatment.duration_minutes = duration_minutes
++    if price is not None:
++        treatment.price = price
++    if description is not None:
++        treatment.description = description
++    if is_active is not None:
++        treatment.is_active = is_active
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise ValueError("Treatment with the same name already exists") from exc
++    return treatment
++
++
++async def delete_treatment(session: AsyncSession, treatment_id: int) -> None:
++    treatment = await session.get(Treatment, treatment_id)
++    if treatment is None:
++        raise CatalogNotFoundError("Treatment not found")
++    await session.delete(treatment)
++
++
++async def list_hospital_slots(session: AsyncSession) -> Sequence[HospitalSlot]:
++    result = await session.scalars(
++        select(HospitalSlot).order_by(HospitalSlot.start_time.asc())
++    )
++    return result.all()
++
++
++async def replace_hospital_slots(
++    session: AsyncSession, slot_specs: Iterable[tuple[time, time, int]]
++) -> Sequence[HospitalSlot]:
++    # Clear existing slots and recreate to simplify management.
++    await session.execute(delete(HospitalSlot))
++    slots: list[HospitalSlot] = []
++    for start_time, end_time, capacity in slot_specs:
++        slot = HospitalSlot(
++            start_time=start_time, end_time=end_time, capacity=capacity
++        )
++        session.add(slot)
++        slots.append(slot)
++    await session.flush()
++    return slots
+*** End Patch
+[2m2025-11-06T19:17:00.529609Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:17:00.529628Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:17:07.794642Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/admin_catalog.py
+@@
+-from Assignment1.app.db import Doctor, HospitalSlot, Patient, Treatment
++from Assignment1.app.db import Doctor, HospitalSlot, Treatment
+*** End Patch
+[2m2025-11-06T19:17:07.794699Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:17:07.794704Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:17:28.987112Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/services/admin_appointments.py
++from __future__ import annotations
++
++from collections import defaultdict
++from datetime import date
++from typing import Iterable, Sequence
++
++from sqlalchemy import func, select
++from sqlalchemy.ext.asyncio import AsyncSession
++from sqlalchemy.orm import joinedload
++
++from Assignment1.app.db import (
++    Appointment,
++    AppointmentSlot,
++    AppointmentStatus,
++    Doctor,
++    HospitalSlot,
++    VisitType,
++)
++
++
++class AppointmentNotFoundError(Exception):
++    """Raised when an appointment lookup fails."""
++
++
++class InvalidStatusTransitionError(Exception):
++    """Raised when an appointment status transition is invalid."""
++
++
++ALLOWED_TRANSITIONS: dict[AppointmentStatus, set[AppointmentStatus]] = {
++    AppointmentStatus.PENDING: {
++        AppointmentStatus.CONFIRMED,
++        AppointmentStatus.CANCELLED,
++    },
++    AppointmentStatus.CONFIRMED: {
++        AppointmentStatus.COMPLETED,
++        AppointmentStatus.CANCELLED,
++    },
++    AppointmentStatus.COMPLETED: set(),
++    AppointmentStatus.CANCELLED: set(),
++}
++
++
++async def list_appointments(
++    session: AsyncSession,
++    *,
++    doctor_id: int | None = None,
++    status: AppointmentStatus | None = None,
++    target_date: date | None = None,
++) -> Sequence[Appointment]:
++    stmt = (
++        select(Appointment)
++        .options(
++            joinedload(Appointment.patient),
++            joinedload(Appointment.doctor),
++            joinedload(Appointment.treatment),
++        )
++        .order_by(Appointment.start_at.asc())
++    )
++    if doctor_id is not None:
++        stmt = stmt.where(Appointment.doctor_id == doctor_id)
++    if status is not None:
++        stmt = stmt.where(Appointment.status == status)
++    if target_date is not None:
++        start_of_day = target_date
++        stmt = stmt.where(func.date(Appointment.start_at) == start_of_day)
++
++    result = await session.scalars(stmt)
++    return result.all()
++
++
++async def update_status(
++    session: AsyncSession, appointment_id: int, new_status: AppointmentStatus
++) -> Appointment:
++    appointment = await session.get(
++        Appointment,
++        appointment_id,
++        options=[
++            joinedload(Appointment.patient),
++            joinedload(Appointment.doctor),
++            joinedload(Appointment.treatment),
++        ],
++    )
++    if appointment is None:
++        raise AppointmentNotFoundError("Appointment not found")
++
++    allowed = ALLOWED_TRANSITIONS[appointment.status]
++    if new_status not in allowed:
++        raise InvalidStatusTransitionError(
++            f"Cannot transition from {appointment.status} to {new_status}"
++        )
++
++    appointment.status = new_status
++    await session.flush()
++    return appointment
++
++
++async def compute_stats(session: AsyncSession) -> dict[str, object]:
++    # Status counts
++    status_rows = await session.execute(
++        select(Appointment.status, func.count())
++        .group_by(Appointment.status)
++        .order_by(Appointment.status)
++    )
++    by_status = [
++        {"status": status, "count": count} for status, count in status_rows.all()
++    ]
++
++    # Date counts (by calendar date)
++    date_rows = await session.execute(
++        select(func.date(Appointment.start_at), func.count())
++        .group_by(func.date(Appointment.start_at))
++        .order_by(func.date(Appointment.start_at))
++    )
++    by_date = [
++        {"date": row_date, "count": count} for row_date, count in date_rows.all()
++    ]
++
++    # Slot counts (30분 구간)
++    slot_rows = await session.execute(
++        select(
++            HospitalSlot.start_time,
++            HospitalSlot.end_time,
++            func.count(AppointmentSlot.appointment_id),
++        )
++        .join(AppointmentSlot.slot)
++        .group_by(HospitalSlot.id)
++        .order_by(HospitalSlot.start_time)
++    )
++    by_slot = [
++        {
++            "slot_label": f"{start_time.strftime('%H:%M')}-{end_time.strftime('%H:%M')}",
++            "count": count,
++        }
++        for start_time, end_time, count in slot_rows.all()
++    ]
++
++    # Visit ratio
++    visit_rows = await session.execute(
++        select(Appointment.visit_type, func.count()).group_by(Appointment.visit_type)
++    )
++    ratio_map: defaultdict[VisitType, int] = defaultdict(int)
++    for visit_type, count in visit_rows.all():
++        ratio_map[visit_type] = count
++    visit_ratio = {
++        "first": ratio_map.get(VisitType.FIRST, 0),
++        "follow_up": ratio_map.get(VisitType.FOLLOW_UP, 0),
++    }
++
++    return {
++        "by_status": by_status,
++        "by_date": by_date,
++        "by_slot": by_slot,
++        "visit_ratio": visit_ratio,
++    }
+*** End Patch
+[2m2025-11-06T19:17:28.987266Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:17:28.987272Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:17:36.001858Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/admin_appointments.py
+@@
+-    slot_rows = await session.execute(
+-        select(
+-            HospitalSlot.start_time,
+-            HospitalSlot.end_time,
+-            func.count(AppointmentSlot.appointment_id),
+-        )
+-        .join(AppointmentSlot.slot)
+-        .group_by(HospitalSlot.id)
+-        .order_by(HospitalSlot.start_time)
+-    )
++    slot_rows = await session.execute(
++        select(
++            HospitalSlot.start_time,
++            HospitalSlot.end_time,
++            func.count(AppointmentSlot.appointment_id),
++        )
++        .select_from(AppointmentSlot)
++        .join(HospitalSlot, AppointmentSlot.slot)
++        .group_by(HospitalSlot.id)
++        .order_by(HospitalSlot.start_time)
++    )
+*** End Patch
+[2m2025-11-06T19:17:36.001909Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:17:36.001912Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:17:45.108082Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Implement admin-facing schemas and services (catalog, appointments, stats) using layered structure."},{"status":"in_progress","step":"Build Admin API routers and integrate FastAPI entrypoint."},{"status":"pending","step":"Write integration tests for CRUD, status transitions, and stats endpoints, ensuring all pass."}]}
+[2m2025-11-06T19:17:45.108137Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:17:45.108141Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:18:13.322712Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/routers/admin/catalog.py
++from __future__ import annotations
++
++from fastapi import APIRouter, Depends, HTTPException, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.db.session import get_session
++from Assignment1.app.routers.admin import schemas
++from Assignment1.app.services import admin_catalog
++
++router = APIRouter(
++    prefix="/api/v1/admin",
++    tags=["admin-catalog"],
++)
++
++
++@router.get("/doctors", response_model=list[schemas.DoctorResponse])
++async def get_doctors(session: AsyncSession = Depends(get_session)):
++    doctors = await admin_catalog.list_doctors(session)
++    return [schemas.DoctorResponse.model_validate(doc) for doc in doctors]
++
++
++@router.post(
++    "/doctors",
++    response_model=schemas.DoctorResponse,
++    status_code=status.HTTP_201_CREATED,
++)
++async def create_doctor(
++    payload: schemas.DoctorCreate, session: AsyncSession = Depends(get_session)
++):
++    try:
++        doctor = await admin_catalog.create_doctor(
++            session,
++            name=payload.name,
++            department=payload.department,
++            is_active=payload.is_active,
++        )
++        return schemas.DoctorResponse.model_validate(doctor)
++    except ValueError as exc:
++        raise HTTPException(status_code=400, detail=str(exc)) from exc
++
++
++@router.patch("/doctors/{doctor_id}", response_model=schemas.DoctorResponse)
++async def update_doctor(
++    doctor_id: int,
++    payload: schemas.DoctorUpdate,
++    session: AsyncSession = Depends(get_session),
++):
++    try:
++        doctor = await admin_catalog.update_doctor(
++            session,
++            doctor_id,
++            name=payload.name,
++            department=payload.department,
++            is_active=payload.is_active,
++        )
++        return schemas.DoctorResponse.model_validate(doctor)
++    except admin_catalog.CatalogNotFoundError as exc:
++        raise HTTPException(status_code=404, detail=str(exc)) from exc
++    except ValueError as exc:
++        raise HTTPException(status_code=400, detail=str(exc)) from exc
++
++
++@router.delete(
++    "/doctors/{doctor_id}",
++    status_code=status.HTTP_204_NO_CONTENT,
++)
++async def delete_doctor(doctor_id: int, session: AsyncSession = Depends(get_session)):
++    try:
++        await admin_catalog.delete_doctor(session, doctor_id)
++    except admin_catalog.CatalogNotFoundError as exc:
++        raise HTTPException(status_code=404, detail=str(exc)) from exc
++
++
++@router.get("/treatments", response_model=list[schemas.TreatmentResponse])
++async def get_treatments(session: AsyncSession = Depends(get_session)):
++    treatments = await admin_catalog.list_treatments(session)
++    return [schemas.TreatmentResponse.model_validate(item) for item in treatments]
++
++
++@router.post(
++    "/treatments",
++    response_model=schemas.TreatmentResponse,
++    status_code=status.HTTP_201_CREATED,
++)
++async def create_treatment(
++    payload: schemas.TreatmentCreate, session: AsyncSession = Depends(get_session)
++):
++    try:
++        treatment = await admin_catalog.create_treatment(
++            session,
++            name=payload.name,
++            duration_minutes=payload.duration_minutes,
++            price=payload.price,
++            description=payload.description,
++            is_active=payload.is_active,
++        )
++        return schemas.TreatmentResponse.model_validate(treatment)
++    except ValueError as exc:
++        raise HTTPException(status_code=400, detail=str(exc)) from exc
++
++
++@router.patch("/treatments/{treatment_id}", response_model=schemas.TreatmentResponse)
++async def update_treatment(
++    treatment_id: int,
++    payload: schemas.TreatmentUpdate,
++    session: AsyncSession = Depends(get_session),
++):
++    try:
++        treatment = await admin_catalog.update_treatment(
++            session,
++            treatment_id,
++            name=payload.name,
++            duration_minutes=payload.duration_minutes,
++            price=payload.price,
++            description=payload.description,
++            is_active=payload.is_active,
++        )
++        return schemas.TreatmentResponse.model_validate(treatment)
++    except admin_catalog.CatalogNotFoundError as exc:
++        raise HTTPException(status_code=404, detail=str(exc)) from exc
++    except ValueError as exc:
++        raise HTTPException(status_code=400, detail=str(exc)) from exc
++
++
++@router.delete(
++    "/treatments/{treatment_id}",
++    status_code=status.HTTP_204_NO_CONTENT,
++)
++async def delete_treatment(
++    treatment_id: int, session: AsyncSession = Depends(get_session)
++):
++    try:
++        await admin_catalog.delete_treatment(session, treatment_id)
++    except admin_catalog.CatalogNotFoundError as exc:
++        raise HTTPException(status_code=404, detail=str(exc)) from exc
+*** End Patch
+[2m2025-11-06T19:18:13.322853Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:18:13.322857Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:18:26.644396Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/routers/admin/hospital_slots.py
++from __future__ import annotations
++
++from fastapi import APIRouter, Depends, HTTPException, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.db.session import get_session
++from Assignment1.app.routers.admin import schemas
++from Assignment1.app.services import admin_catalog
++
++router = APIRouter(
++    prefix="/api/v1/admin",
++    tags=["admin-hospital-slots"],
++)
++
++
++@router.get("/hospital-slots", response_model=list[schemas.HospitalSlotResponse])
++async def get_hospital_slots(session: AsyncSession = Depends(get_session)):
++    slots = await admin_catalog.list_hospital_slots(session)
++    return [schemas.HospitalSlotResponse.model_validate(slot) for slot in slots]
++
++
++@router.put(
++    "/hospital-slots",
++    response_model=list[schemas.HospitalSlotResponse],
++    status_code=status.HTTP_200_OK,
++)
++async def replace_hospital_slots(
++    payload: schemas.HospitalSlotBulkUpsert, session: AsyncSession = Depends(get_session)
++):
++    if not payload.slots:
++        raise HTTPException(status_code=400, detail="At least one slot is required")
++
++    slot_specs = [
++        (slot.start_time, slot.end_time, slot.capacity) for slot in payload.slots
++    ]
++    slots = await admin_catalog.replace_hospital_slots(session, slot_specs)
++    return [schemas.HospitalSlotResponse.model_validate(slot) for slot in slots]
+*** End Patch
+[2m2025-11-06T19:18:26.644496Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:18:26.644498Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:18:35.241449Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/routers/admin/appointments.py
++from __future__ import annotations
++
++from datetime import date
++from typing import Optional
++
++from fastapi import APIRouter, Depends, HTTPException, Query, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.db.models import AppointmentStatus
++from Assignment1.app.db.session import get_session
++from Assignment1.app.routers.admin import schemas
++from Assignment1.app.services import admin_appointments
++
++router = APIRouter(
++    prefix="/api/v1/admin",
++    tags=["admin-appointments"],
++)
++
++
++def _to_response_model(appointment) -> schemas.AppointmentAdminResponse:
++    return schemas.AppointmentAdminResponse(
++        id=appointment.id,
++        patient_id=appointment.patient_id,
++        patient_name=appointment.patient.name,
++        patient_phone=appointment.patient.phone,
++        doctor_id=appointment.doctor_id,
++        doctor_name=appointment.doctor.name,
++        treatment_id=appointment.treatment_id,
++        treatment_name=appointment.treatment.name,
++        start_at=appointment.start_at,
++        end_at=appointment.end_at,
++        status=appointment.status,
++        visit_type=appointment.visit_type,
++        memo=appointment.memo,
++    )
++
++
++@router.get("/appointments", response_model=list[schemas.AppointmentAdminResponse])
++async def list_admin_appointments(
++    doctor_id: Optional[int] = Query(None),
++    status: Optional[AppointmentStatus] = Query(None),
++    target_date: Optional[date] = Query(None, alias="date"),
++    session: AsyncSession = Depends(get_session),
++):
++    appointments = await admin_appointments.list_appointments(
++    session,
++    doctor_id=doctor_id,
++    status=status,
++    target_date=target_date,
++    )
++    return [_to_response_model(item) for item in appointments]
++
++
++@router.post(
++    "/appointments/{appointment_id}/status",
++    response_model=schemas.AppointmentAdminResponse,
++)
++async def update_admin_appointment_status(
++    appointment_id: int,
++    payload: schemas.AppointmentStatusUpdate,
++    session: AsyncSession = Depends(get_session),
++):
++    try:
++        appointment = await admin_appointments.update_status(
++            session, appointment_id, AppointmentStatus(payload.status)
++        )
++        return _to_response_model(appointment)
++    except admin_appointments.AppointmentNotFoundError as exc:
++        raise HTTPException(status_code=404, detail=str(exc)) from exc
++    except admin_appointments.InvalidStatusTransitionError as exc:
++        raise HTTPException(status_code=400, detail=str(exc)) from exc
+*** End Patch
+[2m2025-11-06T19:18:35.241699Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:18:35.241706Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:18:48.865441Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/routers/admin/stats.py
++from __future__ import annotations
++
++from fastapi import APIRouter, Depends
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.db.session import get_session
++from Assignment1.app.routers.admin import schemas
++from Assignment1.app.services import admin_appointments
++
++router = APIRouter(
++    prefix="/api/v1/admin",
++    tags=["admin-stats"],
++)
++
++
++@router.get("/stats/summary", response_model=schemas.AppointmentStatsResponse)
++async def get_appointment_stats(session: AsyncSession = Depends(get_session)):
++    stats = await admin_appointments.compute_stats(session)
++    return schemas.AppointmentStatsResponse(**stats)
+*** End Patch
+[2m2025-11-06T19:18:48.865559Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:18:48.865567Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:18:58.439608Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/main_admin.py
++from __future__ import annotations
++
++from fastapi import FastAPI
++
++from Assignment1.app.routers.admin import (
++    appointments as admin_appointments_router,
++    catalog as admin_catalog_router,
++    hospital_slots as admin_hospital_slots_router,
++    stats as admin_stats_router,
++)
++
++
++def create_app() -> FastAPI:
++    app = FastAPI(
++        title="MedisolveAI Admin API",
++        version="0.1.0",
++    )
++    app.include_router(admin_catalog_router.router)
++    app.include_router(admin_hospital_slots_router.router)
++    app.include_router(admin_appointments_router.router)
++    app.include_router(admin_stats_router.router)
++    return app
++
++
++app = create_app()
+*** End Patch
+[2m2025-11-06T19:18:58.439698Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:18:58.439702Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:19:05.555883Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Implement admin-facing schemas and services (catalog, appointments, stats) using layered structure."},{"status":"completed","step":"Build Admin API routers and integrate FastAPI entrypoint."},{"status":"in_progress","step":"Write integration tests for CRUD, status transitions, and stats endpoints, ensuring all pass."}]}
+[2m2025-11-06T19:19:05.555926Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:19:05.555928Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:19:48.201556Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/conftest.py
+@@
+-from Assignment1.main_patient import create_app
++from Assignment1.main_admin import create_app as create_admin_app  # noqa: E402
++from Assignment1.main_patient import create_app  # noqa: E402
+@@
+ @pytest_asyncio.fixture
+ def patient_app(session_factory: async_sessionmaker) -> FastAPI:
+     app = create_app()
+ 
+@@
+     app.dependency_overrides[get_session] = override_get_session
+     return app
+ 
+ 
++@pytest_asyncio.fixture
++def admin_app(session_factory: async_sessionmaker) -> FastAPI:
++    app = create_admin_app()
++
++    async def override_get_session():
++        async with session_factory() as session:
++            try:
++                yield session
++                await session.commit()
++            except Exception:
++                await session.rollback()
++                raise
++
++    app.dependency_overrides[get_session] = override_get_session
++    return app
++
++
+@@
+ async def patient_client(patient_app: FastAPI) -> AsyncIterator[AsyncClient]:
+     transport = ASGITransport(app=patient_app)
+     async with AsyncClient(transport=transport, base_url="http://testserver") as client:
+         yield client
++
++
++@pytest_asyncio.fixture
++async def admin_client(admin_app: FastAPI) -> AsyncIterator[AsyncClient]:
++    transport = ASGITransport(app=admin_app)
++    async with AsyncClient(transport=transport, base_url="http://testserver") as client:
++        yield client
+*** End Patch
+[2m2025-11-06T19:19:48.201630Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:19:48.201634Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:19:54.603653Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","sed -n '1,80p' Assignment1/tests/integration/conftest.py"]}
+[2m2025-11-06T19:19:54.603702Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:19:54.603707Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:20:00.867420Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/conftest.py
+@@
+-from Assignment1.main_patient import create_app  # noqa: E402
++from Assignment1.main_admin import create_app as create_admin_app  # noqa: E402
++from Assignment1.main_patient import create_app  # noqa: E402
+*** End Patch
+[2m2025-11-06T19:20:00.867458Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:20:00.867461Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:20:11.910919Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/conftest.py
+@@
+ @pytest_asyncio.fixture
+ def patient_app(session_factory: async_sessionmaker) -> FastAPI:
+     app = create_app()
+ 
+     async def override_get_session():
+         async with session_factory() as session:
+             try:
+                 yield session
+                 await session.commit()
+             except Exception:
+                 await session.rollback()
+                 raise
+ 
+     app.dependency_overrides[get_session] = override_get_session
+     return app
+ 
+ 
++@pytest_asyncio.fixture
++def admin_app(session_factory: async_sessionmaker) -> FastAPI:
++    app = create_admin_app()
++
++    async def override_get_session():
++        async with session_factory() as session:
++            try:
++                yield session
++                await session.commit()
++            except Exception:
++                await session.rollback()
++                raise
++
++    app.dependency_overrides[get_session] = override_get_session
++    return app
++
++
+ @pytest_asyncio.fixture
+ async def seed_patient_data(
+     session_factory: async_sessionmaker,
+ ) -> Dict[str, int | str]:
+*** End Patch
+[2m2025-11-06T19:20:11.910964Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:20:11.910968Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:20:18.402389Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/conftest.py
+@@
+ @pytest_asyncio.fixture
+ async def patient_client(patient_app: FastAPI) -> AsyncIterator[AsyncClient]:
+     transport = ASGITransport(app=patient_app)
+     async with AsyncClient(transport=transport, base_url="http://testserver") as client:
+         yield client
++
++
++@pytest_asyncio.fixture
++async def admin_client(admin_app: FastAPI) -> AsyncIterator[AsyncClient]:
++    transport = ASGITransport(app=admin_app)
++    async with AsyncClient(transport=transport, base_url="http://testserver") as client:
++        yield client
+*** End Patch
+[2m2025-11-06T19:20:18.402464Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:20:18.402468Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:20:34.794841Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/tests/integration/admin/test_catalog.py
++from __future__ import annotations
++
++import pytest
++from httpx import AsyncClient
++from sqlalchemy import delete
++from sqlalchemy.ext.asyncio import async_sessionmaker
++
++from Assignment1.app.db import Doctor, HospitalSlot, Treatment
++
++
++@pytest.mark.asyncio
++async def test_admin_catalog_crud(
++    admin_client: AsyncClient, session_factory: async_sessionmaker
++) -> None:
++    # Ensure clean state
++    async with session_factory() as session:
++        await session.execute(delete(HospitalSlot))
++        await session.execute(delete(Treatment))
++        await session.execute(delete(Doctor))
++        await session.commit()
++
++    # Doctors
++    create_doctor_resp = await admin_client.post(
++        "/api/v1/admin/doctors",
++        json={"name": "Dr. Admin", "department": "Surgery", "is_active": True},
++    )
++    assert create_doctor_resp.status_code == 201
++    doctor_id = create_doctor_resp.json()["id"]
++    assert create_doctor_resp.json()["department"] == "Surgery"
++
++    update_doctor_resp = await admin_client.patch(
++        f"/api/v1/admin/doctors/{doctor_id}",
++        json={"department": "Dermatology", "is_active": False},
++    )
++    assert update_doctor_resp.status_code == 200
++    assert update_doctor_resp.json()["department"] == "Dermatology"
++    assert update_doctor_resp.json()["is_active"] is False
++
++    list_doctors_resp = await admin_client.get("/api/v1/admin/doctors")
++    assert list_doctors_resp.status_code == 200
++    assert len(list_doctors_resp.json()) == 1
++
++    delete_resp = await admin_client.delete(f"/api/v1/admin/doctors/{doctor_id}")
++    assert delete_resp.status_code == 204
++
++    # Treatments
++    create_treatment_resp = await admin_client.post(
++        "/api/v1/admin/treatments",
++        json={
++            "name": "Chemical Peel",
++            "duration_minutes": 60,
++            "price": 250000,
++            "description": "Deep peel",
++            "is_active": True,
++        },
++    )
++    assert create_treatment_resp.status_code == 201
++    treatment_id = create_treatment_resp.json()["id"]
++
++    update_treatment_resp = await admin_client.patch(
++        f"/api/v1/admin/treatments/{treatment_id}",
++        json={"price": 275000, "is_active": False},
++    )
++    assert update_treatment_resp.status_code == 200
++    body = update_treatment_resp.json()
++    assert body["price"] == 275000
++    assert body["is_active"] is False
++
++    list_treatments_resp = await admin_client.get("/api/v1/admin/treatments")
++    assert list_treatments_resp.status_code == 200
++    assert len(list_treatments_resp.json()) == 1
++
++    # Hospital slots
++    slot_payload = {
++        "slots": [
++            {"start_time": "10:00:00", "end_time": "10:30:00", "capacity": 3},
++            {"start_time": "10:30:00", "end_time": "11:00:00", "capacity": 2},
++        ]
++    }
++    set_slots_resp = await admin_client.put(
++        "/api/v1/admin/hospital-slots", json=slot_payload
++    )
++    assert set_slots_resp.status_code == 200
++    assert len(set_slots_resp.json()) == 2
++
++    list_slots_resp = await admin_client.get("/api/v1/admin/hospital-slots")
++    assert list_slots_resp.status_code == 200
++    assert [slot["capacity"] for slot in list_slots_resp.json()] == [3, 2]
+*** End Patch
+[2m2025-11-06T19:20:34.794980Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:20:34.794985Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:21:13.543132Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/tests/integration/admin/test_appointments.py
++from __future__ import annotations
++
++from datetime import datetime
++
++import pytest
++from httpx import AsyncClient
++from sqlalchemy import delete
++from sqlalchemy.ext.asyncio import async_sessionmaker
++
++from Assignment1.app.db import (
++    Appointment,
++    AppointmentSlot,
++    AppointmentStatus,
++    Doctor,
++    HospitalSlot,
++    Patient,
++    Treatment,
++)
++
++
++@pytest.mark.asyncio
++async def test_admin_appointments_flow(
++    admin_client: AsyncClient,
++    patient_client: AsyncClient,
++    session_factory: async_sessionmaker,
++) -> None:
++    # Reset tables for deterministic assertions
++    async with session_factory() as session:
++        await session.execute(delete(AppointmentSlot))
++        await session.execute(delete(Appointment))
++        await session.execute(delete(Patient))
++        await session.execute(delete(HospitalSlot))
++        await session.execute(delete(Treatment))
++        await session.execute(delete(Doctor))
++        await session.commit()
++
++    # Create doctor/treatment via admin API
++    doctor_resp = await admin_client.post(
++        "/api/v1/admin/doctors",
++        json={"name": "Dr. Flow", "department": "Dermatology", "is_active": True},
++    )
++    assert doctor_resp.status_code == 201
++    doctor_id = doctor_resp.json()["id"]
++
++    treatment_resp = await admin_client.post(
++        "/api/v1/admin/treatments",
++        json={
++            "name": "Laser Flow",
++            "duration_minutes": 30,
++            "price": 200000,
++            "description": "Flow treatment",
++            "is_active": True,
++        },
++    )
++    assert treatment_resp.status_code == 201
++    treatment_id = treatment_resp.json()["id"]
++
++    slots_payload = {
++        "slots": [
++            {"start_time": "10:00:00", "end_time": "10:30:00", "capacity": 2},
++            {"start_time": "10:30:00", "end_time": "11:00:00", "capacity": 2},
++        ]
++    }
++    slot_resp = await admin_client.put(
++        "/api/v1/admin/hospital-slots",
++        json=slots_payload,
++    )
++    assert slot_resp.status_code == 200
++
++    # Add patient directly
++    async with session_factory() as session:
++        patient = Patient(name="Kim Patient", phone="010-9999-9999")
++        session.add(patient)
++        await session.commit()
++        patient_id = patient.id
++
++    reservation_date = datetime.utcnow().date().isoformat()
++
++    # Create first appointment via patient API (becomes FIRST visit)
++    availability_resp = await patient_client.get(
++        "/availability",
++        params={"doctor_id": doctor_id, "date": reservation_date},
++    )
++    assert availability_resp.status_code == 200
++    first_slot = availability_resp.json()["slots"][0]
++    start_at = first_slot["start_at"]
++
++    create_resp = await patient_client.post(
++        "/appointments",
++        json={
++            "patient_id": patient_id,
++            "doctor_id": doctor_id,
++            "treatment_id": treatment_id,
++            "start_at": start_at,
++        },
++    )
++    assert create_resp.status_code == 201
++    appointment_id = create_resp.json()["id"]
++
++    # List appointments via admin API
++    list_resp = await admin_client.get("/api/v1/admin/appointments")
++    assert list_resp.status_code == 200
++    assert len(list_resp.json()) == 1
++    assert list_resp.json()[0]["status"] == AppointmentStatus.PENDING.value
++
++    # Transition PENDING -> CONFIRMED -> COMPLETED
++    confirm_resp = await admin_client.post(
++        f"/api/v1/admin/appointments/{appointment_id}/status",
++        json={"status": AppointmentStatus.CONFIRMED.value},
++    )
++    assert confirm_resp.status_code == 200
++    assert confirm_resp.json()["status"] == AppointmentStatus.CONFIRMED.value
++
++    complete_resp = await admin_client.post(
++        f"/api/v1/admin/appointments/{appointment_id}/status",
++        json={"status": AppointmentStatus.COMPLETED.value},
++    )
++    assert complete_resp.status_code == 200
++    assert complete_resp.json()["status"] == AppointmentStatus.COMPLETED.value
++
++    # Create follow-up appointment and cancel it
++    second_slot = availability_resp.json()["slots"][1]
++    create_second_resp = await patient_client.post(
++        "/appointments",
++        json={
++            "patient_id": patient_id,
++            "doctor_id": doctor_id,
++            "treatment_id": treatment_id,
++            "start_at": second_slot["start_at"],
++        },
++    )
++    assert create_second_resp.status_code == 201
++    followup_id = create_second_resp.json()["id"]
++    cancel_resp = await admin_client.post(
++        f"/api/v1/admin/appointments/{followup_id}/status",
++        json={"status": AppointmentStatus.CANCELLED.value},
++    )
++    assert cancel_resp.status_code == 200
++    assert cancel_resp.json()["status"] == AppointmentStatus.CANCELLED.value
++
++    # Filtered list
++    completed_list_resp = await admin_client.get(
++        "/api/v1/admin/appointments", params={"status": AppointmentStatus.COMPLETED.value}
++    )
++    assert len(completed_list_resp.json()) == 1
++
++    # Stats
++    stats_resp = await admin_client.get("/api/v1/admin/stats/summary")
++    assert stats_resp.status_code == 200
++    stats = stats_resp.json()
++
++    status_counts = {item["status"]: item["count"] for item in stats["by_status"]}
++    assert status_counts[AppointmentStatus.COMPLETED.value] == 1
++    assert status_counts[AppointmentStatus.CANCELLED.value] == 1
++
++    slot_counts = {item["slot_label"]: item["count"] for item in stats["by_slot"]}
++    assert slot_counts["10:00-10:30"] == 1
++    assert slot_counts["10:30-11:00"] == 1
++
++    assert stats["visit_ratio"]["first"] >= 1
++    assert stats["visit_ratio"]["follow_up"] >= 1
+*** End Patch
+[2m2025-11-06T19:21:13.543304Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:21:13.543309Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:21:26.398659Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:21:26.398729Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:21:26.398733Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:21:35.026655Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin/test_catalog.py -k admin_catalog_crud -vv"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:21:35.026696Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:21:35.026699Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:21:45.360311Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:21:45.360359Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:21:45.360364Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:21:53.566547Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin/test_catalog.py::test_admin_catalog_crud -vv"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:21:53.566634Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:21:53.566640Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:22:15.154471Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin -vv"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:22:15.154874Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:22:15.154878Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:22:29.176705Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin -vv > /tmp/pytest_admin.log || true"]}
+[2m2025-11-06T19:22:29.176748Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:22:29.176752Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:22:36.255886Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","tail -n 40 /tmp/pytest_admin.log"]}
+[2m2025-11-06T19:22:36.255933Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:22:36.255938Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:22:45.677412Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/admin/test_catalog.py
+@@
+-    async with session_factory() as session:
+-        await session.execute(delete(HospitalSlot))
+-        await session.execute(delete(Treatment))
+-        await session.execute(delete(Doctor))
+-        await session.commit()
++    async with session_factory() as session:
++        await session.execute(delete(HospitalSlot))
++        await session.execute(delete(AppointmentSlot))
++        await session.execute(delete(Appointment))
++        await session.execute(delete(Treatment))
++        await session.execute(delete(Doctor))
++        await session.execute(delete(Patient))
++        await session.commit()
+*** End Patch
+[2m2025-11-06T19:22:45.677443Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:22:45.677445Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:22:55.081525Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/admin/test_catalog.py
+@@
+-from Assignment1.app.db import Doctor, HospitalSlot, Treatment
++from Assignment1.app.db import (
++    Appointment,
++    AppointmentSlot,
++    Doctor,
++    HospitalSlot,
++    Patient,
++    Treatment,
++)
+*** End Patch
+[2m2025-11-06T19:22:55.081922Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:22:55.081960Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:00.301310Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:23:00.301329Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:00.301332Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:07.990466Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/patient Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:23:07.992959Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:07.992969Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:18.984332Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-medisolve-backend/tasks.md
+@@
+-- [ ] T019 [P] [US2] Create admin schemas (`Assignment1/app/routers/admin/schemas.py`)
+-- [ ] T020 [US2] Implement catalog management service at `Assignment1/app/services/admin_catalog.py` (doctors, treatments, slots)
+-- [ ] T021 [US2] Implement admin appointment service at `Assignment1/app/services/admin_appointments.py` (상태 전이, 통계 집계)
+-- [ ] T022 [US2] Build admin catalog routers in `Assignment1/app/routers/admin/catalog.py`
+-- [ ] T023 [US2] Build hospital slot router in `Assignment1/app/routers/admin/hospital_slots.py`
+-- [ ] T024 [US2] Build admin appointments router in `Assignment1/app/routers/admin/appointments.py`
+-- [ ] T025 [US2] Build admin stats router in `Assignment1/app/routers/admin/stats.py`
+-- [ ] T026 [US2] Wire admin FastAPI app with routers in `Assignment1/main_admin.py`
+-- [ ] T027 [P] [US2] Write admin CRUD integration tests at `Assignment1/tests/integration/admin/test_catalog.py`
+-- [ ] T028 [P] [US2] Write admin status/stats integration tests at `Assignment1/tests/integration/admin/test_appointments.py`
++- [X] T019 [P] [US2] Create admin schemas (`Assignment1/app/routers/admin/schemas.py`)
++- [X] T020 [US2] Implement catalog management service at `Assignment1/app/services/admin_catalog.py` (doctors, treatments, slots)
++- [X] T021 [US2] Implement admin appointment service at `Assignment1/app/services/admin_appointments.py` (상태 전이, 통계 집계)
++- [X] T022 [US2] Build admin catalog routers in `Assignment1/app/routers/admin/catalog.py`
++- [X] T023 [US2] Build hospital slot router in `Assignment1/app/routers/admin/hospital_slots.py`
++- [X] T024 [US2] Build admin appointments router in `Assignment1/app/routers/admin/appointments.py`
++- [X] T025 [US2] Build admin stats router in `Assignment1/app/routers/admin/stats.py`
++- [X] T026 [US2] Wire admin FastAPI app with routers in `Assignment1/main_admin.py`
++- [X] T027 [P] [US2] Write admin CRUD integration tests at `Assignment1/tests/integration/admin/test_catalog.py`
++- [X] T028 [P] [US2] Write admin status/stats integration tests at `Assignment1/tests/integration/admin/test_appointments.py`
+*** End Patch
+[2m2025-11-06T19:23:18.984375Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:18.984378Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:33.597701Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Implement admin-facing schemas and services (catalog, appointments, stats) using layered structure."},{"status":"completed","step":"Build Admin API routers and integrate FastAPI entrypoint."},{"status":"completed","step":"Write integration tests for CRUD, status transitions, and stats endpoints, ensuring all pass."}]}
+[2m2025-11-06T19:23:33.597750Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:33.597754Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:40.663587Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:23:40.663657Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:40.663662Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:23:51.979730Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb pyproject.toml"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-06T19:23:51.979801Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:23:51.979805Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:24:01.014266Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","nl -ba Assignment1/app/services/admin_catalog.py | sed -n '1,200p'"]}
+[2m2025-11-06T19:24:01.014335Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:24:01.014338Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:24:06.037627Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","nl -ba Assignment1/app/services/admin_appointments.py | sed -n '1,200p'"]}
+[2m2025-11-06T19:24:06.037654Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:24:06.037657Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:24:13.824678Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","nl -ba Assignment1/tests/integration/conftest.py | sed -n '40,200p'"]}
+[2m2025-11-06T19:24:13.824777Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:24:13.824781Z[0m [32m INFO[0m tool gate released
+[2m2025-11-06T19:24:20.644461Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","nl -ba task_report/Task1_test_report.md"]}
+[2m2025-11-06T19:24:20.644496Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-06T19:24:20.644499Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:20:12.823981Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: Assignment1/app/core/exceptions.py
++from __future__ import annotations
++
++import logging
++from datetime import datetime, timezone
++from typing import Any
++
++from fastapi import HTTPException, FastAPI, Request, status
++from fastapi.responses import JSONResponse
++from pydantic import BaseModel
++
++logger = logging.getLogger(__name__)
++
++
++class ErrorResponse(BaseModel):
++    timestamp: str
++    status: int
++    code: str
++    message: str
++    path: str
++
++
++class ServiceError(Exception):
++    code = "SERVICE_ERROR"
++    status_code = status.HTTP_400_BAD_REQUEST
++    default_message = "Service error"
++
++    def __init__(
++        self,
++        message: str | None = None,
++        *,
++        code: str | None = None,
++        status_code: int | None = None,
++    ):
++        self.message = message or self.default_message
++        if code:
++            self.code = code
++        if status_code:
++            self.status_code = status_code
++        super().__init__(self.message)
++
++
++class ValidationError(ServiceError):
++    code = "VALIDATION_ERROR"
++    status_code = status.HTTP_400_BAD_REQUEST
++    default_message = "Validation error"
++
++
++class NotFoundError(ServiceError):
++    code = "NOT_FOUND"
++    status_code = status.HTTP_404_NOT_FOUND
++    default_message = "Resource not found"
++
++
++class ConflictError(ServiceError):
++    code = "CONFLICT"
++    status_code = status.HTTP_409_CONFLICT
++    default_message = "Resource conflict"
++
++
++class CatalogNotFoundError(NotFoundError):
++    code = "CATALOG_NOT_FOUND"
++    default_message = "Catalog entity not found"
++
++
++class CatalogConflictError(ConflictError):
++    code = "CATALOG_CONFLICT"
++    default_message = "Catalog entity conflict"
++
++
++class DoctorNotFoundError(NotFoundError):
++    code = "DOCTOR_NOT_FOUND"
++    default_message = "Doctor not found"
++
++
++class PatientNotFoundError(NotFoundError):
++    code = "PATIENT_NOT_FOUND"
++    default_message = "Patient not found"
++
++
++class TreatmentNotFoundError(NotFoundError):
++    code = "TREATMENT_NOT_FOUND"
++    default_message = "Treatment not found"
++
++
++class ReservationConflictError(ConflictError):
++    code = "RESERVATION_CONFLICT"
++    default_message = "Reservation conflict"
++
++
++class AppointmentNotFoundError(NotFoundError):
++    code = "APPOINTMENT_NOT_FOUND"
++    default_message = "Appointment not found"
++
++
++class InvalidStatusTransitionError(ServiceError):
++    code = "INVALID_STATUS_TRANSITION"
++    status_code = status.HTTP_400_BAD_REQUEST
++    default_message = "Status transition is not allowed"
++
++
++def _build_error_response(
++    request: Request, *, message: str, status_code: int, code: str
++) -> ErrorResponse:
++    return ErrorResponse(
++        timestamp=datetime.now(timezone.utc).isoformat(),
++        status=status_code,
++        code=code,
++        message=message,
++        path=str(request.url.path),
++    )
++
++
++async def service_error_handler(request: Request, exc: ServiceError):
++    body = _build_error_response(
++        request,
++        message=exc.message,
++        status_code=exc.status_code,
++        code=exc.code,
++    )
++    return JSONResponse(status_code=exc.status_code, content=body.model_dump())
++
++
++async def http_exception_handler(request: Request, exc: HTTPException):
++    detail = exc.detail if isinstance(exc.detail, str) else str(exc.detail)
++    body = _build_error_response(
++        request,
++        message=detail,
++        status_code=exc.status_code,
++        code="HTTP_EXCEPTION",
++    )
++    return JSONResponse(status_code=exc.status_code, content=body.model_dump())
++
++
++async def unhandled_exception_handler(request: Request, exc: Exception):
++    logger.exception("Unhandled exception", exc_info=exc)
++    body = _build_error_response(
++        request,
++        message="Internal server error",
++        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
++        code="INTERNAL_SERVER_ERROR",
++    )
++    return JSONResponse(
++        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=body.model_dump()
++    )
++
++
++def register_exception_handlers(app: FastAPI) -> None:
++    app.add_exception_handler(ServiceError, service_error_handler)
++    app.add_exception_handler(HTTPException, http_exception_handler)
++    app.add_exception_handler(Exception, unhandled_exception_handler)
+*** End Patch
+[2m2025-11-07T09:20:12.824825Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:20:12.825013Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:20:21.684803Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/admin_catalog.py
+@@
+-from sqlalchemy import delete, select
+-from sqlalchemy.exc import IntegrityError
+-from sqlalchemy.ext.asyncio import AsyncSession
+-
+-from Assignment1.app.db import Doctor, HospitalSlot, Treatment
+-
+-
+-class CatalogNotFoundError(Exception):
+-    """Raised when a catalog entity is not found."""
++from sqlalchemy import delete, select
++from sqlalchemy.exc import IntegrityError
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from Assignment1.app.core.exceptions import (
++    CatalogConflictError,
++    CatalogNotFoundError,
++)
++from Assignment1.app.db import Doctor, HospitalSlot, Treatment
+@@
+-    try:
+-        doctor = await admin_catalog.create_doctor(
+-            session,
+-            name=payload.name,
+-            department=payload.department,
+-            is_active=payload.is_active,
+-        )
+-        return schemas.DoctorResponse.model_validate(doctor)
+-    except ValueError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    doctor = await admin_catalog.create_doctor(
++        session,
++        name=payload.name,
++        department=payload.department,
++        is_active=payload.is_active,
++    )
++    return schemas.DoctorResponse.model_validate(doctor)
+*** End Patch
+[2m2025-11-07T09:20:21.684871Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:20:21.684877Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:20:31.622550Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/admin_catalog.py
+@@
+-from Assignment1.app.db import Doctor, HospitalSlot, Treatment
+-
+-
+-class CatalogNotFoundError(Exception):
+-    """Raised when a catalog entity is not found."""
++from Assignment1.app.core.exceptions import (
++    CatalogConflictError,
++    CatalogNotFoundError,
++)
++from Assignment1.app.db import Doctor, HospitalSlot, Treatment
+@@
+-    try:
+-        await session.flush()
+-    except IntegrityError as exc:
+-        raise ValueError("Doctor with the same name already exists") from exc
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise CatalogConflictError("Doctor with the same name already exists") from exc
+@@
+-    try:
+-        await session.flush()
+-    except IntegrityError as exc:
+-        raise ValueError("Doctor with the same name already exists") from exc
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise CatalogConflictError("Doctor with the same name already exists") from exc
+@@
+-    try:
+-        await session.flush()
+-    except IntegrityError as exc:
+-        raise ValueError("Treatment with the same name already exists") from exc
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise CatalogConflictError("Treatment with the same name already exists") from exc
+@@
+-    try:
+-        await session.flush()
+-    except IntegrityError as exc:
+-        raise ValueError("Treatment with the same name already exists") from exc
++    try:
++        await session.flush()
++    except IntegrityError as exc:
++        raise CatalogConflictError("Treatment with the same name already exists") from exc
+*** End Patch
+[2m2025-11-07T09:20:31.622620Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:20:31.622626Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:20:39.348899Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/admin_appointments.py
+@@
+-from Assignment1.app.db import (
+-    Appointment,
+-    AppointmentSlot,
+-    AppointmentStatus,
+-    Doctor,
+-    HospitalSlot,
+-    VisitType,
+-)
+-
+-
+-class AppointmentNotFoundError(Exception):
+-    """Raised when an appointment lookup fails."""
+-
+-
+-class InvalidStatusTransitionError(Exception):
+-    """Raised when an appointment status transition is invalid."""
++from Assignment1.app.core.exceptions import (
++    AppointmentNotFoundError,
++    InvalidStatusTransitionError,
++)
++from Assignment1.app.db import (
++    Appointment,
++    AppointmentSlot,
++    AppointmentStatus,
++    Doctor,
++    HospitalSlot,
++    VisitType,
++)
+*** End Patch
+[2m2025-11-07T09:20:39.349536Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:20:39.349550Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:20:47.432883Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/services/patient_reservations.py
+@@
+-from Assignment1.app.services.slot_rules import (
++from Assignment1.app.core.exceptions import (
++    ReservationConflictError,
++)
++from Assignment1.app.services.slot_rules import (
+     RESERVATION_STEP,
+     expand_reservation,
+     iter_slot_keys,
+     validate_slot_alignment,
+ )
+ 
+ 
+-class ReservationConflictError(Exception):
+-    """Raised when requested reservation violates availability rules."""
+-
+-
+ async def get_doctor_appointments(
+*** End Patch
+[2m2025-11-07T09:20:47.432929Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:20:47.432934Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:21:06.364673Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/routers/admin/catalog.py
+@@
+-from fastapi import APIRouter, Depends, HTTPException, status
++from fastapi import APIRouter, Depends, status
+ from sqlalchemy.ext.asyncio import AsyncSession
+ 
++from Assignment1.app.core.exceptions import ValidationError
+ from Assignment1.app.db.session import get_session
+ from Assignment1.app.routers.admin import schemas
+ from Assignment1.app.services import admin_catalog
+@@
+-    try:
+-        doctor = await admin_catalog.create_doctor(
+-            session,
+-            name=payload.name,
+-            department=payload.department,
+-            is_active=payload.is_active,
+-        )
+-        return schemas.DoctorResponse.model_validate(doctor)
+-    except ValueError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    doctor = await admin_catalog.create_doctor(
++        session,
++        name=payload.name,
++        department=payload.department,
++        is_active=payload.is_active,
++    )
++    return schemas.DoctorResponse.model_validate(doctor)
+@@
+-    try:
+-        doctor = await admin_catalog.update_doctor(
+-            session,
+-            doctor_id,
+-            name=payload.name,
+-            department=payload.department,
+-            is_active=payload.is_active,
+-        )
+-        return schemas.DoctorResponse.model_validate(doctor)
+-    except admin_catalog.CatalogNotFoundError as exc:
+-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+-    except ValueError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    doctor = await admin_catalog.update_doctor(
++        session,
++        doctor_id,
++        name=payload.name,
++        department=payload.department,
++        is_active=payload.is_active,
++    )
++    return schemas.DoctorResponse.model_validate(doctor)
+@@
+-    try:
+-        await admin_catalog.delete_doctor(session, doctor_id)
+-    except admin_catalog.CatalogNotFoundError as exc:
+-        raise HTTPException(status_code=404, detail=str(exc)) from exc
++    await admin_catalog.delete_doctor(session, doctor_id)
+@@
+-    try:
+-        treatment = await admin_catalog.create_treatment(
+-            session,
+-            name=payload.name,
+-            duration_minutes=payload.duration_minutes,
+-            price=payload.price,
+-            description=payload.description,
+-            is_active=payload.is_active,
+-        )
+-        return schemas.TreatmentResponse.model_validate(treatment)
+-    except ValueError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    treatment = await admin_catalog.create_treatment(
++        session,
++        name=payload.name,
++        duration_minutes=payload.duration_minutes,
++        price=payload.price,
++        description=payload.description,
++        is_active=payload.is_active,
++    )
++    return schemas.TreatmentResponse.model_validate(treatment)
+@@
+-    try:
+-        treatment = await admin_catalog.update_treatment(
+-            session,
+-            treatment_id,
+-            name=payload.name,
+-            duration_minutes=payload.duration_minutes,
+-            price=payload.price,
+-            description=payload.description,
+-            is_active=payload.is_active,
+-        )
+-        return schemas.TreatmentResponse.model_validate(treatment)
+-    except admin_catalog.CatalogNotFoundError as exc:
+-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+-    except ValueError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    treatment = await admin_catalog.update_treatment(
++        session,
++        treatment_id,
++        name=payload.name,
++        duration_minutes=payload.duration_minutes,
++        price=payload.price,
++        description=payload.description,
++        is_active=payload.is_active,
++    )
++    return schemas.TreatmentResponse.model_validate(treatment)
+@@
+-    try:
+-        await admin_catalog.delete_treatment(session, treatment_id)
+-    except admin_catalog.CatalogNotFoundError as exc:
+-        raise HTTPException(status_code=404, detail=str(exc)) from exc
++    await admin_catalog.delete_treatment(session, treatment_id)
+*** End Patch
+[2m2025-11-07T09:21:06.364846Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:21:06.364910Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:21:16.215848Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/routers/admin/hospital_slots.py
+@@
+-from fastapi import APIRouter, Depends, HTTPException, status
++from fastapi import APIRouter, Depends, status
+ from sqlalchemy.ext.asyncio import AsyncSession
+ 
++from Assignment1.app.core.exceptions import ValidationError
+ from Assignment1.app.db.session import get_session
+ from Assignment1.app.routers.admin import schemas
+ from Assignment1.app.services import admin_catalog
+@@
+ async def replace_hospital_slots(
+     payload: schemas.HospitalSlotBulkUpsert, session: AsyncSession = Depends(get_session)
+ ):
+     if not payload.slots:
+-        raise HTTPException(status_code=400, detail="At least one slot is required")
++        raise ValidationError("At least one slot is required", code="SLOT_REQUIRED")
+*** End Patch
+[2m2025-11-07T09:21:16.215986Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:21:16.215993Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:21:29.151367Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/routers/admin/appointments.py
+@@
+-from fastapi import APIRouter, Depends, HTTPException, Query, status
++from fastapi import APIRouter, Depends, Query
+@@
+-from Assignment1.app.services import admin_appointments
++from Assignment1.app.services import admin_appointments
+@@
+-    try:
+-        appointment = await admin_appointments.update_status(
+-            session, appointment_id, AppointmentStatus(payload.status)
+-        )
+-        return _to_response_model(appointment)
+-    except admin_appointments.AppointmentNotFoundError as exc:
+-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+-    except admin_appointments.InvalidStatusTransitionError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    appointment = await admin_appointments.update_status(
++        session, appointment_id, AppointmentStatus(payload.status)
++    )
++    return _to_response_model(appointment)
+*** End Patch
+[2m2025-11-07T09:21:29.151447Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:21:29.151456Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:21:35.849251Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","nl -ba Assignment1/app/routers/patient/appointments.py | sed -n '1,200p'"]}
+[2m2025-11-07T09:21:35.849305Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:21:35.849313Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:21:50.887694Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/routers/patient/appointments.py
+@@
+-from fastapi import APIRouter, Depends, HTTPException, Query
++from fastapi import APIRouter, Depends, Query
+ from sqlalchemy.ext.asyncio import AsyncSession
+ 
+-from Assignment1.app.db import Appointment, Doctor, Patient, Treatment
++from Assignment1.app.core.exceptions import (
++    DoctorNotFoundError,
++    PatientNotFoundError,
++    TreatmentNotFoundError,
++    ValidationError,
++)
++from Assignment1.app.db import Appointment, Doctor, Patient, Treatment
+@@
+-    treatment = await session.get(Treatment, payload.treatment_id)
+-    if treatment is None:
+-        raise HTTPException(status_code=404, detail="Treatment not found")
+-
+-    doctor = await session.get(Doctor, payload.doctor_id)
+-    if doctor is None:
+-        raise HTTPException(status_code=404, detail="Doctor not found")
+-    if not doctor.is_active:
+-        raise HTTPException(status_code=400, detail="Doctor is not active")
+-
+-    patient = await session.get(Patient, payload.patient_id)
+-    if patient is None:
+-        raise HTTPException(status_code=404, detail="Patient not found")
+-
+-    try:
+-        appointment = await create_reservation(
+-            session,
+-            patient_id=payload.patient_id,
+-            doctor_id=payload.doctor_id,
+-            treatment=treatment,
+-            start_at=payload.start_at,
+-            memo=payload.memo,
+-        )
+-    except ReservationConflictError as exc:
+-        raise HTTPException(status_code=409, detail=str(exc)) from exc
++    treatment = await session.get(Treatment, payload.treatment_id)
++    if treatment is None:
++        raise TreatmentNotFoundError()
++
++    doctor = await session.get(Doctor, payload.doctor_id)
++    if doctor is None:
++        raise DoctorNotFoundError()
++    if not doctor.is_active:
++        raise ValidationError("Doctor is not active", code="DOCTOR_INACTIVE")
++
++    patient = await session.get(Patient, payload.patient_id)
++    if patient is None:
++        raise PatientNotFoundError()
++
++    appointment = await create_reservation(
++        session,
++        patient_id=payload.patient_id,
++        doctor_id=payload.doctor_id,
++        treatment=treatment,
++        start_at=payload.start_at,
++        memo=payload.memo,
++    )
+@@
+-    try:
+-        appointment = await cancel_reservation(session, appointment_id, patient_id)
+-    except ReservationConflictError as exc:
+-        raise HTTPException(status_code=400, detail=str(exc)) from exc
++    appointment = await cancel_reservation(session, appointment_id, patient_id)
+*** End Patch
+[2m2025-11-07T09:21:50.887923Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:21:50.887931Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:00.484631Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/app/routers/patient/appointments.py
+@@
+-from Assignment1.app.services.patient_reservations import (
+-    ReservationConflictError,
+-    cancel_reservation,
+-    create_reservation,
+-    list_patient_appointments,
+-)
++from Assignment1.app.services.patient_reservations import (
++    cancel_reservation,
++    create_reservation,
++    list_patient_appointments,
++)
+*** End Patch
+[2m2025-11-07T09:22:00.484776Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:00.484786Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:08.004624Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/main_patient.py
+@@
+-from Assignment1.app.routers.patient import availability, appointments
++from Assignment1.app.core.exceptions import register_exception_handlers
++from Assignment1.app.routers.patient import availability, appointments
+ 
+ 
+ def create_app() -> FastAPI:
+     app = FastAPI(
+         title="MedisolveAI Patient API",
+         version="0.1.0",
+     )
++    register_exception_handlers(app)
+     app.include_router(availability.router)
+     app.include_router(appointments.router)
+     return app
+*** End Patch
+[2m2025-11-07T09:22:08.004704Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:08.004710Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:14.017876Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/main_admin.py
+@@
+-from Assignment1.app.routers.admin import (
++from Assignment1.app.core.exceptions import register_exception_handlers
++from Assignment1.app.routers.admin import (
+     appointments as admin_appointments_router,
+     catalog as admin_catalog_router,
+     hospital_slots as admin_hospital_slots_router,
+@@
+ def create_app() -> FastAPI:
+     app = FastAPI(
+         title="MedisolveAI Admin API",
+         version="0.1.0",
+     )
++    register_exception_handlers(app)
+     app.include_router(admin_catalog_router.router)
+     app.include_router(admin_hospital_slots_router.router)
+     app.include_router(admin_appointments_router.router)
+*** End Patch
+[2m2025-11-07T09:22:14.017935Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:14.017941Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:26.170408Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","rg \"ReservationConflictError\" -n"]}
+[2m2025-11-07T09:22:26.170475Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:26.170480Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:35.291973Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/patient Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-07T09:22:35.292094Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:35.292103Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:49.756006Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: Assignment1/tests/integration/patient/test_reservations_conflict.py
+@@
+-    detail = second_resp.json()["detail"].lower()
+-    assert ("capacity" in detail) or ("booked" in detail)
++    detail = second_resp.json()["message"].lower()
++    assert ("capacity" in detail) or ("booked" in detail)
+*** End Patch
+[2m2025-11-07T09:22:49.756074Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:49.756082Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:22:59.178324Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","source .venv/bin/activate && pytest Assignment1/tests/integration/patient Assignment1/tests/integration/admin -q"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-07T09:22:59.178409Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:22:59.178418Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:23:09.271705Z[0m [32m INFO[0m ToolCall: shell {"command":["bash","-lc","git status -sb"],"workdir":"/Users/iseongho/PycharmProjects/medisolveai_assignment"}
+[2m2025-11-07T09:23:09.271852Z[0m [32m INFO[0m waiting for tool gate
+[2m2025-11-07T09:23:09.271861Z[0m [32m INFO[0m tool gate released
+[2m2025-11-07T09:32:41.356045Z[0m [32m INFO[0m ERR: No such file or directory (os error 2)
+[2m2025-11-07T09:32:56.405935Z[0m [32m INFO[0m ERR: No such file or directory (os error 2)

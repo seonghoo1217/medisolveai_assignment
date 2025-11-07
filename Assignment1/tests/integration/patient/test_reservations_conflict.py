@@ -26,5 +26,5 @@ async def test_patient_reservation_conflict_capacity(
 
     second_resp = await patient_client.post("/appointments", json=payload)
     assert second_resp.status_code == 409
-    detail = second_resp.json()["detail"].lower()
+    detail = second_resp.json()["message"].lower()
     assert ("capacity" in detail) or ("booked" in detail)

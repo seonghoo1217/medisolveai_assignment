@@ -70,16 +70,16 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T019 [P] [US2] Create admin schemas (`Assignment1/app/routers/admin/schemas.py`)
-- [ ] T020 [US2] Implement catalog management service at `Assignment1/app/services/admin_catalog.py` (doctors, treatments, slots)
-- [ ] T021 [US2] Implement admin appointment service at `Assignment1/app/services/admin_appointments.py` (상태 전이, 통계 집계)
-- [ ] T022 [US2] Build admin catalog routers in `Assignment1/app/routers/admin/catalog.py`
-- [ ] T023 [US2] Build hospital slot router in `Assignment1/app/routers/admin/hospital_slots.py`
-- [ ] T024 [US2] Build admin appointments router in `Assignment1/app/routers/admin/appointments.py`
-- [ ] T025 [US2] Build admin stats router in `Assignment1/app/routers/admin/stats.py`
-- [ ] T026 [US2] Wire admin FastAPI app with routers in `Assignment1/main_admin.py`
-- [ ] T027 [P] [US2] Write admin CRUD integration tests at `Assignment1/tests/integration/admin/test_catalog.py`
-- [ ] T028 [P] [US2] Write admin status/stats integration tests at `Assignment1/tests/integration/admin/test_appointments.py`
+- [X] T019 [P] [US2] Create admin schemas (`Assignment1/app/routers/admin/schemas.py`)
+- [X] T020 [US2] Implement catalog management service at `Assignment1/app/services/admin_catalog.py` (doctors, treatments, slots)
+- [X] T021 [US2] Implement admin appointment service at `Assignment1/app/services/admin_appointments.py` (상태 전이, 통계 집계)
+- [X] T022 [US2] Build admin catalog routers in `Assignment1/app/routers/admin/catalog.py`
+- [X] T023 [US2] Build hospital slot router in `Assignment1/app/routers/admin/hospital_slots.py`
+- [X] T024 [US2] Build admin appointments router in `Assignment1/app/routers/admin/appointments.py`
+- [X] T025 [US2] Build admin stats router in `Assignment1/app/routers/admin/stats.py`
+- [X] T026 [US2] Wire admin FastAPI app with routers in `Assignment1/main_admin.py`
+- [X] T027 [P] [US2] Write admin CRUD integration tests at `Assignment1/tests/integration/admin/test_catalog.py`
+- [X] T028 [P] [US2] Write admin status/stats integration tests at `Assignment1/tests/integration/admin/test_appointments.py`
 
 ---
 

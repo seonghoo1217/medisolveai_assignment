@@ -14,16 +14,15 @@ from Assignment1.app.db import (
     Treatment,
     VisitType,
 )
+from Assignment1.app.core.exceptions import (
+    ReservationConflictError,
+)
 from Assignment1.app.services.slot_rules import (
     RESERVATION_STEP,
     expand_reservation,
     iter_slot_keys,
     validate_slot_alignment,
 )
-
-
-class ReservationConflictError(Exception):
-    """Raised when requested reservation violates availability rules."""
 
 
 async def get_doctor_appointments(
