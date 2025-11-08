@@ -128,6 +128,9 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 - [ ] T041 Document Compose & migration usage in `Assignment1/docker/compose/README.md`
 - [ ] T042 Add latest 작업 요약 to `task_report/` following 보고서 양식
 - [ ] T043 Run final verification script (`uv run pytest -q && docker-compose down`) and capture 결과 in `task_report/verification.md`
+- [X] T049 Add representative request/response samples for 핵심 API to `Assignment1/README.md` (patient/admin endpoints)
+- [X] T050 Document pytest 실행 시 `PYTHONPATH=.` 등의 명령 상세를 `Assignment1/README.md`에 추가
+- [X] T051 Describe dev/test 환경 분리와 `.env.development.example`, `.env.test.example` 사용법 in `Assignment1/README.md`
 
 ---
 

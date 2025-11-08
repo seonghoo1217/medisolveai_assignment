@@ -117,15 +117,131 @@ docker compose logs migrations # 0002_seed_sample_data 가 실행됐는지 확�
 
 Postman으로 수동 검증 시에도 Gateway 주소만 쓰면 되고, Docker Compose가 이미 샘플 데이터를 채워 넣기 때문에 별도 CRUD 없이 바로 확인 가능합니다.
 
+### 요청/응답 예시
+아래 모든 예시는 Gateway(8000) 기준입니다.
+
+#### 1. 환자 - 의사/시술 목록
+```bash
+curl -s http://localhost:8000/api/v1/patient/doctors
+```
+```json
+[
+  {"id": 1, "name": "Dr. Kim", "department": "Dermatology"},
+  {"id": 2, "name": "Dr. Lee", "department": "Laser Clinic"}
+]
+```
+```bash
+curl -s http://localhost:8000/api/v1/patient/treatments
+```
+```json
+[
+  {
+    "id": 2,
+    "name": "Laser Therapy",
+    "duration_minutes": 60,
+    "price": 200000,
+    "description": "Full-face laser treatment"
+  }
+]
+```
+
+#### 2. 환자 - 예약 가능 시간 & 예약 생성
+```bash
+curl -s "http://localhost:8000/api/v1/patient/availability?doctor_id=1&date=2025-11-08"
+```
+```json
+{
+  "slots": [
+    {"start_at": "2025-11-08T10:00:00", "end_at": "2025-11-08T10:30:00", "remaining_capacity": 2},
+    {"start_at": "2025-11-08T10:30:00", "end_at": "2025-11-08T11:00:00", "remaining_capacity": 1}
+  ]
+}
+```
+```bash
+curl -s -X POST http://localhost:8000/api/v1/patient/appointments \
+  -H "Content-Type: application/json" \
+  -d '{
+        "patient_id": 1,
+        "doctor_id": 1,
+        "treatment_id": 2,
+        "start_at": "2025-11-08T10:00:00",
+        "memo": "첫 방문"
+      }'
+```
+```json
+{
+  "id": 3,
+  "doctor": {"id": 1, "name": "Dr. Kim", "department": "Dermatology"},
+  "treatment": {"id": 2, "name": "Laser Therapy", "duration_minutes": 60},
+  "start_at": "2025-11-08T10:00:00",
+  "end_at": "2025-11-08T11:00:00",
+  "status": "PENDING",
+  "visit_type": "FIRST",
+  "memo": "첫 방문"
+}
+```
+
+#### 3. 관리자 - 의사/슬롯/통계
+```bash
+curl -s -X POST http://localhost:8000/api/v1/admin/doctors \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Dr. Han","department":"Surgery","is_active":true}'
+```
+```json
+{
+  "id": 4,
+  "name": "Dr. Han",
+  "department": "Surgery",
+  "is_active": true,
+  "created_at": "2025-11-08T02:00:00",
+  "updated_at": "2025-11-08T02:00:00"
+}
+```
+```bash
+curl -s -X PUT http://localhost:8000/api/v1/admin/hospital-slots \
+  -H "Content-Type: application/json" \
+  -d '{
+        "slots": [
+          {"start_time":"09:00:00","end_time":"09:30:00","capacity":2},
+          {"start_time":"09:30:00","end_time":"10:00:00","capacity":2}
+        ]
+      }'
+```
+```json
+[
+  {"id": 1,"start_time": "09:00:00","end_time": "09:30:00","capacity": 2},
+  {"id": 2,"start_time": "09:30:00","end_time": "10:00:00","capacity": 2}
+]
+```
+```bash
+curl -s http://localhost:8000/api/v1/admin/stats/summary
+```
+```json
+{
+  "by_status": [{"status": "PENDING", "count": 3}],
+  "by_date": [{"date": "2025-11-08", "count": 2}],
+  "by_slot": [{"slot_label": "10:00-10:30", "count": 1}],
+  "visit_ratio": {"first": 2, "follow_up": 1}
+}
+```
+
+필요 시 관리자 예약 상태 전환(`POST /api/v1/admin/appointments/{id}/status`)도 같은 패턴으로 호출하면 됩니다.
+
 ## 테스트 실행
 
 ```bash
 source .venv/bin/activate
-pytest Assignment1/tests/integration -q
-pytest Assignment1/tests/performance/test_reservations_p95.py -q
+PYTHONPATH=. pytest Assignment1/tests/integration -q
+PYTHONPATH=. pytest Assignment1/tests/performance/test_reservations_p95.py -q
 ```
 
 테스트 환경은 `tests/integration/conftest.py`에서 in-memory SQLite를 사용하므로 로컬 MySQL을 건드리지 않습니다.
+
+## 환경 분리 & .env 사용법
+- `.env.development.example`: 개발용 DB 정보(기본 29906 포트, `APP_ENV=development`). 복사하여 `.env`로 사용하면 로컬 FastAPI 실행 시 적용됩니다.
+- `.env.test.example`: 테스트 전용 DB 정보(예: 29907, `APP_ENV=test`). 통합 테스트를 외부 DB로 돌리려면 이 값을 적용하거나 CI에서 환경 변수로 주입하면 됩니다.
+- Docker Compose는 자체 `.env` 대신 `docker/compose`에 정의된 환경 변수를 사용하므로, 컨테이너 간 연결은 추가 설정 없이 동작합니다.
+- `PYTHONPATH=.`를 명시해 pytest가 `Assignment1/...` 패키지를 찾을 수 있게 해야 합니다 (위 테스트 실행 예시 참고).
 
 ## 문제 해결 체크리스트
 
