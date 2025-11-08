@@ -59,6 +59,8 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 - [X] T016 [US1] Wire patient FastAPI app with routers in `Assignment1/main_patient.py`
 - [X] T017 [P] [US1] Write happy-path integration tests at `Assignment1/tests/integration/patient/test_reservations_success.py`
 - [X] T018 [P] [US1] Write conflict/capacity integration tests at `Assignment1/tests/integration/patient/test_reservations_conflict.py`
+- [X] T044 [US1] Add patient-facing directory endpoints for doctors/treatments at `Assignment1/app/routers/patient/directory.py` and wire into `Assignment1/main_patient.py`
+- [X] T045 [P] [US1] Add integration coverage for patient directory endpoints at `Assignment1/tests/integration/patient/test_directory.py`
 
 ---
 
@@ -80,6 +82,8 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 - [X] T026 [US2] Wire admin FastAPI app with routers in `Assignment1/main_admin.py`
 - [X] T027 [P] [US2] Write admin CRUD integration tests at `Assignment1/tests/integration/admin/test_catalog.py`
 - [X] T028 [P] [US2] Write admin status/stats integration tests at `Assignment1/tests/integration/admin/test_appointments.py`
+- [X] T046 [US2] Enforce catalog validations (treatment duration, slot capacity/window) in `Assignment1/app/services/admin_catalog.py`
+- [X] T047 [P] [US2] Extend admin catalog integration tests to cover validation errors at `Assignment1/tests/integration/admin/test_catalog.py`
 
 ---
 
@@ -89,13 +93,13 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 **Independent Test**: `docker-compose up` 후 `Assignment1/tests/integration/test_gateway_proxy.py`와 `tests/performance/test_reservations_p95.py`로 헬스·성능 기준을 확인한다.
 
-- [ ] T029 [US3] Implement gateway proxy helper at `Assignment1/app/gateway/proxy.py` (경로 기반 포워딩, 타임아웃, 에러 매핑)
-- [ ] T030 [US3] Implement gateway health aggregation in `Assignment1/app/gateway/health.py`
-- [ ] T031 [US3] Build gateway FastAPI app in `Assignment1/main_gateway.py` and mount health endpoint
-- [ ] T032 [US3] Create Docker Compose stack `Assignment1/docker/compose/docker-compose.yml` with gateway/patient/admin/MySQL (port 29906)
-- [ ] T033 [US3] Add migration entry script `Assignment1/docker/compose/scripts/run_migrations.sh` executed before API containers start
-- [ ] T034 [P] [US3] Add gateway integration tests at `Assignment1/tests/integration/test_gateway_proxy.py`
-- [ ] T035 [P] [US3] Add performance test for 20 concurrent reservations at `Assignment1/tests/performance/test_reservations_p95.py`
+- [X] T029 [US3] Implement gateway proxy helper at `Assignment1/app/gateway/proxy.py` (경로 기반 포워딩, 타임아웃, 에러 매핑)
+- [X] T030 [US3] Implement gateway health aggregation in `Assignment1/app/gateway/health.py`
+- [X] T031 [US3] Build gateway FastAPI app in `Assignment1/main_gateway.py` and mount health endpoint
+- [X] T032 [US3] Create Docker Compose stack `Assignment1/docker/compose/docker-compose.yml` with gateway/patient/admin/MySQL (port 29906)
+- [X] T033 [US3] Add migration entry script `Assignment1/docker/compose/scripts/run_migrations.sh` executed before API containers start
+- [X] T034 [P] [US3] Add gateway integration tests at `Assignment1/tests/integration/test_gateway_proxy.py`
+- [X] T035 [P] [US3] Add performance test for 20 concurrent reservations at `Assignment1/tests/performance/test_reservations_p95.py`
 
 ---
 
@@ -109,6 +113,12 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 - [ ] T037 [P] [US4] Add deterministic range tests at `Assignment2/tests/test_randomizer.py`
 - [ ] T038 [P] [US4] Add statistical distribution tests at `Assignment2/tests/test_randomizer_stats.py`
 - [ ] T039 [US4] Produce implementation & test report `Assignment2/reports/randomizer_report.pdf`
+
+---
+
+## Phase 7: Seed & Sample Data (Cross-cutting)
+
+- [X] T048 Create Alembic seed revision `Assignment1/migrations/versions/0002_seed_sample_data.py` inserting doctors, treatments, patients, slots, and demo appointments for manual testing
 
 ---
 

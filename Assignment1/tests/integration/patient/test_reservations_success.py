@@ -16,7 +16,7 @@ async def test_patient_reservation_happy_path(
     target_date = seed_patient_data["date"]
 
     availability_resp = await patient_client.get(
-        "/availability",
+        "/api/v1/patient/availability",
         params={"doctor_id": doctor_id, "date": target_date},
     )
     assert availability_resp.status_code == 200
@@ -31,14 +31,14 @@ async def test_patient_reservation_happy_path(
         "start_at": start_at_iso,
         "memo": "첫 방문",
     }
-    create_resp = await patient_client.post("/appointments", json=reservation_payload)
+    create_resp = await patient_client.post("/api/v1/patient/appointments", json=reservation_payload)
     assert create_resp.status_code == 201, create_resp.text
     reservation_data = create_resp.json()
     assert reservation_data["status"] == "PENDING"
     assert reservation_data["visit_type"] == "FIRST"
 
     list_resp = await patient_client.get(
-        "/appointments", params={"patient_id": patient_id}
+        "/api/v1/patient/appointments", params={"patient_id": patient_id}
     )
     assert list_resp.status_code == 200
     appointments = list_resp.json()["items"]
@@ -46,7 +46,7 @@ async def test_patient_reservation_happy_path(
     assert appointments[0]["start_at"].startswith(target_date)
 
     cancel_resp = await patient_client.post(
-        f"/appointments/{reservation_data['id']}/cancel",
+        f"/api/v1/patient/appointments/{reservation_data['id']}/cancel",
         params={"patient_id": patient_id},
     )
     assert cancel_resp.status_code == 200
@@ -55,7 +55,7 @@ async def test_patient_reservation_happy_path(
     assert cancelled["id"] == reservation_data["id"]
 
     final_list_resp = await patient_client.get(
-        "/appointments", params={"patient_id": patient_id}
+        "/api/v1/patient/appointments", params={"patient_id": patient_id}
     )
     final_items = final_list_resp.json()["items"]
     assert final_items[0]["status"] == "CANCELLED"

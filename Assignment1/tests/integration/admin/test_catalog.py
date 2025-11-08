@@ -96,3 +96,71 @@ async def test_admin_catalog_crud(
     list_slots_resp = await admin_client.get("/api/v1/admin/hospital-slots")
     assert list_slots_resp.status_code == 200
     assert [slot["capacity"] for slot in list_slots_resp.json()] == [3, 2]
+
+
+@pytest.mark.asyncio
+async def test_admin_catalog_validations(admin_client: AsyncClient) -> None:
+    invalid_treatment = await admin_client.post(
+        "/api/v1/admin/treatments",
+        json={
+            "name": "Odd Duration",
+            "duration_minutes": 45,
+            "price": 50000,
+            "description": "Should fail",
+            "is_active": True,
+        },
+    )
+    assert invalid_treatment.status_code == 400
+    assert invalid_treatment.json()["code"] == "INVALID_TREATMENT_DURATION"
+
+    invalid_slot = await admin_client.put(
+        "/api/v1/admin/hospital-slots",
+        json={
+            "slots": [
+                {
+                    "start_time": "10:15:00",
+                    "end_time": "10:45:00",
+                    "capacity": 0,
+                }
+            ]
+        },
+    )
+    assert invalid_slot.status_code == 400
+    body = invalid_slot.json()
+    assert body["code"] in {
+        "INVALID_SLOT_CAPACITY",
+        "INVALID_SLOT_RANGE",
+        "INVALID_SLOT_ALIGNMENT",
+        "INVALID_SLOT_OPERATING_HOURS",
+        "INVALID_SLOT_LUNCH_WINDOW",
+    }
+
+    lunch_slot = await admin_client.put(
+        "/api/v1/admin/hospital-slots",
+        json={
+            "slots": [
+                {
+                    "start_time": "12:00:00",
+                    "end_time": "12:30:00",
+                    "capacity": 2,
+                }
+            ]
+        },
+    )
+    assert lunch_slot.status_code == 400
+    assert lunch_slot.json()["code"] == "INVALID_SLOT_LUNCH_WINDOW"
+
+    after_hours = await admin_client.put(
+        "/api/v1/admin/hospital-slots",
+        json={
+            "slots": [
+                {
+                    "start_time": "18:00:00",
+                    "end_time": "18:30:00",
+                    "capacity": 2,
+                }
+            ]
+        },
+    )
+    assert after_hours.status_code == 400
+    assert after_hours.json()["code"] == "INVALID_SLOT_OPERATING_HOURS"
