@@ -24,8 +24,6 @@ dist/
 .idea/
 
 # Environment files
-.env
-.env.*
 
 # Logs
 *.log
