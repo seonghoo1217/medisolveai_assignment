@@ -2,6 +2,9 @@
 
 FastAPI 기반 멀티 모듈(환자/관리자/Gateway) 구조와 Docker Compose 실행 환경을 갖춘 과제 구현물입니다. MySQL 스키마 및 샘플 데이터는 Alembic과 별도 SQL 파일로 모두 제공하며, 로컬 실행·테스트·컨테이너 기동 절차가 README 한 곳에서 정리됩니다.
 
+## ⚠️ 참고점
+- 프로젝트 실행 환경 이해를 돕기 위해서 의도적으로 `root` 밑에 `.env.*.example` 파일들을 노출 시켰습니다. 혹시 환경설정부분에서 막힌다면 이를 참고해주세요
+
 ## 아키텍처 개요
 
 - **Layered FastAPI Apps**: 각 서비스는 `routers → services → db/models` 계층으로 분리되어 있고, 검증·예외 처리·설정은 `app/core`에서 공유합니다.
