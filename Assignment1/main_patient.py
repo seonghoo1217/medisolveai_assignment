@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from Assignment1.app.core.exceptions import register_exception_handlers
-from Assignment1.app.routers.patient import availability, appointments
+from Assignment1.app.routers.patient import availability, appointments, directory
 
 
 def create_app() -> FastAPI:
@@ -13,6 +13,7 @@ def create_app() -> FastAPI:
     @app.get("/healthz")
     async def health_check():
         return {"status": "ok"}
+    app.include_router(directory.router)
     app.include_router(availability.router)
     app.include_router(appointments.router)
     return app

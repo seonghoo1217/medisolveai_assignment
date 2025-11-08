@@ -3,19 +3,33 @@ from __future__ import annotations
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, ConfigDict, validator
 
 
 class DoctorSummary(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
     department: str
 
 
 class TreatmentSummary(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
     duration_minutes: int
+
+
+class TreatmentDetail(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+    duration_minutes: int
+    price: float
+    description: Optional[str] = None
 
 
 class AvailabilitySlot(BaseModel):
@@ -39,6 +53,8 @@ class AppointmentCreateRequest(BaseModel):
 
 
 class AppointmentSummary(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     doctor: DoctorSummary
     treatment: TreatmentSummary
