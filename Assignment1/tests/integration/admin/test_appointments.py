@@ -78,7 +78,7 @@ async def test_admin_appointments_flow(
 
     # Create first appointment via patient API (becomes FIRST visit)
     availability_resp = await patient_client.get(
-        "/availability",
+        "/api/v1/patient/availability",
         params={"doctor_id": doctor_id, "date": reservation_date},
     )
     assert availability_resp.status_code == 200
@@ -86,7 +86,7 @@ async def test_admin_appointments_flow(
     start_at = first_slot["start_at"]
 
     create_resp = await patient_client.post(
-        "/appointments",
+        "/api/v1/patient/appointments",
         json={
             "patient_id": patient_id,
             "doctor_id": doctor_id,
@@ -121,7 +121,7 @@ async def test_admin_appointments_flow(
     # Create follow-up appointment and cancel it
     second_slot = availability_resp.json()["slots"][1]
     create_second_resp = await patient_client.post(
-        "/appointments",
+        "/api/v1/patient/appointments",
         json={
             "patient_id": patient_id,
             "doctor_id": doctor_id,

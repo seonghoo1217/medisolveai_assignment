@@ -21,10 +21,10 @@ async def test_patient_reservation_conflict_capacity(
         "start_at": start_at_iso,
     }
 
-    first_resp = await patient_client.post("/appointments", json=payload)
+    first_resp = await patient_client.post("/api/v1/patient/appointments", json=payload)
     assert first_resp.status_code == 201
 
-    second_resp = await patient_client.post("/appointments", json=payload)
+    second_resp = await patient_client.post("/api/v1/patient/appointments", json=payload)
     assert second_resp.status_code == 409
     detail = second_resp.json()["message"].lower()
     assert ("capacity" in detail) or ("booked" in detail)

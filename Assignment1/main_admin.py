@@ -17,6 +17,9 @@ def create_app() -> FastAPI:
         version="0.1.0",
     )
     register_exception_handlers(app)
+    @app.get("/healthz")
+    async def health_check():
+        return {"status": "ok"}
     app.include_router(admin_catalog_router.router)
     app.include_router(admin_hospital_slots_router.router)
     app.include_router(admin_appointments_router.router)

@@ -89,13 +89,13 @@ description: "Task list for 메디솔브AI 백엔드 과제"
 
 **Independent Test**: `docker-compose up` 후 `Assignment1/tests/integration/test_gateway_proxy.py`와 `tests/performance/test_reservations_p95.py`로 헬스·성능 기준을 확인한다.
 
-- [ ] T029 [US3] Implement gateway proxy helper at `Assignment1/app/gateway/proxy.py` (경로 기반 포워딩, 타임아웃, 에러 매핑)
-- [ ] T030 [US3] Implement gateway health aggregation in `Assignment1/app/gateway/health.py`
-- [ ] T031 [US3] Build gateway FastAPI app in `Assignment1/main_gateway.py` and mount health endpoint
-- [ ] T032 [US3] Create Docker Compose stack `Assignment1/docker/compose/docker-compose.yml` with gateway/patient/admin/MySQL (port 29906)
-- [ ] T033 [US3] Add migration entry script `Assignment1/docker/compose/scripts/run_migrations.sh` executed before API containers start
-- [ ] T034 [P] [US3] Add gateway integration tests at `Assignment1/tests/integration/test_gateway_proxy.py`
-- [ ] T035 [P] [US3] Add performance test for 20 concurrent reservations at `Assignment1/tests/performance/test_reservations_p95.py`
+- [X] T029 [US3] Implement gateway proxy helper at `Assignment1/app/gateway/proxy.py` (경로 기반 포워딩, 타임아웃, 에러 매핑)
+- [X] T030 [US3] Implement gateway health aggregation in `Assignment1/app/gateway/health.py`
+- [X] T031 [US3] Build gateway FastAPI app in `Assignment1/main_gateway.py` and mount health endpoint
+- [X] T032 [US3] Create Docker Compose stack `Assignment1/docker/compose/docker-compose.yml` with gateway/patient/admin/MySQL (port 29906)
+- [X] T033 [US3] Add migration entry script `Assignment1/docker/compose/scripts/run_migrations.sh` executed before API containers start
+- [X] T034 [P] [US3] Add gateway integration tests at `Assignment1/tests/integration/test_gateway_proxy.py`
+- [X] T035 [P] [US3] Add performance test for 20 concurrent reservations at `Assignment1/tests/performance/test_reservations_p95.py`
 
 ---
 

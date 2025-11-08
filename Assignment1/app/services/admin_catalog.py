@@ -28,6 +28,7 @@ async def create_doctor(
         await session.flush()
     except IntegrityError as exc:
         raise CatalogConflictError("Doctor with the same name already exists") from exc
+    await session.refresh(doctor)
     return doctor
 
 
@@ -52,6 +53,7 @@ async def update_doctor(
         await session.flush()
     except IntegrityError as exc:
         raise CatalogConflictError("Doctor with the same name already exists") from exc
+    await session.refresh(doctor)
     return doctor
 
 
@@ -88,6 +90,7 @@ async def create_treatment(
         await session.flush()
     except IntegrityError as exc:
         raise CatalogConflictError("Treatment with the same name already exists") from exc
+    await session.refresh(treatment)
     return treatment
 
 
@@ -118,6 +121,7 @@ async def update_treatment(
         await session.flush()
     except IntegrityError as exc:
         raise CatalogConflictError("Treatment with the same name already exists") from exc
+    await session.refresh(treatment)
     return treatment
 
 
@@ -148,4 +152,6 @@ async def replace_hospital_slots(
         session.add(slot)
         slots.append(slot)
     await session.flush()
+    for slot in slots:
+        await session.refresh(slot)
     return slots

@@ -10,6 +10,9 @@ def create_app() -> FastAPI:
         version="0.1.0",
     )
     register_exception_handlers(app)
+    @app.get("/healthz")
+    async def health_check():
+        return {"status": "ok"}
     app.include_router(availability.router)
     app.include_router(appointments.router)
     return app

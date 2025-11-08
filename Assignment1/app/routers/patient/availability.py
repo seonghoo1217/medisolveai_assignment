@@ -13,7 +13,10 @@ from Assignment1.app.routers.patient.schemas import (
 from Assignment1.app.services.patient_reservations import list_availability
 
 
-router = APIRouter(prefix="/availability", tags=["patient-availability"])
+router = APIRouter(
+    prefix="/api/v1/patient/availability",
+    tags=["patient-availability"],
+)
 
 
 @router.get("", response_model=AvailabilityResponse)

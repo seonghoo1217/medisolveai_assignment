@@ -25,7 +25,10 @@ from Assignment1.app.services.patient_reservations import (
 )
 
 
-router = APIRouter(prefix="/appointments", tags=["patient-appointments"])
+router = APIRouter(
+    prefix="/api/v1/patient/appointments",
+    tags=["patient-appointments"],
+)
 
 
 def _to_summary(appointment: Appointment) -> AppointmentSummary:

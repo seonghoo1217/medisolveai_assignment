@@ -16,6 +16,11 @@ class AppSettings(BaseSettings):
     mysql_user: str = "medisolve"
     mysql_password: str = "medisolve"
     mysql_database: str = "medisolve"
+    patient_service_url: str = "http://patient-api:8001"
+    admin_service_url: str = "http://admin-api:8002"
+    patient_api_prefix: str = "/api/v1/patient"
+    admin_api_prefix: str = "/api/v1/admin"
+    gateway_request_timeout: float = 5.0
 
     model_config = SettingsConfigDict(
         env_file=(".env", ".env.development", ".env.test"),

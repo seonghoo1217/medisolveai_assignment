@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: medisolve
+      MYSQL_DATABASE: medisolve
+      MYSQL_USER: medisolve
+      MYSQL_PASSWORD: medisolve
+    ports:
+      - "29906:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - db-data:/var/lib/mysql
+
+  migrations:
+    build:
+      context: ../../..
+      dockerfile: Assignment1/docker/compose/Dockerfile
+    command: ["/app/Assignment1/docker/compose/scripts/run_migrations.sh"]
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: medisolve
+      MYSQL_PASSWORD: medisolve
+      MYSQL_DATABASE: medisolve
+    depends_on:
+      db:
+        condition: service_healthy
+
+  patient-api:
+    build:
+      context: ../../..
+      dockerfile: Assignment1/docker/compose/Dockerfile
+    command: ["-c", "uvicorn Assignment1.main_patient:app --host 0.0.0.0 --port 8001"]
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: medisolve
+      MYSQL_PASSWORD: medisolve
+      MYSQL_DATABASE: medisolve
+      APP_ENV: development
+    ports:
+      - "8001:8001"
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+
+  admin-api:
+    build:
+      context: ../../..
+      dockerfile: Assignment1/docker/compose/Dockerfile
+    command: ["-c", "uvicorn Assignment1.main_admin:app --host 0.0.0.0 --port 8002"]
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: medisolve
+      MYSQL_PASSWORD: medisolve
+      MYSQL_DATABASE: medisolve
+      APP_ENV: development
+    ports:
+      - "8002:8002"
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+
+  gateway:
+    build:
+      context: ../../..
+      dockerfile: Assignment1/docker/compose/Dockerfile
+    command: ["-c", "uvicorn Assignment1.main_gateway:app --host 0.0.0.0 --port 8000"]
+    environment:
+      PATIENT_SERVICE_URL: http://patient-api:8001
+      ADMIN_SERVICE_URL: http://admin-api:8002
+      APP_ENV: development
+    ports:
+      - "8000:8000"
+    depends_on:
+      patient-api:
+        condition: service_started
+      admin-api:
+        condition: service_started
+
+volumes:
+  db-data:
