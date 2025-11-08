@@ -32,9 +32,6 @@ from Assignment1.main_admin import create_app as create_admin_app  # noqa: E402
 from Assignment1.main_patient import create_app  # noqa: E402
 
 
-pytest_plugins = ["pytest_asyncio"]
-
-
 @pytest.fixture(scope="session")
 def anyio_backend() -> str:
     return "asyncio"
